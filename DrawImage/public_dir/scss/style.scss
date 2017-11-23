@@ -14,7 +14,7 @@ select {
 #message {
   opacity: 0;
   transition: opacity 5s linear;
-  
+
   &.visible {
     opacity: 1;
     transition: opacity 0.1s linear;
@@ -26,34 +26,34 @@ select {
   width: 100%;
   height: 35vh;
   min-height: 300px;
-  
+
   .element-node {
     opacity: 0.2;
-    
+
     @each $elementColor in $elementsColors {
       &[data-color="#{nth($elementColor, 1)}"] {
         fill: #{nth($elementColor, 2)};
       }
     }
-    
+
     text {
       fill: #FFFFFF;
     }
-  
+
     &:hover .port {
       opacity: 1;
     }
   }
-  
+
   @each $elementColor in $elementsColors {
     &[data-filter="#{nth($elementColor, 1)}"] {
         .element-node[data-color="#{nth($elementColor, 1)}"] {
           opacity: 1;
         }
       }
-    }  
-  
-  
+    }
+
+
   &[data-filter="all"] {
     .element-node {
       opacity: 1;

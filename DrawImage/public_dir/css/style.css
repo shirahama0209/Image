@@ -72,3 +72,41 @@ button {
   margin: 5px 0;
   cursor: pointer;
 }
+
+
+canvas2 {
+  border: 1px solid;
+  width: 100%;
+  height: 35vh;
+  min-height: 300px;
+}
+#canvas2 .element-node {
+  opacity: 0.5;
+}
+#canvas2 .element-node[data-color="pink"] {
+  fill: #f1207d;
+}
+#canvas2 .element-node[data-color="gray"] {
+  fill: #ABABAB;
+}
+#canvas2 .element-node[data-color="black"] {
+  fill: #000000;
+}
+#canvas2 .element-node text {
+  fill: #FFFFFF;
+}
+#canvas2 .element-node:hover .port {
+  opacity: 1;
+}
+#canvas2[data-filter="pink"] .element-node[data-color="pink"] {
+  opacity: 1;
+}
+#canvas2[data-filter="gray"] .element-node[data-color="gray"] {
+  opacity: 1;
+}
+#canvas2[data-filter="black"] .element-node[data-color="black"] {
+  opacity: 1;
+}
+#canvas2[data-filter="all"] .element-node {
+  opacity: 1;
+}
