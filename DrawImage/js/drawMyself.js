@@ -69,7 +69,7 @@ cells[6].translate(400, 200);
 cells[7] = cells[0].clone();
 cells[7].translate(600, 200);
 //カードの属性設定
-cells[3].attr('.element-node/data-color','black');
+cells[3].attr('.element-node/data-color','pink');
 
 //各カードにラベルづけ
 for(var i=0;i<8;i++){
@@ -129,7 +129,7 @@ function addLink(){
 function colorChange(){
   var color = colorChange.value();
 cells[color].attr('.element-node/data-color','pink');
-
+cells[5].attr('.element-node/data-color','black');
 graph.addCells(cells);
 }
 

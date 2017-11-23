@@ -56,7 +56,7 @@ logout.addEventListener('click', function() {
 //認証状態の確認
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
-    window.location.href = '../index.html';
+    window.location.href = '/Users/shirahama/Desktop/Image/DrawImage/drawMyself.html';
   }
   else {
     logoutDisplay();

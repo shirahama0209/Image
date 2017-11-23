@@ -20,8 +20,8 @@ select {
 
 #canvas {
   border: 1px solid;
-  width: 100%;
-  height: 35vh;
+  width: 1004px;
+  height: 700px;
   min-height: 300px;
 }
 #canvas .element-node {
