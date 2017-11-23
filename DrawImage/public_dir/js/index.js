@@ -143,9 +143,26 @@ graph.addCells(cells);
 
 //firebaseに送信用メソッド
  function send(){
+   var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/log");
    console.log(cells[1].id, ':', cells[1].get('position'));
+   userRef.set(
+     {
+       cell_number:cells[1].id,
+       cell_potision:cells[1].get('position')
+     }
+   );
  }
 
+ function get(){
+   var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/log");
+   ref.on("value",function(snapshot){
+     console.log(snapshot.val().cell_potision.x);
+     cells[1].translate(snapshot.val().cell_potision.y,snapshot.val().cell_potision.x);
+   });
+ }
+
+
+$('#get').on('click', get);
  $('#send').on('click', send);
 
 
