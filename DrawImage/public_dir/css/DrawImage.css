@@ -1,0 +1,150 @@
+#layoutAll {
+  width: 1200px; /* 幅(px指定) */
+  margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
+}
+
+#MyScreen{
+	display:table-cell;
+	width:540px;
+	height:750px;
+  float: left;
+  border-style:solid;
+}
+
+#OtherScreen{
+  display:table-cell;
+  width:540px;
+  height:530px;
+  float: left;
+}
+
+#dataInfo{
+	display:table-cell;
+  width:540px;
+  height:220px;
+  float: left;
+	border-width:1px;
+  border-style:solid;
+}
+
+body {
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+select {
+  font-size: inherit;
+  padding: 5px;
+  margin: 1px 1px 5px 1px;
+
+}
+
+#message {
+  /*opacity : 0;より変更*/
+  opacity: 1;
+  transition: opacity 5s linear;
+}
+#message.visible {
+  opacity: 1;
+  transition: opacity 0.1s linear;
+}
+
+#canvas {
+  border: 1px solid;
+  width: 100%;
+  height: 500px;
+  min-height: 300px;
+  border-style:dotted;
+}
+#canvas .element-node {
+  opacity: 0.5;
+}
+#canvas .element-node[data-color="red"] {
+  fill: #FA5858;
+}
+#canvas .element-node[data-color="blue"] {
+  fill: #81DAF5;
+}
+#canvas .element-node[data-color="green"] {
+  fill: #3ADF00;
+}
+#canvas .element-node text {
+  fill: #000000;
+}
+/*
+#canvas .element-node:hover .port {
+  opacity: 1;
+}
+*/
+#canvas[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas[data-filter="all"] .element-node {
+  opacity: 1;
+}
+
+.port {
+  width: 10px;
+  height: 10px;
+  transform: translate(70px, 40px);
+  fill: #000;
+  opacity: 0;
+}
+
+button {
+  color: #000000;
+  background-color: #FAAC58;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+
+
+
+#canvas2 {
+  border: 1px solid;
+  width: 100%;
+  height: 500px;
+  min-height: 300px;
+  border-style:dotted;
+}
+
+#canvas2 .element-node {
+  opacity: 0.5;
+}
+#canvas2 .element-node[data-color="red"] {
+  fill: #f1207d;
+}
+#canvas2 .element-node[data-color="blue"] {
+  fill: #ABABAB;
+}
+#canvas2 .element-node[data-color="green"] {
+  fill: #000000;
+}
+#canvas2 .element-node text {
+  fill: #FFFFFF;
+}
+#canvas2 .element-node:hover .port {
+  opacity: 1;
+}
+#canvas2[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas2[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas2[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas2[data-filter="all"] .element-node {
+  opacity: 1;
+}
