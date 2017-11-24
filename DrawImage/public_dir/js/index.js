@@ -10,6 +10,8 @@ var links = [];
 var message = $('#message');
 var graph = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
+var user;
+
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -49,6 +51,9 @@ portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>'
 
 //セルの初期化
 function initialize(){
+
+  var data = location.href.split("?")[1];
+  user = data.split("=")[1];
 
 //カードの生成
 cells[0] = new joint.shapes.devs.Model({
@@ -161,6 +166,27 @@ graph.addCells(cells);
    var cells_number = [];
    var cells_position_x = [];
    var cells_position_y = [];
+   if(user){
+     //user is signed in.
+     for(var i = 0; i < 8; i++){
+       cells_number.push(i);
+       cells_position_x.push(cells[i].get('position').x);
+       cells_position_y.push(cells[i].get('position').y);
+       console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y);
+     }
+     userRef.set(
+       {
+         user_name : user,
+         cell_number   : cells_number,
+         cell_position_x : cells_position_x,
+         cell_position_y : cells_position_y
+       }
+     );
+   }else{
+     //no user is singed in.
+
+   }
+   /*
    for(var i = 0; i < 8; i++){
      cells_number.push(i);
      cells_position_x.push(cells[i].get('position').x);
@@ -173,7 +199,7 @@ graph.addCells(cells);
        cell_position_x : cells_position_x,
        cell_position_y : cells_position_y
      }
-   );
+   );*/
 
  }
 
@@ -214,7 +240,7 @@ graph.addCells(cells);
    graph2.addCells(others_cells);
    var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/log");
    ref.on("value",function(snapshot){
-     console.log(snapshot.val().cell_position_y);
+     console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y);
      for(var i=0;i<8;i++){
      others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
    }

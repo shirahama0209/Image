@@ -1,4 +1,5 @@
-//Firebase初期設定
+//Firebase初期設
+/*
 var config = {
     apiKey: "AIzaSyA71e9M2OB0FM3ItG1qv8ZLd2XNMXPkRKU",
     authDomain: "myfirstfirebase-cab79.firebaseapp.com",
@@ -8,6 +9,7 @@ var config = {
     messagingSenderId: "1047199251430"
   };
 firebase.initializeApp(config);
+*/
 
 
 
@@ -25,30 +27,33 @@ newuser.addEventListener('click', function(e) {
   var email = document.getElementById('email').value;
   var password = document.getElementById('password').value;
 
+/*
   firebase.auth().createUserWithEmailAndPassword(email, password)
   .catch(function(error) {
     alert('登録できません（' + error.message + '）');
-  });
+  });*/
+
 });
 
 
 
 //ログイン処理
 login.addEventListener('click', function(e) {
-  var email = document.getElementById('email').value;
+  var user = document.getElementById('user').value;
   var password = document.getElementById('password').value;
-
+  location.href = "DrawImage.html?data="+encodeURIComponent(user);
+  /*
   firebase.auth().signInWithEmailAndPassword(email, password)
   .catch(function(error) {
     alert('ログインできません（' + error.message + '）');
-  });
+  });*/
 });
 
 
 
 //ログアウト処理
 logout.addEventListener('click', function() {
-  firebase.auth().signOut();
+  //firebase.auth().signOut();
 });
 
 
@@ -56,7 +61,8 @@ logout.addEventListener('click', function() {
 //認証状態の確認
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
-    window.location.href = '../index.html';
+    location.href = "DrawImage.html?data="+encodeURIComponent(user);
+    //window.location.href = 'DrawImage.html';
   }
   else {
     logoutDisplay();
