@@ -161,7 +161,7 @@ graph.addCells(cells);
 
 //firebaseに送信用メソッド
  function send(){
-   var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/log");
+   var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user);
    //console.log(cells[1].id, ':', cells[1].get('position'));
    var cells_number = [];
    var cells_position_x = [];
@@ -238,13 +238,16 @@ graph.addCells(cells);
    others_cells[i].attr('.label/text', 'カード'+i);
    }
    graph2.addCells(others_cells);
-   var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/log");
+   var user_name = document.getElementById('user_name').value;
+   if(user_name){
+     var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
    ref.on("value",function(snapshot){
      console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y);
      for(var i=0;i<8;i++){
      others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
    }
    });
+ }
  }
 
   $('#get').on('click', get);
