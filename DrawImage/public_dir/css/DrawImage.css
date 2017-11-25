@@ -89,26 +89,6 @@ select {
   opacity: 1;
 }
 
-.port {
-  width: 10px;
-  height: 10px;
-  transform: translate(70px, 40px);
-  fill: #000;
-  opacity: 0;
-}
-
-button {
-  color: #000000;
-  background-color: #FAAC58;
-  border-radius: 3px;
-  border: 0;
-  padding: 5px 10px;
-  margin: 2px 0;
-  cursor: pointer;
-}
-
-
-
 
 #canvas2 {
   border: 1px solid;
@@ -122,13 +102,13 @@ button {
   opacity: 0.5;
 }
 #canvas2 .element-node[data-color="red"] {
-  fill: #f1207d;
+  fill: #FA5858;
 }
 #canvas2 .element-node[data-color="blue"] {
-  fill: #ABABAB;
+  fill: #81DAF5;
 }
 #canvas2 .element-node[data-color="green"] {
-  fill: #000000;
+  fill: #3ADF00;
 }
 #canvas2 .element-node text {
   fill: #FFFFFF;
@@ -147,4 +127,22 @@ button {
 }
 #canvas2[data-filter="all"] .element-node {
   opacity: 1;
+}
+
+.port {
+  width: 10px;
+  height: 10px;
+  transform: translate(70px, 40px);
+  fill: #000;
+  opacity: 0;
+}
+
+button {
+  color: #000000;
+  background-color: #FAAC58;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  margin: 2px 0;
+  cursor: pointer;
 }

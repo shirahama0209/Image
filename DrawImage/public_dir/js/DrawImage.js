@@ -74,7 +74,7 @@ cells[0] = new joint.shapes.devs.Model({
   },
   inPorts: ['center']
 });
-
+console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
 cells[1] = cells[0].clone();
 cells[1].translate(130, 0);
@@ -200,12 +200,13 @@ function addLink(){
          text: 'カード１',
        },
        '.element-node' : {
-         'data-color': 'blue'
+         'data-color': "#FF00C0"
        }
      },
      inPorts: ['center']
    });
-
+   console.log(others_cells[0].attr('.element-node/data-color'));
+   console.log(others_cells[0].attr('.label/text'));
    //他のカードの複製
    others_cells[1] = others_cells[0].clone();
    others_cells[2] = others_cells[0].clone();
@@ -214,23 +215,26 @@ function addLink(){
    others_cells[5] = others_cells[0].clone();
    others_cells[6] = others_cells[0].clone();
    others_cells[7] = others_cells[0].clone();
-
    //各カードにラベルづけ
    for(var i=0;i<8;i++){
    others_cells[i].attr('.label/text', 'カード'+i);
    }
-   graph2.addCells(others_cells);
+   console.log(others_cells[0].attr('element-node/data-color'));
+   console.log(others_cells[1].attr('.element-node/data-color'));
+   //graph2.addCells(others_cells);
    var user_name = document.getElementById('user_name').value;
    if(user_name){
      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
    ref.on("value",function(snapshot){
-     console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
+     //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
      for(var i=0;i<8;i++){
      others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
    }
+   graph2.addCells(others_cells);
+   if(snapshot.val().cell_link_source != null){
    for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
-   others_links[0] = new joint.dia.Link({
+   others_links[i] = new joint.dia.Link({
         source: { id: others_cells[snapshot.val().cell_link_source[i]].id },
         target: { id: others_cells[snapshot.val().cell_link_target[i]].id },
     connector: { name: 'rounded' },
@@ -246,8 +250,9 @@ function addLink(){
     },
    labels: [
         { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
-    });
+    });}
   graph2.addCells(others_links);}
+
 
   });
  }
@@ -275,7 +280,7 @@ $('#colorChange').on('click', colorChange);
 function colorChange(){
   var cardnumber = ChangeColor.cardnumber.value;
   var colors = ChangeColor.color.value;
-  cells[1].attr('.element-node/data-color','red');
+  cells[cardnumber].attr('.element-node/data-color',colors);
 }
 
 
@@ -284,6 +289,20 @@ $(filter).on('change', function(e){
 });
 //canvasの図形を拡大表示、縮小表示する
 var svgZoom = svgPanZoom('#canvas svg', {
+  center: false,
+  zoomEnabled: true,
+  panEnabled: true,
+  controlIconsEnabled: true,
+  fit: false,
+  minZoom: 0.75,
+  maxZoom:1.5,
+  zoomScaleSensitivity: 0.5
+});
+$(filter).on('change', function(e){
+  canvas2.attr('data-filter', e.target.value);
+});
+//canvasの図形を拡大表示、縮小表示する
+var svgZoom = svgPanZoom('#canvas2 svg', {
   center: false,
   zoomEnabled: true,
   panEnabled: true,
