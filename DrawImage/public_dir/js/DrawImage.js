@@ -136,14 +136,15 @@ function addLink(){
    var cells_number = [];
    var cells_position_x = [];
    var cells_position_y = [];
-   var cell
+   var cell_color =[];
    if(user){
      //user is signed in.
      for(var i = 0; i < 8; i++){
        cells_number.push(i);
        cells_position_x.push(cells[i].get('position').x);
        cells_position_y.push(cells[i].get('position').y);
-       console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y);
+       cell_color.push(cells[i].attr('.element-node/data-color'));
+       console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y+cells[i].attr('.element-node/data-color'));
      }
      /*
      console.log(links[0].get('source').id+":"+links[0].get('target').id
@@ -158,7 +159,8 @@ function addLink(){
          cell_position_y : cells_position_y,
          cell_link_source : cell_link_source,
          cell_link_target : cell_link_target,
-         cell_link_reason : cell_link_reason
+         cell_link_reason : cell_link_reason,
+         cell_color : cell_color
        }
      );
    }else{
@@ -225,6 +227,7 @@ function addLink(){
      console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
      for(var i=0;i<8;i++){
      others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
+     others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
    }
    for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
    others_links[0] = new joint.dia.Link({
