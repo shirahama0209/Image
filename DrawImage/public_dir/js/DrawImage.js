@@ -26,7 +26,7 @@ var paper = new joint.dia.Paper({
   clickThreshold: 1
 });
 
-//他者の図形を表示留守ためのキャンバス
+//他者の図形を表示するためのキャンバス
 var paper2 = new joint.dia.Paper({
   el: canvas2,
   //キャンバスのサイズ
@@ -53,6 +53,7 @@ portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>'
 
 //セルの初期化
 function initialize(){
+  //渡されたuserのパース
   var data = location.href.split("?")[1];
   user = data.split("=")[1];
 
@@ -97,6 +98,7 @@ for(var i=0;i<8;i++){
 cells[i].attr('.label/text', 'カード'+i);
 }
 graph.addCells(cells);
+//他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
   position: {x: 0, y: 0},
@@ -130,7 +132,7 @@ others_cells[i].attr('.label/text', 'カード'+i);
 
 //新規で矢印作成
 function addLink(){
-  //HTMLから理由を取り出す
+  //HTMLから理由をGET
   var source1 = input_sample.source.value;
   var reason  = input_sample.reason.value;
   var target1 = input_sample.target.value;
@@ -158,7 +160,7 @@ function addLink(){
   graph.addCells(links);
 }
 
-//矢印を削除した時に発火,リストから矢印を削除
+//矢印を削除した時にトリガー,リストから矢印を削除
 graph.on('remove',function(cell,collection,opt){
   if(cell.isLink()){
     var number = links.indexOf(cell);
@@ -172,12 +174,13 @@ graph.on('remove',function(cell,collection,opt){
 
 //firebaseに送信用メソッド
  function send(){
+
    var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user);
-   //console.log(cells[1].id, ':', cells[1].get('position'));
    var cells_number = [];
    var cells_position_x = [];
    var cells_position_y = [];
    var cell_color =[];
+
    if(user){
      //user is signed in.
      for(var i = 0; i < 8; i++){
@@ -187,10 +190,6 @@ graph.on('remove',function(cell,collection,opt){
        cell_color.push(cells[i].attr('.element-node/data-color'));
        console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y+cells[i].attr('.element-node/data-color'));
      }
-     /*
-     console.log(links[0].get('source').id+":"+links[0].get('target').id
-     +":"+links.length);
-     console.log(cells[0].id+":"+cells[7].id);*/
 
      userRef.set(
        {
@@ -232,8 +231,16 @@ graph.on('remove',function(cell,collection,opt){
    var user_name = document.getElementById('user_name').value;
    if(user_name){
      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
+     /*
+     ---------------ref.on('value',function(snapshot){});について------------------------------------
+     特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
+     データの更新があると、その度に再トリガーされる。
+     https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
+     ------------------------------------------------------------------------------------------------
+     */
    ref.on("value",function(snapshot){
      //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
+     //graph内のセルを初期かする
      graph2.clear();
      for(var i=0;i<8;i++){
      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
