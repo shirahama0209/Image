@@ -118,6 +118,7 @@ function addLink(){
  labels: [
       { position: 0.5, attrs: { text: { text: reason, fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
   });
+  console.log("TEST AddLink");
   graph.addCells(links);
 }
 
