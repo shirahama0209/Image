@@ -97,6 +97,35 @@ for(var i=0;i<8;i++){
 cells[i].attr('.label/text', 'カード'+i);
 }
 graph.addCells(cells);
+others_cells[0] = new joint.shapes.devs.Model({
+  type: 'devs.Model',
+  position: {x: 0, y: 0},
+  attrs: {
+    '.body': {
+      width: '100',
+      height: '60'
+    },
+    '.label': {
+      text: 'カード１',
+    },
+    '.element-node' : {
+      'data-color': "#FF00C0"
+    }
+  },
+  inPorts: ['center']
+});
+//他のカードの複製
+others_cells[1] = others_cells[0].clone();
+others_cells[2] = others_cells[0].clone();
+others_cells[3] = others_cells[0].clone();
+others_cells[4] = others_cells[0].clone();
+others_cells[5] = others_cells[0].clone();
+others_cells[6] = others_cells[0].clone();
+others_cells[7] = others_cells[0].clone();
+//各カードにラベルづけ
+for(var i=0;i<8;i++){
+others_cells[i].attr('.label/text', 'カード'+i);
+}
 }
 
 //新規で矢印作成
@@ -200,42 +229,14 @@ graph.on('remove',function(cell,collection,opt){
 
 //セルの位置情報のgetter
  function get(){
-   others_cells[0] = new joint.shapes.devs.Model({
-     type: 'devs.Model',
-     position: {x: 0, y: 0},
-     attrs: {
-       '.body': {
-         width: '100',
-         height: '60'
-       },
-       '.label': {
-         text: 'カード１',
-       },
-       '.element-node' : {
-         'data-color': "#FF00C0"
-       }
-     },
-     inPorts: ['center']
-   });
-   //他のカードの複製
-   others_cells[1] = others_cells[0].clone();
-   others_cells[2] = others_cells[0].clone();
-   others_cells[3] = others_cells[0].clone();
-   others_cells[4] = others_cells[0].clone();
-   others_cells[5] = others_cells[0].clone();
-   others_cells[6] = others_cells[0].clone();
-   others_cells[7] = others_cells[0].clone();
-   //各カードにラベルづけ
-   for(var i=0;i<8;i++){
-   others_cells[i].attr('.label/text', 'カード'+i);
-   }
    var user_name = document.getElementById('user_name').value;
    if(user_name){
      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
    ref.on("value",function(snapshot){
      //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
+     graph2.clear();
      for(var i=0;i<8;i++){
-     others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
+     others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
    }
    graph2.addCells(others_cells);
@@ -259,10 +260,13 @@ graph.on('remove',function(cell,collection,opt){
         { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
     });}
   graph2.addCells(others_links);}
-
-
   });
- }
+}
+/*
+ ref.on("child_changed",function(snapshot){
+
+   console.log("change");
+ });*/
  }
 
   $('#get').on('click', get);
