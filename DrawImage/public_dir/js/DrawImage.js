@@ -129,6 +129,18 @@ function addLink(){
   graph.addCells(links);
 }
 
+//矢印を削除した時に発火,リストから矢印を削除
+graph.on('remove',function(cell,collection,opt){
+  if(cell.isLink()){
+    var number = links.indexOf(cell);
+    console.log(number + 'is deleted!');
+    links.splice(number,1);
+    cell_link_reason.splice(number,1);
+    cell_link_source.splice(number,1);
+    cell_link_target.splice(number,1);
+  }
+})
+
 //firebaseに送信用メソッド
  function send(){
    var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user);
@@ -193,7 +205,7 @@ function addLink(){
      position: {x: 0, y: 0},
      attrs: {
        '.body': {
-         width: '180',
+         width: '100',
          height: '60'
        },
        '.label': {
@@ -205,8 +217,6 @@ function addLink(){
      },
      inPorts: ['center']
    });
-   console.log(others_cells[0].attr('.element-node/data-color'));
-   console.log(others_cells[0].attr('.label/text'));
    //他のカードの複製
    others_cells[1] = others_cells[0].clone();
    others_cells[2] = others_cells[0].clone();
@@ -219,9 +229,6 @@ function addLink(){
    for(var i=0;i<8;i++){
    others_cells[i].attr('.label/text', 'カード'+i);
    }
-   console.log(others_cells[0].attr('element-node/data-color'));
-   console.log(others_cells[1].attr('.element-node/data-color'));
-   //graph2.addCells(others_cells);
    var user_name = document.getElementById('user_name').value;
    if(user_name){
      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
