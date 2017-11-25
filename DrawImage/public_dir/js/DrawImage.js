@@ -5,10 +5,14 @@ var addColor = $('#addColor');
 var cells = [];
 var others_cells = [];
 var links = [];
+var cell_link_source = [];
+var cell_link_target = [];
+var cell_link_reason =[];
 var message = $('#message');
 var graph = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var user;
+var others_links = [];
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -101,7 +105,8 @@ function addLink(){
   var source1 = input_sample.source.value;
   var reason  = input_sample.reason.value;
   var target1 = input_sample.target.value;
- links[0] = new joint.dia.Link({
+  var link_length = links.length;
+ links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
       target: { id: cells[target1].id },
   connector: { name: 'rounded' },
@@ -118,7 +123,9 @@ function addLink(){
  labels: [
       { position: 0.5, attrs: { text: { text: reason, fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
   });
-  console.log("TEST AddLink");
+  cell_link_source[link_length] = source1;
+  cell_link_target[link_length] = target1;
+  cell_link_reason[link_length] = reason;
   graph.addCells(links);
 }
 
@@ -129,6 +136,7 @@ function addLink(){
    var cells_number = [];
    var cells_position_x = [];
    var cells_position_y = [];
+   var cell
    if(user){
      //user is signed in.
      for(var i = 0; i < 8; i++){
@@ -137,12 +145,20 @@ function addLink(){
        cells_position_y.push(cells[i].get('position').y);
        console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y);
      }
+     /*
+     console.log(links[0].get('source').id+":"+links[0].get('target').id
+     +":"+links.length);
+     console.log(cells[0].id+":"+cells[7].id);*/
+
      userRef.set(
        {
          user_name : user,
          cell_number   : cells_number,
          cell_position_x : cells_position_x,
-         cell_position_y : cells_position_y
+         cell_position_y : cells_position_y,
+         cell_link_source : cell_link_source,
+         cell_link_target : cell_link_target,
+         cell_link_reason : cell_link_reason
        }
      );
    }else{
@@ -206,11 +222,31 @@ function addLink(){
    if(user_name){
      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
    ref.on("value",function(snapshot){
-     console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y);
+     console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
      for(var i=0;i<8;i++){
      others_cells[i].translate(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
    }
-   });
+   for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
+   others_links[0] = new joint.dia.Link({
+        source: { id: others_cells[snapshot.val().cell_link_source[i]].id },
+        target: { id: others_cells[snapshot.val().cell_link_target[i]].id },
+    connector: { name: 'rounded' },
+    attrs: {
+        '.connection': {
+            stroke: '#333333',
+            'stroke-width': 3
+        },
+        '.marker-target': {
+            fill: '#333333',
+            d: 'M 10 0 L 0 5 L 10 10 z'
+        }
+    },
+   labels: [
+        { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+    });
+  graph2.addCells(others_links);}
+
+  });
  }
  }
 
