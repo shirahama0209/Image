@@ -13,7 +13,9 @@ var graph = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var user;
 var others_links = [];
-var cell_attribute = [];
+var cell_attribute_human = [];
+var cell_attribute_state = [];
+var cell_attribute_updown = [];
 
 
 //描画用のキャンバス
@@ -75,6 +77,11 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.element-node' : {
       'data-color': 'gray'
+    },
+    '.attribute' : {
+      'human' : '',
+      'state' : '',
+      'updown' : ''
     }
   },
   inPorts: ['center']
@@ -103,7 +110,6 @@ cells[i].attr('.label/text', 'カード'+i);
 }
 
 
-
 graph.addCells(cells);
 //他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
@@ -119,6 +125,11 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.element-node' : {
       'data-color': "#FF00C0"
+    },
+    '.attribute' : {
+      'human' : '',
+      'state' : '',
+      'updown' : ''
     }
   },
   inPorts: ['center']
@@ -142,7 +153,9 @@ function CardStateChange(){
   var card_attribute_human = CardState.human.value;
   var card_attribute_state = CardState.state.value;
   var card_attribute_UpDown = CardState.UpDown.value;
-  cells[card_attribute_number].attr('.label/text', 'カード'+card_attribute_number+"\n"+card_attribute_human+"\n"+card_attribute_state+"\n"+card_attribute_UpDown);
+  cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
+  cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
+  cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
   console.log("Hello,World");
 }
 
@@ -153,21 +166,14 @@ function addLink(){
   var reason  = input_sample.reason.value;
   var target1 = input_sample.target.value;
   var link_length = links.length;
-  var sourcecard_attribute;
-  var targetcard_attribute;
 
   /*
   矢印を引くための弾ける条件分岐
   */
-
-  if(cells[source1].attr('.label/text').length > 6 && cells[target1].attr('.label/text').length > 6){
-  sourcecard_attribute = cells[source1].attr('.label/text').split(source1);
-  targetcard_attribute = cells[target1].attr('.label/text').split(target1);
-  console.log(sourcecard_attribute);
-  console.log(targetcard_attribute);
-}
-  if(sourcecard_attribute != null && targetcard_attribute != null){
-    if(sourcecard_attribute[1] == targetcard_attribute[1]){
+  if(source1 != target1){
+  if(cells[source1].attr('.attribute/human') != null && cells[target1].attr('.attribute/human') != null){
+    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute/human')) &&       (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute/state')) &&
+  (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute/updown'))){
  links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
       target: { id: cells[target1].id },
@@ -195,6 +201,9 @@ function addLink(){
   }else{
     alert("カードに属性が設定されていません");
   }
+}else{
+  alert("同じカードを選択しています")
+}
 }
 
 //矢印を削除した時にトリガー,リストから矢印を削除
@@ -225,7 +234,9 @@ graph.on('remove',function(cell,collection,opt){
        cells_position_x.push(cells[i].get('position').x);
        cells_position_y.push(cells[i].get('position').y);
        cell_color.push(cells[i].attr('.element-node/data-color'));
-       cell_attribute.push(cells[i].attr('.label/text'));
+       cell_attribute_human.push(cells[i].attr('.attribute/human'));
+       cell_attribute_state.push(cells[i].attr('.attribute/state'));
+       cell_attribute_updown.push(cells[i].attr('.attribute/updown'));
        console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y+cells[i].attr('.element-node/data-color'));
      }
 
@@ -239,7 +250,9 @@ graph.on('remove',function(cell,collection,opt){
          cell_link_target : cell_link_target,
          cell_link_reason : cell_link_reason,
          cell_color : cell_color,
-         cell_attribute : cell_attribute
+         cell_attribute_human : cell_attribute_human,
+         cell_attribute_state : cell_attribute_state,
+         cell_attribute_updown : cell_attribute_updown
        }
      );alert("送信しました");
    }else{
@@ -284,7 +297,9 @@ graph.on('remove',function(cell,collection,opt){
      for(var i=0;i<8;i++){
      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
-     others_cells[i].attr('.label/text',snapshot.val().cell_attribute[i]);
+     others_cells[i].attr('.attribute/human',snapshot.val().cell_attribute_human[i]);
+     others_cells[i].attr('.attribute/state',snapshot.val().cell_attribute_state[i]);
+     others_cells[i].attr('.attribute/updown',snapshot.val().cell_attribute_updown[i]);
    }
    graph2.addCells(others_cells);
 
