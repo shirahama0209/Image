@@ -15,6 +15,7 @@ var user;
 var others_links = [];
 var cell_attribute = [];
 
+
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
   el: canvas,
@@ -152,6 +153,21 @@ function addLink(){
   var reason  = input_sample.reason.value;
   var target1 = input_sample.target.value;
   var link_length = links.length;
+  var sourcecard_attribute;
+  var targetcard_attribute;
+
+  /*
+  矢印を引くための弾ける条件分岐
+  */
+
+  if(cells[source1].attr('.label/text').length > 6 && cells[target1].attr('.label/text').length > 6){
+  sourcecard_attribute = cells[source1].attr('.label/text').split(source1);
+  targetcard_attribute = cells[target1].attr('.label/text').split(target1);
+  console.log(sourcecard_attribute);
+  console.log(targetcard_attribute);
+}
+  if(sourcecard_attribute != null && targetcard_attribute != null){
+    if(sourcecard_attribute[1] == targetcard_attribute[1]){
  links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
       target: { id: cells[target1].id },
@@ -172,7 +188,7 @@ function addLink(){
   cell_link_source[link_length] = source1;
   cell_link_target[link_length] = target1;
   cell_link_reason[link_length] = reason;
-  graph.addCells(links);
+  graph.addCells(links);}}
 }
 
 //矢印を削除した時にトリガー,リストから矢印を削除
