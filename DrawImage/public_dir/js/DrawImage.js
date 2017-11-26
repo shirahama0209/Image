@@ -79,9 +79,9 @@ cells[0] = new joint.shapes.devs.Model({
       'data-color': 'gray'
     },
     '.attribute' : {
-      'human' : '',
-      'state' : '',
-      'updown' : ''
+      'human' : 'a',
+      'state' : 'a',
+      'updown' : 'a',
     }
   },
   inPorts: ['center']
@@ -171,7 +171,7 @@ function addLink(){
   矢印を引くための弾ける条件分岐
   */
   if(source1 != target1){
-  if(cells[source1].attr('.attribute/human') != null && cells[target1].attr('.attribute/human') != null){
+  if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute/human') != ''){
     if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute/human')) &&       (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute/state')) &&
   (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute/updown'))){
  links[link_length] = new joint.dia.Link({
