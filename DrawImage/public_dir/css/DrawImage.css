@@ -133,8 +133,8 @@ button {
   opacity: 0.5;
 }
 /*カードの最初の色は灰色*/
-#canvas .element-node[data-color="gray"] {
-  fill: #D8D8D8;
+#canvas2 .element-node[data-color="gray"] {
+  fill: #848484;
 }
 
 #canvas2 .element-node[data-color="red"] {

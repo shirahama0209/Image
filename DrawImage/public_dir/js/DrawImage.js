@@ -235,10 +235,10 @@ graph.on('remove',function(cell,collection,opt){
          cell_color : cell_color,
          cell_attribute : cell_attribute
        }
-     );
+     );alert("送信しました");
    }else{
      //no user is singed in.
-
+     alert("ログインしていません");
    }
    /*
    for(var i = 0; i < 8; i++){
