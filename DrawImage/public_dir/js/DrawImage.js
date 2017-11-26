@@ -188,7 +188,13 @@ function addLink(){
   cell_link_source[link_length] = source1;
   cell_link_target[link_length] = target1;
   cell_link_reason[link_length] = reason;
-  graph.addCells(links);}}
+  graph.addCells(links);
+}else{
+  alert("カードの属性が一致していません");
+}
+  }else{
+    alert("カードに属性が設定されていません");
+  }
 }
 
 //矢印を削除した時にトリガー,リストから矢印を削除
