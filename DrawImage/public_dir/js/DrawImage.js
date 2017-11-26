@@ -42,7 +42,18 @@ var paper2 = new joint.dia.Paper({
   clickThreshold: 1
 });
 
-//カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
+/*
+カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
+--------------------------extend,markupについての覚書---------------------------------
+今後呼ばれるjoint.shapes.devs.Modelについての情報を初期化している。
+markupはsvg記法
+<tspan>、および<text>でひとまず出力の形式化を行う
+オブジェクトを作成した際にclass内のtextを読み込む。
+ここでは、.attributeタグ内でtextタグを探している
+属性の見た目を変える場合は、カードの生成部分の、.attributeタグ内を編集すればよい（はず）
+その際、既存のものは変えないで下さい。(font-sizeは変更化)
+------------------------------------------------------------------------------------
+*/
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
