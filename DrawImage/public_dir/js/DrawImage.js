@@ -99,6 +99,9 @@ cells[7].translate(390, 200);
 for(var i=0;i<8;i++){
 cells[i].attr('.label/text', 'カード'+i);
 }
+
+
+
 graph.addCells(cells);
 //他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
