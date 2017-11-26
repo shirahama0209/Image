@@ -13,6 +13,7 @@ var graph = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var user;
 var others_links = [];
+var cell_attribute = [];
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -135,6 +136,15 @@ others_cells[i].attr('.label/text', 'カード'+i);
 }
 }
 
+function CardStateChange(){
+  var card_attribute_number = CardState.source.value;
+  var card_attribute_human = CardState.human.value;
+  var card_attribute_state = CardState.state.value;
+  var card_attribute_UpDown = CardState.UpDown.value;
+  cells[card_attribute_number].attr('.label/text', 'カード'+card_attribute_number+"\n"+card_attribute_human+"\n"+card_attribute_state+"\n"+card_attribute_UpDown);
+  console.log("Hello,World");
+}
+
 //新規で矢印作成
 function addLink(){
   //HTMLから理由をGET
@@ -193,6 +203,7 @@ graph.on('remove',function(cell,collection,opt){
        cells_position_x.push(cells[i].get('position').x);
        cells_position_y.push(cells[i].get('position').y);
        cell_color.push(cells[i].attr('.element-node/data-color'));
+       cell_attribute.push(cells[i].attr('.label/text'));
        console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y+cells[i].attr('.element-node/data-color'));
      }
 
@@ -205,7 +216,8 @@ graph.on('remove',function(cell,collection,opt){
          cell_link_source : cell_link_source,
          cell_link_target : cell_link_target,
          cell_link_reason : cell_link_reason,
-         cell_color : cell_color
+         cell_color : cell_color,
+         cell_attribute : cell_attribute
        }
      );
    }else{
@@ -250,8 +262,13 @@ graph.on('remove',function(cell,collection,opt){
      for(var i=0;i<8;i++){
      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
+     others_cells[i].attr('.label/text',snapshot.val().cell_attribute[i]);
    }
    graph2.addCells(others_cells);
+
+   /*
+   矢印の処理
+   */
    if(snapshot.val().cell_link_source != null){
    for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
    others_links[i] = new joint.dia.Link({
