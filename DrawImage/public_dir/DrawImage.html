@@ -32,7 +32,7 @@
           <option value="blue">青</option>
           <option value="green">緑</option>
         </select>
-
+赤：戦争、青：経済、緑：農業
 <!--
 <label for"addColor">ノード</label>
 <select id="addColor">
@@ -42,6 +42,63 @@
 </select>
 <button id="addCell">新たなカードを作成する</button>
 -->
+<br>
+状態変化　
+<form name="CardState">カード
+  <select name="source">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>の状態
+  <select name="human">
+    <option value="0">武士</option>
+    <option value="1">商人</option>
+    <option value="2">農民</option>
+  </select>の
+  <select name="state">
+    <option value="0">地位</option>
+    <option value="1">力</option>
+    <option value="2">経済力</option>
+  </select>が
+  <select name="UpDown">
+    <option value="0">上がった</option>
+    <option value="1">下がった</option>
+  </select>
+  </form>
+  <form name="CardState">カード
+    <select name="source">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>の状態
+    <select name="human">
+      <option value="0">武士</option>
+      <option value="1">商人</option>
+      <option value="2">農民</option>
+    </select>の
+    <select name="state">
+      <option value="0">地位</option>
+      <option value="1">力</option>
+      <option value="2">経済力</option>
+    </select>が
+    <select name="UpDown">
+      <option value="0">上がった</option>
+      <option value="1">下がった</option>
+    </select>
+    </form>
+
+
+
 <form name="input_sample">カード
   <select name="source">
     <option value="0">0</option>
@@ -63,7 +120,7 @@
     <option value="5">5</option>
     <option value="6">6</option>
     <option value="7">7</option>
-  </select> に<input type="button" value="理由を作成" onclick="addLink()">
+  </select> に<input type="button" value="矢印作成" onclick="addLink()">
   </form>
 <!--
 <select name="colorchange">
@@ -91,16 +148,17 @@
   <option value="5">5</option>
   <option value="6">6</option>
   <option value="7">7</option>
-</select>を
+</select>の属性を
 <select name="color">
   <option value="red">赤</option>
   <option value="blue">青</option>
   <option value="green">緑</option>
 </select>
 色に
-</form>
 <input type="button" id="colorChange" onclick="colorChange()" value="変更する">
+
 </form>
+
 </p>
 <p>
 自分の図形描写情報を<button id="send">送信</button>
@@ -115,13 +173,14 @@
 <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
 <div id="OtherScreen">
   他者の図形描写画面
+
 <div id="canvas2" data-filter="all"></div>
 
 </div>
 
 <div id="dataInfo">
   <p>様々なデータを集計</p>
-  <input type="text" id="user_name">さんの情報を
+  <input type="text" id="user_name" placeholder="名前" >さんの情報を
   <button id="get">取得</button>
 <br>
   カードXに注目

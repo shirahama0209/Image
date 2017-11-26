@@ -1,6 +1,8 @@
+
 #layoutAll {
   width: 1200px; /* 幅(px指定) */
   margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
+
 }
 
 #MyScreen{
@@ -16,6 +18,7 @@
   width:540px;
   height:530px;
   float: left;
+  border-style:solid;
 }
 
 #dataInfo{
@@ -29,14 +32,35 @@
 
 body {
   font-family: sans-serif;
-  font-size: 18px;
+  font-size: 15px;
 }
 
 select {
   font-size: inherit;
-  padding: 5px;
-  margin: 1px 1px 5px 1px;
+  padding: 1px;
+}
 
+
+
+
+input[type="button"]{
+  color: #000000;
+  background-color: #FAAC58;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  margin: 2px 0;
+  cursor: pointer;
+}
+
+button {
+  color: #000000;
+  background-color: #FAAC58;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  margin: 2px 0;
+  cursor: pointer;
 }
 
 #message {
@@ -55,10 +79,16 @@ select {
   height: 500px;
   min-height: 300px;
   border-style:dotted;
+  background: #FAFAFA;
 }
 #canvas .element-node {
   opacity: 0.5;
 }
+/*カードの最初の色は灰色*/
+#canvas .element-node[data-color="gray"] {
+  fill: #848484;
+}
+
 #canvas .element-node[data-color="red"] {
   fill: #FA5858;
 }
@@ -96,11 +126,17 @@ select {
   height: 500px;
   min-height: 300px;
   border-style:dotted;
+  background: #FAFAFA;
 }
 
 #canvas2 .element-node {
   opacity: 0.5;
 }
+/*カードの最初の色は灰色*/
+#canvas .element-node[data-color="gray"] {
+  fill: #D8D8D8;
+}
+
 #canvas2 .element-node[data-color="red"] {
   fill: #FA5858;
 }
@@ -111,7 +147,7 @@ select {
   fill: #3ADF00;
 }
 #canvas2 .element-node text {
-  fill: #FFFFFF;
+  fill: #000000;
 }
 #canvas2 .element-node:hover .port {
   opacity: 1;
@@ -135,14 +171,4 @@ select {
   transform: translate(70px, 40px);
   fill: #000;
   opacity: 0;
-}
-
-button {
-  color: #000000;
-  background-color: #FAAC58;
-  border-radius: 3px;
-  border: 0;
-  padding: 5px 10px;
-  margin: 2px 0;
-  cursor: pointer;
 }

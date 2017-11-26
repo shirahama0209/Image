@@ -33,7 +33,7 @@ var paper2 = new joint.dia.Paper({
   width: 550,
   height: 500,
   model: graph2,
-  gridSize: 10,
+  gridSize: 1,
 
   clickThreshold: 1
 });
@@ -45,10 +45,12 @@ markup: '<g class="element-node">'+
             '<text class="label" y="0.8em" xml:space="preserve" font-size="24" text-anchor="middle" font-family="Arial, helvetica, sans-serif">'+
               '<tspan id="v-18" dy="0em" x="0" class="v-line"></tspan>'+
             '</text>'+
-          '<g class="inPorts"/>' +
+
+            '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
 portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>'
+
 });
 
 //セルの初期化
@@ -70,7 +72,7 @@ cells[0] = new joint.shapes.devs.Model({
       text: 'カード１',
     },
     '.element-node' : {
-      'data-color': 'blue'
+      'data-color': 'gray'
     }
   },
   inPorts: ['center']
@@ -144,7 +146,7 @@ function addLink(){
   attrs: {
       '.connection': {
           stroke: '#333333',
-          'stroke-width': 3
+          'stroke-width': 4
       },
       '.marker-target': {
           fill: '#333333',
@@ -152,7 +154,7 @@ function addLink(){
       }
   },
  labels: [
-      { position: 0.5, attrs: { text: { text: reason, fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+      { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
   });
   cell_link_source[link_length] = source1;
   cell_link_target[link_length] = target1;
@@ -314,7 +316,7 @@ var svgZoom = svgPanZoom('#canvas svg', {
   fit: false,
   minZoom: 0.75,
   maxZoom:1.5,
-  zoomScaleSensitivity: 0.5
+  zoomScaleSensitivity: 0.05
 });
 $(filter).on('change', function(e){
   canvas2.attr('data-filter', e.target.value);
@@ -328,7 +330,7 @@ var svgZoom = svgPanZoom('#canvas2 svg', {
   fit: false,
   minZoom: 0.75,
   maxZoom:1.5,
-  zoomScaleSensitivity: 0.5
+  zoomScaleSensitivity: 0.05
 });
 //どのカードを触っているか表示
 (function(){
