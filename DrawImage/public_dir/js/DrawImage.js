@@ -48,13 +48,12 @@ markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
             '<text class="label" y="0.8em" xml:space="preserve" font-size="24" text-anchor="middle" font-family="Arial, helvetica, sans-serif">'+
               '<tspan id="v-18" dy="0em" x="0" class="v-line"></tspan>'+
-            '</text>'+
+            '</text>'+'<text><tspan class="attribute"></tspan></text>'+
 
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
-portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>'
-
+portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>',
 });
 
 //セルの初期化
@@ -79,12 +78,13 @@ cells[0] = new joint.shapes.devs.Model({
       'data-color': 'gray'
     },
     '.attribute' : {
+      'font-size':10,
       'human' : '',
       'state' : '',
-      'updown' : '',
+      'updown' : ''
     }
   },
-  inPorts: ['center']
+  inPorts: ['center'],
 });
 console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
@@ -127,6 +127,7 @@ others_cells[0] = new joint.shapes.devs.Model({
       'data-color': "#FF00C0"
     },
     '.attribute' : {
+      'font-size' : 10,
       'human' : '',
       'state' : '',
       'updown' : ''
@@ -156,6 +157,7 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
+  cells[card_attribute_number].attr('.attribute/text',card_attribute_human+" "+card_attribute_state+" "+card_attribute_UpDown);
   console.log("Hello,World");
 }
 
@@ -300,6 +302,7 @@ graph.on('remove',function(cell,collection,opt){
      others_cells[i].attr('.attribute/human',snapshot.val().cell_attribute_human[i]);
      others_cells[i].attr('.attribute/state',snapshot.val().cell_attribute_state[i]);
      others_cells[i].attr('.attribute/updown',snapshot.val().cell_attribute_updown[i]);
+     others_cells[i].attr('.attribute/text',others_cells[i].attr('.attribute/human')+" "+others_cells[i].attr('.attribute/state')+" "+others_cells[i].attr('.attribute/updown'));
    }
    graph2.addCells(others_cells);
 
