@@ -79,9 +79,9 @@ cells[0] = new joint.shapes.devs.Model({
       'data-color': 'gray'
     },
     '.attribute' : {
-      'human' : 'a',
-      'state' : 'a',
-      'updown' : 'a',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
     }
   },
   inPorts: ['center']
