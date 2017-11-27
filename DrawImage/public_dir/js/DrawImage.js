@@ -22,8 +22,8 @@ var cell_attribute_updown = [];
 var paper = new joint.dia.Paper({
   el: canvas,
   //キャンバスのサイズ
-  width: 550,
-  height: 500,
+  width: 700,
+  height: 700,
   model: graph,
   gridSize: 1,
 
@@ -34,8 +34,8 @@ var paper = new joint.dia.Paper({
 var paper2 = new joint.dia.Paper({
   el: canvas2,
   //キャンバスのサイズ
-  width: 550,
-  height: 500,
+  width: 700,
+  height: 700,
   model: graph2,
   gridSize: 1,
 

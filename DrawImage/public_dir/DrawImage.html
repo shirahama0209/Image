@@ -7,8 +7,8 @@
   <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.9/joint.core.css'>
       <!--<link rel="stylesheet" href="css/style.css" type="text/css">-->
       <link rel="stylesheet" href="css/DrawImage.css" >
-        <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
-        <script src = "https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/3.6.3/firebase.js"></script>
+    <script src = "https://cdn.firebase.com/js/client/2.4.1/firebase.js"></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.9/joint.core.css'>
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
     <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
@@ -16,153 +16,218 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
+    <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
 </head>
 
-<div id="layoutAll">
-  <div id="MyScreen">
-  <a>図形描写画面</a>
-  クリックしているもの
-  <label id="message"></label>
-    <div id="canvas" data-filter="all"></div>
-      <body onload = "initialize()">
-        <label for"filter">フィルター</label>
-        <select id="filter">
-          <option value="all">なし</option>
-          <option value="red">赤</option>
-          <option value="blue">青</option>
-          <option value="green">緑</option>
+<body>
+  
+  <div class="container">
+    <ul class="menu">
+      <li><a href="#" data-id="about" class="active menu_item">図形描写画面</a></li>
+      <li><a href="#" data-id="service" class="menu_item">他者の図形描写</a></li>
+      <li><a href="#" data-id="contact" class="menu_item">比較画面</a></li>
+    </ul>
+    <div class="content active" id="about">
+
+
+      <div id="layoutAll">
+        <div id="MyScreen">
+
+
+      <!--
+        クリックしているもの
+        <label id="message"></label>
+      -->
+          <div id="canvas" data-filter="all"></div>
+            <body onload = "initialize()">
+              <label for"filter">フィルター</label>
+              <select id="filter">
+                <option value="all">なし</option>
+                <option value="red">赤</option>
+                <option value="blue">青</option>
+                <option value="green">緑</option>
+              </select>
+      赤：戦争、青：経済、緑：農業
+      <!--
+      <label for"addColor">ノード</label>
+      <select id="addColor">
+        <option value="red">red</option>
+        <option value="blue">blue</option>
+        <option value="green">green</option>
+      </select>
+      <button id="addCell">新たなカードを作成する</button>
+      -->
+      <br>
+      状態変化　
+      <form name="CardState">カード
+        <select name="source">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>の状態
+        <select name="human">
+          <option value="武士">武士</option>
+          <option value="商人">商人</option>
+          <option value="農民">農民</option>
+        </select>の
+        <select name="state">
+          <option value="地位">地位</option>
+          <option value="力">力</option>
+          <option value="経済力">経済力</option>
+        </select>が
+        <select name="UpDown">
+          <option value="上がった">上がった</option>
+          <option value="下がった">下がった</option>
         </select>
-赤：戦争、青：経済、緑：農業
-<!--
-<label for"addColor">ノード</label>
-<select id="addColor">
-  <option value="red">red</option>
-  <option value="blue">blue</option>
-  <option value="green">green</option>
-</select>
-<button id="addCell">新たなカードを作成する</button>
--->
-<br>
-状態変化　
-<form name="CardState">カード
-  <select name="source">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-  </select>の状態
-  <select name="human">
-    <option value="武士">武士</option>
-    <option value="商人">商人</option>
-    <option value="農民">農民</option>
-  </select>の
-  <select name="state">
-    <option value="地位">地位</option>
-    <option value="力">力</option>
-    <option value="経済力">経済力</option>
-  </select>が
-  <select name="UpDown">
-    <option value="上がった">上がった</option>
-    <option value="下がった">下がった</option>
-  </select>
-<input type="button" value="状態変化を描写" onclick="CardStateChange()">
-</form>
+      <input type="button" value="状態変化を描写" onclick="CardStateChange()">
+      </form>
 
 
 
-<form name="input_sample">カード
-  <select name="source">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-  </select> から
-<input type="text" name="reason" placeholder="理由">で
-  <select name="target">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-  </select> に<input type="button" value="矢印作成" onclick="addLink()">
-  </form>
-<!--
-<select name="colorchange">
-  <option value="0">0</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
-  <option value="7">7</option>
-</select>のカードの色を変更
-<input type="button" value="色を変更" onclick="colorChange()">
+      <form name="input_sample">カード
+        <select name="source">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select> から
+      <input type="text" name="reason" placeholder="理由">で
+        <select name="target">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select> に<input type="button" value="矢印作成" onclick="addLink()">
+        </form>
+      <!--
+      <select name="colorchange">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      </select>のカードの色を変更
+      <input type="button" value="色を変更" onclick="colorChange()">
 
-<button id="addLink">理由を作成する</button>-->
-<p>
-<form name="ChangeColor">
-  カード
-<select name="cardnumber">
-  <option value="0">0</option>
-  <option value="1">1</option>
-  <option value="2">2</option>
-  <option value="3">3</option>
-  <option value="4">4</option>
-  <option value="5">5</option>
-  <option value="6">6</option>
-  <option value="7">7</option>
-</select>の属性を
-<select name="color">
-  <option value="red">赤</option>
-  <option value="blue">青</option>
-  <option value="green">緑</option>
-</select>
-色に
-<input type="button" id="colorChange" onclick="colorChange()" value="変更する">
+      <button id="addLink">理由を作成する</button>-->
 
-</form>
+      <form name="ChangeColor">
+        カード
+      <select name="cardnumber">
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+      </select>の属性を
+      <select name="color">
+        <option value="red">赤</option>
+        <option value="blue">青</option>
+        <option value="green">緑</option>
+      </select>
+      色に
+      <input type="button" id="colorChange" onclick="colorChange()" value="変更する">
 
-</p>
-<p>
-自分の図形描写情報を<button id="send">送信</button>
-</p>
-<p>
+      </form>
+
+
+
+      自分の図形描写情報を<button id="send">送信</button>
+
+
+      </div>
+
+
 </div>
-</p>
-  <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.1/lodash.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
-<div id="OtherScreen">
-  他者の図形描写画面
 
+    </div>
+    <div class="content" id="service">
+      <div id="OtherScreen">
+
+      <div id="canvas2" data-filter="all"></div>
+
+      </div>
+
+      <div id="dataInfo">
+        様々なデータを集計
+        <input type="text" id="user_name" placeholder="名前" >さんの情報を
+        <button id="get">取得</button>
+
+        カードXに注目
+        矢印Yに注目
+      </div>
+
+
+
+    </div>
+    <div class="content" id="contact">
+      自分の画面
+<div id="canvas" data-filter="all"></div>
+　　　　相手の画面
 <div id="canvas2" data-filter="all"></div>
 
-</div>
+    </div>
+  </div>
+  <script>
+  (function() {
+    'use strict';
 
-<div id="dataInfo">
-  <p>様々なデータを集計</p>
-  <input type="text" id="user_name" placeholder="名前" >さんの情報を
-  <button id="get">取得</button>
-<br>
-  カードXに注目
-<br>
-  矢印Yに注目
+    var menuItems = document.getElementsByClassName('menu_item');
+    var contents = document.getElementsByClassName('content');
 
-</div>
+    var i;
+
+    for (i = 0; i < menuItems.length; i++) {
+      menuItems[i].addEventListener('click', function(e) {
+        e.preventDefault();
+
+        var i;
+
+        for (i = 0; i < menuItems.length; i++) {
+          menuItems[i].className = 'menu_item';
+        }
+
+        this.className = 'menu_item active';
+
+        for (i = 0; i < contents.length; i++) {
+          contents[i].className = 'content';
+        }
+
+        document.getElementById(this.dataset.id).className = 'content active';
+
+      });
+    }
+
+  })();
+  </script>
+</body>
+
+
+
+
+
 
 
 
