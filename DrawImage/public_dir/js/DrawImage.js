@@ -169,7 +169,6 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
   cells[card_attribute_number].attr('.attribute/text',card_attribute_human+" "+card_attribute_state+" "+card_attribute_UpDown);
-  console.log("Hello,World");
 }
 
 //新規で矢印作成
@@ -181,7 +180,7 @@ function addLink(){
   var link_length = links.length;
 
   /*
-  矢印を引くための弾ける条件分岐
+  矢印を引くための条件分岐
   */
   if(source1 != target1){
   if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute/human') != ''){
@@ -250,7 +249,6 @@ graph.on('remove',function(cell,collection,opt){
        cell_attribute_human.push(cells[i].attr('.attribute/human'));
        cell_attribute_state.push(cells[i].attr('.attribute/state'));
        cell_attribute_updown.push(cells[i].attr('.attribute/updown'));
-       console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y+cells[i].attr('.element-node/data-color'));
      }
 
      userRef.set(
@@ -272,21 +270,6 @@ graph.on('remove',function(cell,collection,opt){
      //no user is singed in.
      alert("ログインしていません");
    }
-   /*
-   for(var i = 0; i < 8; i++){
-     cells_number.push(i);
-     cells_position_x.push(cells[i].get('position').x);
-     cells_position_y.push(cells[i].get('position').y);
-     console.log(i+":"+cells[i].get('position').x+":"+cells[i].get('position').y);
-   }
-   userRef.set(
-     {
-       cell_number   : cells_number,
-       cell_position_x : cells_position_x,
-       cell_position_y : cells_position_y
-     }
-   );*/
-
  }
 
 
@@ -342,12 +325,7 @@ graph.on('remove',function(cell,collection,opt){
   graph2.addCells(others_links);}
   });
 }
-/*
- ref.on("child_changed",function(snapshot){
-
-   console.log("change");
- });*/
- }
+}
 
   $('#get').on('click', get);
   $('#send').on('click', send);
