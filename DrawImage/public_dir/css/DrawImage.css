@@ -5,6 +5,59 @@
 
 }
 
+.container {
+  padding: 0;
+  margin: 30px auto;
+  width: 728px;
+  height:1028px;
+}
+ul.menu {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  font-size: 0;
+  border-style:groove;
+}
+ul.menu li {
+  display: inline-block;
+}
+ul.menu li a {
+  display: inline-block;
+  font-size: 30px;
+  width: 220px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  text-decoration: none;
+  padding: 7px;
+  background: #E6E6E6;
+  color: #000000;
+  border-style:groove;
+}
+ul.menu li a.active {
+  background: #848484;
+  color: #000;
+}
+ul.menu li a:not(.active):hover {
+  opacity: 0.5;
+  transition: .8s;
+}
+.content {
+  font-size: 25px;
+  padding: 7px 10px;
+  line-height: 1.4;
+  background: #F2F2F2;
+  height: 1024px;
+  display: none;
+  border-style:groove;
+
+}
+.content.active {
+  display: block;
+}
+
+
+/*
 #MyScreen{
 	display:table-cell;
 	width:540px;
@@ -29,10 +82,10 @@
 	border-width:1px;
   border-style:solid;
 }
-
+*/
 body {
   font-family: sans-serif;
-  font-size: 15px;
+  font-size: 30px;
 }
 
 select {
@@ -62,9 +115,9 @@ button {
   margin: 2px 0;
   cursor: pointer;
 }
-
+/*
 #message {
-  /*opacity : 0;より変更*/
+  //opacity : 0;より変更
   opacity: 1;
   transition: opacity 5s linear;
 }
@@ -72,11 +125,11 @@ button {
   opacity: 1;
   transition: opacity 0.1s linear;
 }
-
+*/
 #canvas {
   border: 1px solid;
-  width: 100%;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   min-height: 300px;
   border-style:dotted;
   background: #FAFAFA;
@@ -122,8 +175,8 @@ button {
 
 #canvas2 {
   border: 1px solid;
-  width: 100%;
-  height: 500px;
+  width: 700px;
+  height: 700px;
   min-height: 300px;
   border-style:dotted;
   background: #FAFAFA;
