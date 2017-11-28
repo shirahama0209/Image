@@ -168,12 +168,9 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
-<<<<<<< HEAD
-  cells[card_attribute_number].attr('.attribute/text',card_attribute_human+" "+card_attribute_state+" "+card_attribute_UpDown);
-=======
   cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
   console.log("Hello,World");
->>>>>>> 8d24d5352a343bcc2892464450e7139b23370e05
+
 }
 
 //新規で矢印作成
