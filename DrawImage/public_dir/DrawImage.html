@@ -23,34 +23,26 @@
 </head>
 
 <body>
-  
+<!--メニューの選択により表示する部分を変える-->
   <div class="container">
     <ul class="menu">
-      <li><a href="#" data-id="about" class="active menu_item">図形描写画面</a></li>
-      <li><a href="#" data-id="service" class="menu_item">他者の図形描写</a></li>
-      <li><a href="#" data-id="contact" class="menu_item">比較画面</a></li>
+      <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
+      <li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>
+      <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
+      <li><a href="#" data-id="DataInformation" class="menu_item">情報画面</a></li>
     </ul>
-    <div class="content active" id="about">
-
-
+<!-- 自分の画面描写画面-->
+    <div class="content active" id="Mypicture">
       <div id="layoutAll">
         <div id="MyScreen">
-
-
       <!--
         クリックしているもの
         <label id="message"></label>
       -->
           <div id="canvas" data-filter="all"></div>
             <body onload = "initialize()">
-              <label for"filter">フィルター</label>
-              <select id="filter">
-                <option value="all">なし</option>
-                <option value="red">赤</option>
-                <option value="blue">青</option>
-                <option value="green">緑</option>
-              </select>
-      赤：戦争、青：経済、緑：農業
+
+      赤：政治、青：経済、緑：農業
       <!--
       <label for"addColor">ノード</label>
       <select id="addColor">
@@ -87,7 +79,7 @@
           <option value="上がった">上がった</option>
           <option value="下がった">下がった</option>
         </select>
-      <input type="button" value="状態変化を描写" onclick="CardStateChange()">
+      <input type="button" value="状態変化" onclick="CardStateChange()">
       </form>
 
 
@@ -163,64 +155,112 @@
 </div>
 
     </div>
-    <div class="content" id="service">
+    <!-- 他人の画面描写画面-->
+  <div class="content" id="OtherPicture">
       <div id="OtherScreen">
 
-      <div id="canvas2" data-filter="all"></div>
+    　  <div id="canvas2" data-filter="all"></div>
+    　</div>
 
-      </div>
+
+
+
 
       <div id="dataInfo">
         様々なデータを集計
         <input type="text" id="user_name" placeholder="名前" >さんの情報を
         <button id="get">取得</button>
+        <br>
+        <label for"filter">フィルター</label>
+        <select id="filter">
+          <option value="all">なし</option>
+          <option value="red">赤</option>
+          <option value="blue">青</option>
+          <option value="green">緑</option>
+        </select>
 
-        カードXに注目
-        矢印Yに注目
       </div>
+  </div>
 
 
 
-    </div>
-    <div class="content" id="contact">
+
+    <div class="content" id="Comparing">
       自分の画面
-<div id="canvas" data-filter="all"></div>
+　　　　<div id="canvas" data-filter="all"></div>
 　　　　相手の画面
-<div id="canvas2" data-filter="all"></div>
+　　　　<div id="canvas2" data-filter="all"></div>
 
     </div>
+
+   <div class="content" id="DataInformation">
+     ネットワーク図のようなものでクラス全体のデータを描写
+     <!--
+　　　　<img src="network.png" width="500" height="500">
+-->
+<br>どのカードが話題になっているかピックアップする機能
+<!--http://visjs.org/examples/network/edgeStyles/arrows.html-->
+<script type="text/javascript" src="../../../dist/vis.js"></script>
+<link href="../../../dist/vis-network.min.css" rel="stylesheet" type="text/css" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js'></script>
+<style type="text/css">
+  #mynetwork {
+    width: 700px;
+    height: 500px;
+    border: 1px solid lightgray;
+    background:#ffffff;
+  }
+</style>
+</head>
+<body>
+
+
+<div id="mynetwork"></div>
+
+<script type="text/javascript">
+// create an array with nodes
+var nodes = new vis.DataSet([
+  {id: 1, label: 'カード 1'},
+  {id: 2, label: 'カード 2'},
+  {id: 3, label: 'カード 3'},
+  {id: 4, label: 'カード 4'},
+  {id: 5, label: 'カード 5'},
+  {id: 6, label: 'カード 6'},
+  {id: 7, label: 'カード 7'},
+  {id: 8, label: 'カード 8'}
+]);
+
+// create an array with edges
+var edges = new vis.DataSet([
+  {from: 1, to: 8, arrows:'to'},
+  {from: 1, to: 3, arrows:'from'},
+  {from: 8, to: 7, arrows:'to'},
+  {from: 7, to: 4, arrows:'to'},
+  {from: 1, to: 2, arrows:'to'},
+  {from: 2, to: 4, arrows:'to'},
+  {from: 2, to: 5, arrows:'to'},
+  {from: 6, to: 7, arrows:'to'},
+]);
+
+// create a network
+var container = document.getElementById('mynetwork');
+var data = {
+  nodes: nodes,
+  edges: edges
+};
+var options = {};
+var network = new vis.Network(container, data, options);
+</script>
+
+
+
+   </div>
+
+
+
   </div>
   <script>
-  (function() {
-    'use strict';
 
-    var menuItems = document.getElementsByClassName('menu_item');
-    var contents = document.getElementsByClassName('content');
-
-    var i;
-
-    for (i = 0; i < menuItems.length; i++) {
-      menuItems[i].addEventListener('click', function(e) {
-        e.preventDefault();
-
-        var i;
-
-        for (i = 0; i < menuItems.length; i++) {
-          menuItems[i].className = 'menu_item';
-        }
-
-        this.className = 'menu_item active';
-
-        for (i = 0; i < contents.length; i++) {
-          contents[i].className = 'content';
-        }
-
-        document.getElementById(this.dataset.id).className = 'content active';
-
-      });
-    }
-
-  })();
   </script>
 </body>
 
