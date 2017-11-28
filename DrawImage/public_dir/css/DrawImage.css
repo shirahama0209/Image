@@ -4,7 +4,9 @@
   margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
 
 }
-
+/*
+メニュー関連のcssの記述
+*/
 .container {
   padding: 0;
   margin: 30px auto;
@@ -23,8 +25,8 @@ ul.menu li {
 }
 ul.menu li a {
   display: inline-block;
-  font-size: 30px;
-  width: 220px;
+  font-size: 25px;
+  width: 160px;
   height: 20px;
   line-height: 20px;
   text-align: center;
@@ -104,7 +106,20 @@ input[type="button"]{
   padding: 5px 10px;
   margin: 2px 0;
   cursor: pointer;
+  font-size: 20px;
 }
+
+input[type="text"]{
+  color: #000000;
+  border-radius: 3px;
+  border: 0;
+  padding: 5px 10px;
+  margin: 2px 0;
+  cursor: pointer;
+  font-size: 20px;
+}
+
+
 
 button {
   color: #000000;
@@ -114,6 +129,7 @@ button {
   padding: 5px 10px;
   margin: 2px 0;
   cursor: pointer;
+  font-size: 20px;
 }
 /*
 #message {
@@ -139,17 +155,17 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas .element-node[data-color="gray"] {
-  fill: #848484;
+  fill: #D8D8D8;
 }
 
 #canvas .element-node[data-color="red"] {
-  fill: #FA5858;
+  fill: #F7BE81;
 }
 #canvas .element-node[data-color="blue"] {
-  fill: #81DAF5;
+  fill: #CEF6F5;
 }
 #canvas .element-node[data-color="green"] {
-  fill: #3ADF00;
+  fill: #9FF781;
 }
 #canvas .element-node text {
   fill: #000000;
@@ -187,17 +203,17 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas2 .element-node[data-color="gray"] {
-  fill: #848484;
+  fill: #D8D8D8;
 }
 
 #canvas2 .element-node[data-color="red"] {
-  fill: #FA5858;
+  fill: #F7BE81;
 }
 #canvas2 .element-node[data-color="blue"] {
-  fill: #81DAF5;
+  fill: #CEF6F5;
 }
 #canvas2 .element-node[data-color="green"] {
-  fill: #3ADF00;
+  fill: #9FF781;
 }
 #canvas2 .element-node text {
   fill: #000000;

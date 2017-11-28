@@ -57,7 +57,7 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" y="0.8em" xml:space="preserve" font-size="24" text-anchor="middle" font-family="Arial, helvetica, sans-serif">'+
+            '<text class="label" y="0.8em" xml:space="preserve" font-size="36" text-anchor="middle" font-family="Arial, helvetica, sans-serif">'+
               '<tspan id="v-18" dy="0em" x="0" class="v-line"></tspan>'+
             '</text>'+'<text><tspan class="attribute"></tspan></text>'+
 
@@ -79,8 +79,8 @@ cells[0] = new joint.shapes.devs.Model({
   position: {x: 20, y: 20},
   attrs: {
     '.body': {
-      width: '100',
-      height: '60'
+      width: '150',
+      height: '80'
     },
     '.label': {
       text: 'カード１',
@@ -89,7 +89,7 @@ cells[0] = new joint.shapes.devs.Model({
       'data-color': 'gray'
     },
     '.attribute' : {
-      'font-size':10,
+      'font-size':15,
       'human' : '',
       'state' : '',
       'updown' : ''
@@ -100,19 +100,19 @@ cells[0] = new joint.shapes.devs.Model({
 console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
 cells[1] = cells[0].clone();
-cells[1].translate(130, 0);
+cells[1].translate(170, 0);
 cells[2] = cells[0].clone();
-cells[2].translate(260, 0);
+cells[2].translate(340, 0);
 cells[3] = cells[0].clone();
-cells[3].translate(390, 0);
+cells[3].translate(510, 0);
 cells[4] = cells[0].clone();
 cells[4].translate(0, 200);
 cells[5] = cells[0].clone();
-cells[5].translate(130,200);
+cells[5].translate(170,200);
 cells[6] = cells[0].clone();
-cells[6].translate(260, 200);
+cells[6].translate(340, 200);
 cells[7] = cells[0].clone();
-cells[7].translate(390, 200);
+cells[7].translate(510, 200);
 //カードの属性設定
 //cells[3].attr('.element-node/data-color','green');
 //各カードにラベルづけ
@@ -128,8 +128,8 @@ others_cells[0] = new joint.shapes.devs.Model({
   position: {x: 0, y: 0},
   attrs: {
     '.body': {
-      width: '100',
-      height: '60'
+      width: '150',
+      height: '80'
     },
     '.label': {
       text: 'カード１',
@@ -138,7 +138,7 @@ others_cells[0] = new joint.shapes.devs.Model({
       'data-color': "#FF00C0"
     },
     '.attribute' : {
-      'font-size' : 10,
+      'font-size' : 15,
       'human' : '',
       'state' : '',
       'updown' : ''
@@ -168,7 +168,12 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
+<<<<<<< HEAD
   cells[card_attribute_number].attr('.attribute/text',card_attribute_human+" "+card_attribute_state+" "+card_attribute_UpDown);
+=======
+  cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
+  console.log("Hello,World");
+>>>>>>> 8d24d5352a343bcc2892464450e7139b23370e05
 }
 
 //新規で矢印作成
@@ -396,4 +401,36 @@ var svgZoom = svgPanZoom('#canvas2 svg', {
   setTimeout(function(){  message.removeClass('visible');
                        }, 1000);
   });
+})();
+
+//メニュー表示の切り替え
+(function() {
+  'use strict';
+
+  var menuItems = document.getElementsByClassName('menu_item');
+  var contents = document.getElementsByClassName('content');
+
+  var i;
+//メニュークリック時の処理
+  for (i = 0; i < menuItems.length; i++) {
+    menuItems[i].addEventListener('click', function(e) {
+      e.preventDefault();
+
+      var i;
+//全てのmenuItemsのclassからactiveをとる
+      for (i = 0; i < menuItems.length; i++) {
+        menuItems[i].className = 'menu_item';
+      }
+//その後　activeクラスをつける
+      this.className = 'menu_item active';
+
+      for (i = 0; i < contents.length; i++) {
+        contents[i].className = 'content';
+      }
+
+      document.getElementById(this.dataset.id).className = 'content active';
+
+    });
+  }
+
 })();
