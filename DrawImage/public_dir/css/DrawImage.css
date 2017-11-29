@@ -52,7 +52,6 @@ ul.menu li a:not(.active):hover {
   height: 1024px;
   display: none;
   border-style:groove;
-
 }
 .content.active {
   display: block;
@@ -187,6 +186,51 @@ button {
 #canvas[data-filter="all"] .element-node {
   opacity: 1;
 }
+#canvas3 {
+  border: 1px solid;
+  width: 700px;
+  height: 700px;
+  min-height: 300px;
+  border-style:dotted;
+  background: #FAFAFA;
+}
+#canvas3 .element-node {
+  opacity: 0.5;
+}
+/*カードの最初の色は灰色*/
+#canvas3 .element-node[data-color="gray"] {
+  fill: #D8D8D8;
+}
+
+#canvas3 .element-node[data-color="red"] {
+  fill: #F7BE81;
+}
+#canvas3 .element-node[data-color="blue"] {
+  fill: #CEF6F5;
+}
+#canvas3 .element-node[data-color="green"] {
+  fill: #9FF781;
+}
+#canvas3 .element-node text {
+  fill: #000000;
+}
+/*
+#canvas .element-node:hover .port {
+  opacity: 1;
+}
+*/
+#canvas3[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas3[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas3[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas3[data-filter="all"] .element-node {
+  opacity: 1;
+}
 
 
 #canvas2 {
@@ -234,6 +278,50 @@ button {
   opacity: 1;
 }
 
+#canvas4 {
+  border: 1px solid;
+  width: 700px;
+  height: 700px;
+  min-height: 300px;
+  border-style:dotted;
+  background: #FAFAFA;
+}
+
+#canvas4 .element-node {
+  opacity: 0.5;
+}
+/*カードの最初の色は灰色*/
+#canvas4 .element-node[data-color="gray"] {
+  fill: #D8D8D8;
+}
+
+#canvas4 .element-node[data-color="red"] {
+  fill: #F7BE81;
+}
+#canvas4 .element-node[data-color="blue"] {
+  fill: #CEF6F5;
+}
+#canvas4 .element-node[data-color="green"] {
+  fill: #9FF781;
+}
+#canvas4 .element-node text {
+  fill: #000000;
+}
+#canvas4 .element-node:hover .port {
+  opacity: 1;
+}
+#canvas4[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas4[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas4[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas4[data-filter="all"] .element-node {
+  opacity: 1;
+}
 .port {
   width: 10px;
   height: 10px;

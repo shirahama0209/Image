@@ -1,8 +1,11 @@
 var canvas = $('#canvas');
 var canvas2 = $('#canvas2');
+var canvas3 = $('#canvas3');
+var canvas4 = $('#canvas4');
 var filter = $('#filter');
 var addColor = $('#addColor');
 var cells = [];
+var copy_cells=[];
 var others_cells = [];
 var links = [];
 var cell_link_source = [];
@@ -11,6 +14,8 @@ var cell_link_reason =[];
 var message = $('#message');
 var graph = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
+var graph3 = new joint.dia.Graph();
+var graph4 = new joint.dia.Graph();
 var user;
 var others_links = [];
 var cell_attribute_human = [];
@@ -41,6 +46,29 @@ var paper2 = new joint.dia.Paper({
 
   clickThreshold: 1
 });
+var paper3 = new joint.dia.Paper({
+  el: canvas3,
+  //キャンバスのサイズ
+  width: 700,
+  height: 700,
+  model: graph,
+  gridSize: 1,
+
+  clickThreshold: 1
+});
+
+var paper4 = new joint.dia.Paper({
+  el: canvas4,
+  //キャンバスのサイズ
+  width: 700,
+  height: 700,
+  model: graph2,
+  gridSize: 1,
+
+  clickThreshold: 1
+});
+
+
 
 /*
 カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
@@ -57,10 +85,8 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" y="0.8em" xml:space="preserve" font-size="36" text-anchor="middle" font-family="Arial, helvetica, sans-serif">'+
-              '<tspan id="v-18" dy="0em" x="0" class="v-line"></tspan>'+
+            '<text class="label" y="0.8em" font-size="36" text-anchor="end" font-family="Arial, helvetica, sans-serif">'+
             '</text>'+'<text><tspan class="attribute"></tspan></text>'+
-
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
@@ -120,8 +146,13 @@ for(var i=0;i<8;i++){
 cells[i].attr('.label/text', 'カード'+i);
 }
 
-
 graph.addCells(cells);
+
+for(var i = 0;i<cells.length;i++){
+copy_cells[i] = cells[i].clone();
+copy_cells[i].attr('.label/dx' , 300);
+}
+graph3.addCells(copy_cells);
 //他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
@@ -159,6 +190,8 @@ for(var i=0;i<8;i++){
 others_cells[i].attr('.label/text', 'カード'+i);
 }
 }
+
+
 
 function CardStateChange(){
   var card_attribute_number = CardState.source.value;
@@ -399,6 +432,39 @@ var svgZoom = svgPanZoom('#canvas2 svg', {
                        }, 1000);
   });
 })();
+
+// create an array with nodes
+var nodes = new vis.DataSet([
+  {id: 1, label: 'カード 1'},
+  {id: 2, label: 'カード 2'},
+  {id: 3, label: 'カード 3'},
+  {id: 4, label: 'カード 4'},
+  {id: 5, label: 'カード 5'},
+  {id: 6, label: 'カード 6'},
+  {id: 7, label: 'カード 7'},
+  {id: 8, label: 'カード 8'}
+]);
+
+// create an array with edges
+var edges = new vis.DataSet([
+  {from: 1, to: 8, arrows:'to'},
+  {from: 1, to: 3, arrows:'from'},
+  {from: 8, to: 7, arrows:'to'},
+  {from: 7, to: 4, arrows:'to'},
+  {from: 1, to: 2, arrows:'to'},
+  {from: 2, to: 4, arrows:'to'},
+  {from: 2, to: 5, arrows:'to'},
+  {from: 6, to: 7, arrows:'to'},
+]);
+
+// create a network
+var container = document.getElementById('mynetwork');
+var data = {
+  nodes: nodes,
+  edges: edges
+};
+var options = {};
+var network = new vis.Network(container, data, options);
 
 //メニュー表示の切り替え
 (function() {

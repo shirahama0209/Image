@@ -17,7 +17,6 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
     <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
-    <script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
 </head>
@@ -159,8 +158,8 @@
   <div class="content" id="OtherPicture">
       <div id="OtherScreen">
 
-    　  <div id="canvas2" data-filter="all"></div>
-    　</div>
+        <div id="canvas2" data-filter="all"></div>
+      </div>
 
 
 
@@ -187,16 +186,16 @@
 
     <div class="content" id="Comparing">
       自分の画面
-　　　　<div id="canvas" data-filter="all"></div>
-　　　　相手の画面
-　　　　<div id="canvas2" data-filter="all"></div>
+<div id="canvas3" data-filter="all"></div>
+相手の画面
+<div id="canvas4" data-filter="all"></div>
 
     </div>
 
    <div class="content" id="DataInformation">
      ネットワーク図のようなものでクラス全体のデータを描写
      <!--
-　　　　<img src="network.png" width="500" height="500">
+     <img src="network.png" width="500" height="500">
 -->
 <br>どのカードが話題になっているかピックアップする機能
 <!--http://visjs.org/examples/network/edgeStyles/arrows.html-->
@@ -217,40 +216,6 @@
 
 <div id="mynetwork"></div>
 
-<script type="text/javascript">
-// create an array with nodes
-var nodes = new vis.DataSet([
-  {id: 1, label: 'カード 1'},
-  {id: 2, label: 'カード 2'},
-  {id: 3, label: 'カード 3'},
-  {id: 4, label: 'カード 4'},
-  {id: 5, label: 'カード 5'},
-  {id: 6, label: 'カード 6'},
-  {id: 7, label: 'カード 7'},
-  {id: 8, label: 'カード 8'}
-]);
-
-// create an array with edges
-var edges = new vis.DataSet([
-  {from: 1, to: 8, arrows:'to'},
-  {from: 1, to: 3, arrows:'from'},
-  {from: 8, to: 7, arrows:'to'},
-  {from: 7, to: 4, arrows:'to'},
-  {from: 1, to: 2, arrows:'to'},
-  {from: 2, to: 4, arrows:'to'},
-  {from: 2, to: 5, arrows:'to'},
-  {from: 6, to: 7, arrows:'to'},
-]);
-
-// create a network
-var container = document.getElementById('mynetwork');
-var data = {
-  nodes: nodes,
-  edges: edges
-};
-var options = {};
-var network = new vis.Network(container, data, options);
-</script>
 
 
 
