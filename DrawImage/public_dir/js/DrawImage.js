@@ -20,7 +20,9 @@ var others_links = [];
 var cell_attribute_human = [];
 var cell_attribute_state = [];
 var cell_attribute_updown = [];
-
+var cell_attribute_human2 = [];
+var cell_attribute_state2 = [];
+var cell_attribute_updown2 = [];
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -83,8 +85,8 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text><tspan class="label"></tspan></text>'+'<text><tspan class="attribute"></tspan></text>'+
-            '<text><tspan class="label"></tspan></text>'+'<text><tspan class="attribute2"></tspan></text>'+
+            '<text class="label"></text>'+'<text><tspan class="attribute"></tspan></text>'+
+            '<text><tspan class="attribute2"></tspan></text>'+
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
@@ -108,7 +110,6 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.label': {
       text: 'カード１',
-      'dx': 60
     },
     '.element-node' : {
       'data-color': 'gray'
@@ -306,6 +307,9 @@ graph.on('remove',function(cell,collection,opt){
        cell_attribute_human.push(cells[i].attr('.attribute/human'));
        cell_attribute_state.push(cells[i].attr('.attribute/state'));
        cell_attribute_updown.push(cells[i].attr('.attribute/updown'));
+       cell_attribute_human2.push(cells[i].attr('.attribute2/human'));
+       cell_attribute_state2.push(cells[i].attr('.attribute2/state'));
+       cell_attribute_updown2.push(cells[i].attr('.attribute2/updown'));
      }
 
      userRef.set(
@@ -320,7 +324,10 @@ graph.on('remove',function(cell,collection,opt){
          cell_color : cell_color,
          cell_attribute_human : cell_attribute_human,
          cell_attribute_state : cell_attribute_state,
-         cell_attribute_updown : cell_attribute_updown
+         cell_attribute_updown : cell_attribute_updown,
+         cell_attribute_human2 : cell_attribute_human2,
+         cell_attribute_state2 : cell_attribute_state2,
+         cell_attribute_updown2 : cell_attribute_updown2
        }
      );alert("送信しました");
    }else{
@@ -354,6 +361,10 @@ graph.on('remove',function(cell,collection,opt){
      others_cells[i].attr('.attribute/state',snapshot.val().cell_attribute_state[i]);
      others_cells[i].attr('.attribute/updown',snapshot.val().cell_attribute_updown[i]);
      others_cells[i].attr('.attribute/text',others_cells[i].attr('.attribute/human')+" "+others_cells[i].attr('.attribute/state')+" "+others_cells[i].attr('.attribute/updown'));
+     others_cells[i].attr('.attribute2/human',snapshot.val().cell_attribute_human2[i]);
+     others_cells[i].attr('.attribute2/state',snapshot.val().cell_attribute_state2[i]);
+     others_cells[i].attr('.attribute2/updown',snapshot.val().cell_attribute_updown2[i]);
+     others_cells[i].attr('.attribute2/text',others_cells[i].attr('.attribute2/human')+" "+others_cells[i].attr('.attribute2/state')+" "+others_cells[i].attr('.attribute2/updown'));
    }
    graph2.addCells(others_cells);
 
