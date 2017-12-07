@@ -131,6 +131,18 @@ cells[0] = new joint.shapes.devs.Model({
     }
   },
   inPorts: ['center'],
+  outPorts:['out'],
+  ports:{
+    groups:{
+    'out':{
+      attrs:{
+        '.port-body':{
+          fill:'#E74C3C'
+        }
+      }
+    }
+  }
+  }
 });
 console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
@@ -241,7 +253,7 @@ function addLink(){
   */
   if(source1 != target1){
   if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute/human') != ''){
-    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute/human')) &&       (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute/state')) &&
+    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute/human')) &&  (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute/state')) &&
   (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute/updown'))){
  links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
@@ -413,6 +425,7 @@ function colorChange(){
 $(filter).on('change', function(e){
   canvas.attr('data-filter', e.target.value);
 });
+/*
 //canvasの図形を拡大表示、縮小表示する
 var svgZoom = svgPanZoom('#canvas svg', {
   center: false,
@@ -463,7 +476,9 @@ var svgZoom = svgPanZoom('#canvas4 svg', {
 });
 $(filter).on('change', function(e){
   canvas4.attr('data-filter', e.target.value);
-});
+});*/
+
+
 //どのカードを触っているか表示
 (function(){
   paper.on('cell:pointerdown', function(){
@@ -479,7 +494,7 @@ $(filter).on('change', function(e){
   setTimeout(function(){  message.removeClass('visible');
                        }, 1000);
   });
-})();
+});
 
 // create an array with nodes
 var nodes = new vis.DataSet([

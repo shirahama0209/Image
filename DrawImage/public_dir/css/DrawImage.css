@@ -322,10 +322,17 @@ button {
 #canvas4[data-filter="all"] .element-node {
   opacity: 1;
 }
-.port {
+.inPorts {
   width: 10px;
   height: 10px;
-  transform: translate(70px, 40px);
+  transform: translate(75px, 50px);
   fill: #000;
-  opacity: 0;
+  opacity: 1;
+}
+.outPorts{
+  width: 10px;
+  height: 10px;
+  transform: translate(-75px, -50px);
+  fill: #000;
+  opacity: 1;
 }
