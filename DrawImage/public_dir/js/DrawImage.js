@@ -115,14 +115,14 @@ cells[0] = new joint.shapes.devs.Model({
       'data-color': 'gray'
     },
     '.attribute' : {
-      text: 'aa',
+      text: '',
       'font-size':15,
       'human' : '',
       'state' : '',
       'updown' : ''
     },
     '.attribute2' : {
-      text: 'bb',
+      text: '',
       'font-size':15,
       //card_hightの方が良い
       'y':80,
@@ -180,11 +180,11 @@ others_cells[0] = new joint.shapes.devs.Model({
       'updown' : ''
     },
     '.attribute2' : {
-        text: 'bb',
         'font-size':15,
         'human':'',
         'state':'',
-        'updown':''
+        'updown':'',
+        'y':80
       }
   },
   inPorts: ['center']
