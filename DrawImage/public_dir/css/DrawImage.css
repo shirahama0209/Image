@@ -327,5 +327,5 @@ button {
   height: 10px;
   transform: translate(70px, 40px);
   fill: #000;
-  opacity: 0;
+  opacity: 1;
 }

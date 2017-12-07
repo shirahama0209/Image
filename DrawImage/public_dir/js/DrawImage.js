@@ -6,17 +6,24 @@ var filter = $('#filter');
 var addColor = $('#addColor');
 var cells = [];
 var others_cells = [];
+var cells2=[];
+var cells3=[];
 var links = [];
+var links2=[];
+var links3=[];
 var cell_link_source = [];
 var cell_link_target = [];
 var cell_link_reason =[];
 var message = $('#message');
-var graph = new joint.dia.Graph();
+var graph  = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var graph3 = new joint.dia.Graph();
 var graph4 = new joint.dia.Graph();
 var user;
 var others_links = [];
+var others_link_source = [];
+var others_link_target = [];
+var others_link_reason = [];
 var cell_attribute_human = [];
 var cell_attribute_state = [];
 var cell_attribute_updown = [];
@@ -51,7 +58,7 @@ var paper3 = new joint.dia.Paper({
   //キャンバスのサイズ
   width: 700,
   height: 700,
-  model: graph,
+  model: graph3,
   gridSize: 1,
 
   clickThreshold: 1
@@ -62,7 +69,7 @@ var paper4 = new joint.dia.Paper({
   //キャンバスのサイズ
   width: 700,
   height: 700,
-  model: graph2,
+  model: graph4,
   gridSize: 1,
 
   clickThreshold: 1
@@ -109,7 +116,7 @@ cells[0] = new joint.shapes.devs.Model({
       height: '80'
     },
     '.label': {
-      text: 'カード１',
+      text: 'カード１'
     },
     '.element-node' : {
       'data-color': 'gray'
@@ -133,7 +140,6 @@ cells[0] = new joint.shapes.devs.Model({
   },
   inPorts: ['center'],
 });
-console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
 cells[1] = cells[0].clone();
 cells[1].translate(170, 0);
@@ -280,7 +286,6 @@ function addLink(){
 graph.on('remove',function(cell,collection,opt){
   if(cell.isLink()){
     var number = links.indexOf(cell);
-    console.log(number + 'is deleted!');
     links.splice(number,1);
     cell_link_reason.splice(number,1);
     cell_link_source.splice(number,1);
@@ -354,6 +359,10 @@ graph.on('remove',function(cell,collection,opt){
      //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
      //graph内のセルを初期かする
      graph2.clear();
+     others_links.length=0;
+     others_link_source.length=0;
+     others_link_target.length=0;
+     others_link_reason.length=0;
      for(var i=0;i<8;i++){
      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
@@ -373,6 +382,9 @@ graph.on('remove',function(cell,collection,opt){
    */
    if(snapshot.val().cell_link_source != null){
    for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
+     others_link_source[i]=snapshot.val().cell_link_source[i];
+     others_link_target[i]=snapshot.val().cell_link_target[i];
+     others_link_reason[i]=snapshot.val().cell_link_reason[i];
    others_links[i] = new joint.dia.Link({
         source: { id: others_cells[snapshot.val().cell_link_source[i]].id },
         target: { id: others_cells[snapshot.val().cell_link_target[i]].id },
@@ -388,7 +400,7 @@ graph.on('remove',function(cell,collection,opt){
         }
     },
    labels: [
-        { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#f6f6f6', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+        { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#7c68fc', 'stroke-width': 20, rx: 5, ry: 5 } }}]
     });}
   graph2.addCells(others_links);}
   });
@@ -410,9 +422,9 @@ function addCell(){
   graph.addCells(cells);
 }
 //ボタンをクリックするとイベントが発生するようにする
-$('#addLink').on('click', addLink);
-$('#addCell').on('click', addCell);
-$('#colorChange').on('click', colorChange);
+//$('#addLink').on('click', addLink);
+//$('#addCell').on('click', addCell);
+//$('#colorChange').on('click', colorChange);
 
 function colorChange(){
   var cardnumber = ChangeColor.cardnumber.value;
@@ -540,7 +552,7 @@ var network = new vis.Network(container, data, options);
   for (i = 0; i < menuItems.length; i++) {
     menuItems[i].addEventListener('click', function(e) {
       e.preventDefault();
-
+      console.log(this);
       var i;
 //全てのmenuItemsのclassからactiveをとる
       for (i = 0; i < menuItems.length; i++) {
@@ -554,6 +566,58 @@ var network = new vis.Network(container, data, options);
       }
       document.getElementById(this.dataset.id).className = 'content active';
 
+      if(this.dataset.id == "Comparing"){
+        graph3.clear();
+        graph4.clear();
+        for(i = 0 ; i < cells.length ; i++){
+          cells2[i]=cells[i].clone();
+        }
+        for(i = 0 ; i < links.length ; i++){
+          links2[i] = new joint.dia.Link({
+               source: { id: cells2[cell_link_source[i]].id },
+               target: { id: cells2[cell_link_target[i]].id },
+           connector: { name: 'rounded' },
+           attrs: {
+               '.connection': {
+                   stroke: '#333333',
+                   'stroke-width': 4
+               },
+               '.marker-target': {
+                   fill: '#333333',
+                   d: 'M 10 0 L 0 5 L 10 10 z'
+               }
+           },
+          labels: [
+               { position: 0.5, attrs: { text: { text: cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+           });
+        }
+        graph3.addCells(cells2);
+        graph3.addCells(links2);
+        for(i = 0 ; i < others_cells.length ; i++){
+          cells3[i]=others_cells[i].clone();
+        }
+        for(i = 0 ; i < others_links.length ; i++){
+          links3[i] = new joint.dia.Link({
+               source: { id: cells3[others_link_source[i]].id },
+               target: { id: cells3[others_link_target[i]].id },
+           connector: { name: 'rounded' },
+           attrs: {
+               '.connection': {
+                   stroke: '#333333',
+                   'stroke-width': 4
+               },
+               '.marker-target': {
+                   fill: '#333333',
+                   d: 'M 10 0 L 0 5 L 10 10 z'
+               }
+           },
+          labels: [
+               { position: 0.5, attrs: { text: { text: others_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+           });
+        }
+        graph4.addCells(cells3);
+        graph4.addCells(links3);
+      }
     });
   }
 
