@@ -5,7 +5,6 @@ var canvas4 = $('#canvas4');
 var filter = $('#filter');
 var addColor = $('#addColor');
 var cells = [];
-var copy_cells=[];
 var others_cells = [];
 var links = [];
 var cell_link_source = [];
@@ -31,7 +30,6 @@ var paper = new joint.dia.Paper({
   height: 700,
   model: graph,
   gridSize: 1,
-
   clickThreshold: 1
 });
 
@@ -85,8 +83,8 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" y="0.8em" font-size="36" text-anchor="end" font-family="Arial, helvetica, sans-serif">'+
-            '</text>'+'<text><tspan class="attribute"></tspan></text>'+
+            '<text><tspan class="label"></tspan></text>'+'<text><tspan class="attribute"></tspan></text>'+
+            '<text><tspan class="label"></tspan></text>'+'<text><tspan class="attribute2"></tspan></text>'+
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
@@ -110,15 +108,26 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.label': {
       text: 'カード１',
+      'dx': 60
     },
     '.element-node' : {
       'data-color': 'gray'
     },
     '.attribute' : {
+      text: 'aa',
       'font-size':15,
       'human' : '',
       'state' : '',
       'updown' : ''
+    },
+    '.attribute2' : {
+      text: 'bb',
+      'font-size':15,
+      //card_hightの方が良い
+      'y':80,
+      'human':'',
+      'state':'',
+      'updown':''
     }
   },
   inPorts: ['center'],
@@ -148,11 +157,6 @@ cells[i].attr('.label/text', 'カード'+i);
 
 graph.addCells(cells);
 
-for(var i = 0;i<cells.length;i++){
-copy_cells[i] = cells[i].clone();
-copy_cells[i].attr('.label/dx' , 300);
-}
-graph3.addCells(copy_cells);
 //他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
@@ -173,7 +177,14 @@ others_cells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : ''
-    }
+    },
+    '.attribute2' : {
+        text: 'bb',
+        'font-size':15,
+        'human':'',
+        'state':'',
+        'updown':''
+      }
   },
   inPorts: ['center']
 });
@@ -189,10 +200,12 @@ others_cells[7] = others_cells[0].clone();
 for(var i=0;i<8;i++){
 others_cells[i].attr('.label/text', 'カード'+i);
 }
+
+
 }
 
 
-
+//上の属性変更
 function CardStateChange(){
   var card_attribute_number = CardState.source.value;
   var card_attribute_human = CardState.human.value;
@@ -202,8 +215,17 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
   cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
-  console.log("Hello,World");
-
+}
+//下の属性変更
+function CardStateChange2(){
+  var card_attribute_number = CardState2.source.value;
+  var card_attribute_human = CardState2.human.value;
+  var card_attribute_state = CardState2.state.value;
+  var card_attribute_UpDown = CardState2.UpDown.value;
+  cells[card_attribute_number].attr('.attribute2/human',card_attribute_human);
+  cells[card_attribute_number].attr('.attribute2/state',card_attribute_state);
+  cells[card_attribute_number].attr('.attribute2/updown',card_attribute_UpDown);
+  cells[card_attribute_number].attr('.attribute2/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
 }
 
 //新規で矢印作成
@@ -416,6 +438,32 @@ var svgZoom = svgPanZoom('#canvas2 svg', {
   maxZoom:1.5,
   zoomScaleSensitivity: 0.05
 });
+var svgZoom = svgPanZoom('#canvas3 svg', {
+  center: false,
+  zoomEnabled: true,
+  panEnabled: true,
+  controlIconsEnabled: true,
+  fit: false,
+  minZoom: 0.75,
+  maxZoom:1.5,
+  zoomScaleSensitivity: 0.05
+});
+$(filter).on('change', function(e){
+  canvas3.attr('data-filter', e.target.value);
+});
+var svgZoom = svgPanZoom('#canvas4 svg', {
+  center: false,
+  zoomEnabled: true,
+  panEnabled: true,
+  controlIconsEnabled: true,
+  fit: false,
+  minZoom: 0.75,
+  maxZoom:1.5,
+  zoomScaleSensitivity: 0.05
+});
+$(filter).on('change', function(e){
+  canvas4.attr('data-filter', e.target.value);
+});
 //どのカードを触っているか表示
 (function(){
   paper.on('cell:pointerdown', function(){
@@ -490,7 +538,6 @@ var network = new vis.Network(container, data, options);
       for (i = 0; i < contents.length; i++) {
         contents[i].className = 'content';
       }
-
       document.getElementById(this.dataset.id).className = 'content active';
 
     });

@@ -81,6 +81,33 @@
       <input type="button" value="状態変化" onclick="CardStateChange()">
       </form>
 
+      <form name="CardState2">カード
+        <select name="source">
+          <option value="0">0</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="6">6</option>
+          <option value="7">7</option>
+        </select>の状態
+        <select name="human">
+          <option value="武士">武士</option>
+          <option value="商人">商人</option>
+          <option value="農民">農民</option>
+        </select>の
+        <select name="state">
+          <option value="地位">地位</option>
+          <option value="力">力</option>
+          <option value="経済力">経済力</option>
+        </select>が
+        <select name="UpDown">
+          <option value="上がった">上がった</option>
+          <option value="下がった">下がった</option>
+        </select>
+      <input type="button" value="状態変化" onclick="CardStateChange2()">
+      </form>
 
 
       <form name="input_sample">カード
@@ -185,6 +212,7 @@
 
 
     <div class="content" id="Comparing">
+      <p id="aaa"></p>
       自分の画面
 <div id="canvas3" data-filter="all"></div>
 相手の画面
