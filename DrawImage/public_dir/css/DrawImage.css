@@ -325,14 +325,7 @@ button {
 .inPorts {
   width: 10px;
   height: 10px;
-  transform: translate(-75px, -50px);
+  transform: translate(70px, 40px);
   fill: #000;
-  opacity: 1;
-}
-.outPorts{
-  width: 10px;
-  height: 10px;
-  transform: translate(75px, 50px);
-  fill: #000;
-  opacity: 1;
+  opacity: 0;
 }

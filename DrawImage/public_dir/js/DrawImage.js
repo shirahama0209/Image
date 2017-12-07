@@ -30,7 +30,7 @@ var paper = new joint.dia.Paper({
   height: 700,
   model: graph,
   gridSize: 1,
-  clickThreshold: 1
+  clickThreshold: 1,
 });
 
 //他者の図形を表示するためのキャンバス
@@ -131,18 +131,6 @@ cells[0] = new joint.shapes.devs.Model({
     }
   },
   inPorts: ['center'],
-  outPorts:['out'],
-  ports:{
-    groups:{
-    'out':{
-      attrs:{
-        '.port-body':{
-          fill:'#E74C3C'
-        }
-      }
-    }
-  }
-  }
 });
 console.log(cells[0].attr('.element-node/data-color'));
 //他のカードの複製
@@ -252,9 +240,9 @@ function addLink(){
   矢印を引くための条件分岐
   */
   if(source1 != target1){
-  if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute/human') != ''){
-    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute/human')) &&  (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute/state')) &&
-  (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute/updown'))){
+  if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute2/human') != ''){
+    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute2/human')) &&  (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute2/state')) &&
+  (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute2/updown'))){
  links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
       target: { id: cells[target1].id },
