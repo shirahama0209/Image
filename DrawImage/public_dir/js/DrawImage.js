@@ -421,7 +421,10 @@ graph.on('remove',function(cell,collection,opt){
     for(i=0;i<cells2.length;i++){
       if(cells2[i].attr('.attribute/human')==cells3[i].attr('.attribute/human')&&
     cells2[i].attr('.attribute/state')==cells3[i].attr('.attribute/state')&&
-  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')){
+  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')&&
+  cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
+  cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
+  cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
         cells2[i].attr('.body/opacity',0.2);
         cells3[i].attr('.body/opacity',0.2);
       }
