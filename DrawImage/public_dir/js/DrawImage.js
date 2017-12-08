@@ -409,8 +409,24 @@ graph.on('remove',function(cell,collection,opt){
 
   $('#get').on('click', get);
   $('#send').on('click', send);
-
-
+  function pickup2(){
+    var cardnumber = pickup.cardnumber.value;
+    for(i=0;i<cells2.length;i++){
+      if(i!=cardnumber){
+        cells2[i].attr('.body/opacity',0.2);
+      }
+    }
+  }
+  function differences(){
+    for(i=0;i<cells2.length;i++){
+      if(cells2[i].attr('.attribute/human')==cells3[i].attr('.attribute/human')&&
+    cells2[i].attr('.attribute/state')==cells3[i].attr('.attribute/state')&&
+  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')){
+        cells2[i].attr('.body/opacity',0.2);
+        cells3[i].attr('.body/opacity',0.2);
+      }
+    }
+  }
 
 function addCell(){
   var color = addColor.val();
@@ -425,18 +441,18 @@ function addCell(){
 //$('#addLink').on('click', addLink);
 //$('#addCell').on('click', addCell);
 //$('#colorChange').on('click', colorChange);
-
+$('#differences').on('click',differences);
 function colorChange(){
   var cardnumber = ChangeColor.cardnumber.value;
   var colors = ChangeColor.color.value;
   cells[cardnumber].attr('.element-node/data-color',colors);
 }
 
-
+/*
 $(filter).on('change', function(e){
   canvas.attr('data-filter', e.target.value);
-});
-/*
+});*/
+
 //canvasの図形を拡大表示、縮小表示する
 var svgZoom = svgPanZoom('#canvas svg', {
   center: false,
@@ -452,6 +468,7 @@ $(filter).on('change', function(e){
   canvas2.attr('data-filter', e.target.value);
 });
 //canvasの図形を拡大表示、縮小表示する
+/*
 var svgZoom = svgPanZoom('#canvas2 svg', {
   center: false,
   zoomEnabled: true,
@@ -461,7 +478,8 @@ var svgZoom = svgPanZoom('#canvas2 svg', {
   minZoom: 0.75,
   maxZoom:1.5,
   zoomScaleSensitivity: 0.05
-});
+});*/
+/*
 var svgZoom = svgPanZoom('#canvas3 svg', {
   center: false,
   zoomEnabled: true,
@@ -506,6 +524,7 @@ $(filter).on('change', function(e){
                        }, 1000);
   });
 });
+
 
 // create an array with nodes
 var nodes = new vis.DataSet([
