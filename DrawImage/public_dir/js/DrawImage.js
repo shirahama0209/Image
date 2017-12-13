@@ -30,9 +30,12 @@ var cell_attribute_updown = [];
 var cell_attribute_human2 = [];
 var cell_attribute_state2 = [];
 var cell_attribute_updown2 = [];
+<<<<<<< HEAD
 
 var cardWidth=150;
 var cardHeight=100;
+=======
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -95,7 +98,11 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
+<<<<<<< HEAD
             '<text class="label" font-size="10"></text>'+'<text><tspan class="attribute"></tspan></text>'+
+=======
+            '<text class="label"></text>'+'<text><tspan class="attribute"></tspan></text>'+
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
             '<text><tspan class="attribute2"></tspan></text>'+
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
@@ -127,14 +134,22 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute' : {
       text: '',
+<<<<<<< HEAD
       'font-size':10,
+=======
+      'font-size':15,
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
       'human' : '',
       'state' : '',
       'updown' : ''
     },
     '.attribute2' : {
       text: '',
+<<<<<<< HEAD
       'font-size':10,
+=======
+      'font-size':15,
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
       //card_hightの方が良い
       'y':80,
       'human':'',
@@ -184,6 +199,7 @@ function splitByLength(str, length) {
     return resultArrNew;
 }
 
+<<<<<<< HEAD
 
 var cellText0='0, 794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
 var cellText1='1, 11生気になると、貴族が摂政や関白となって政治の実権を握るようになった貴族たちはこの地位に就くため娘を天皇に嫁がせ外せき関係を結んだ';
@@ -206,6 +222,8 @@ cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 
 
 
+=======
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
 graph.addCells(cells);
 
 //他人ようカードの生成
@@ -465,7 +483,14 @@ graph.on('remove',function(cell,collection,opt){
     for(i=0;i<cells2.length;i++){
       if(cells2[i].attr('.attribute/human')==cells3[i].attr('.attribute/human')&&
     cells2[i].attr('.attribute/state')==cells3[i].attr('.attribute/state')&&
+<<<<<<< HEAD
   cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')){
+=======
+  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')&&
+  cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
+  cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
+  cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
+>>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
         cells2[i].attr('.body/opacity',0.2);
         cells3[i].attr('.body/opacity',0.2);
       }
