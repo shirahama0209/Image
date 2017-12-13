@@ -95,8 +95,12 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" font-size="10"></text>'+'<text><tspan class="attribute"></tspan></text>'+
+            '<text class="label" font-size="10"></text>'+'<text><tspan class="attribute1"></tspan></text>'+
             '<text><tspan class="attribute2"></tspan></text>'+
+            '<text><tspan class="attribute3"></tspan></text>'+
+            '<text><tspan class="attribute4"></tspan></text>'+
+            '<text><tspan class="attribute5"></tspan></text>'+
+            '<text><tspan class="attribute6"></tspan></text>'+
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
         '</g>',
@@ -125,7 +129,7 @@ cells[0] = new joint.shapes.devs.Model({
     '.element-node' : {
       'data-color': 'gray'
     },
-    '.attribute' : {
+    '.attribute1' : {
       text: '',
       'font-size':10,
       'fill':'',
@@ -141,7 +145,45 @@ cells[0] = new joint.shapes.devs.Model({
       'human':'',
       'state':'',
       'updown':''
-    }
+    },
+    '.attribute3' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 10,
+    },
+    '.attribute4' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 10,
+      'y':80
+    },
+    '.attribute5' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 20,
+    },
+    '.attribute6' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 20,
+      'y':80,
+    },
   },
   inPorts: ['center'],
 });
@@ -255,18 +297,61 @@ others_cells[i].attr('.label/text', 'カード'+i);
 }
 
 
+
+function CardStateClear(){
+    var can = CardState.source.value;
+    for(i=0;i<=6;i++){
+      cells[can].attr('.attribute'+i+'/text','');
+      cells[can].attr('.attribute'+i+'/fill','');
+      cells[can].attr('.attribute'+i+'/human','');
+      cells[can].attr('.attribute'+i+'/state','');
+      cells[can].attr('.attribute'+i+'/updown','');
+    }
+}
+
+
 //上の属性変更
 function CardStateChange(){
   var card_attribute_number = CardState.source.value;
   var card_attribute_human = CardState.human.value;
   var card_attribute_state = CardState.state.value;
   var card_attribute_UpDown = CardState.UpDown.value;
-  cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
-  cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
-  cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
-  for(i = 0; i < cells.length ; i++){
+  var attflag=0;
+  if(
+    (cells[card_attribute_number].attr('.attribute1/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute1/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute1/updown')==card_attribute_UpDown)
+    ||
+    (cells[card_attribute_number].attr('.attribute3/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute3/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute3/updown')==card_attribute_UpDown)
+    ||
+    (cells[card_attribute_number].attr('.attribute5/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute5/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute5/updown')==card_attribute_UpDown)
+  ){
+    alert('同じ属性がすでに設定されています');
+  }else{
+  if(cells[card_attribute_number].attr('.attribute1/human')==''){
+  cells[card_attribute_number].attr('.attribute1/human',card_attribute_human);
+  cells[card_attribute_number].attr('.attribute1/state',card_attribute_state);
+  cells[card_attribute_number].attr('.attribute1/updown',card_attribute_UpDown);
+  console.log(cells[card_attribute_number].attr('.attribute1/updown'));
+attflag = 1;}
+  else if (cells[card_attribute_number].attr('.attribute3/human')=='') {
+    cells[card_attribute_number].attr('.attribute3/human',card_attribute_human);
+    cells[card_attribute_number].attr('.attribute3/state',card_attribute_state);
+    cells[card_attribute_number].attr('.attribute3/updown',card_attribute_UpDown);attflag = 3;
+  }
+  else{
+    cells[card_attribute_number].attr('.attribute5/human',card_attribute_human);
+    cells[card_attribute_number].attr('.attribute5/state',card_attribute_state);
+    cells[card_attribute_number].attr('.attribute5/updown',card_attribute_UpDown);
+    attflag = 5;
+  }
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/updown'));
   var flag = '0';
-  switch (cells[i].attr('.attribute/human')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/human')) {
     case '武士':  flag = '1';
     break;
     case '商人':  flag = '2';
@@ -275,7 +360,7 @@ function CardStateChange(){
     break;
     default:  flag = '0';
   }
-  switch (cells[i].attr('.attribute/state')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/state')) {
     case '地位': flag += '1';
     break;
     case '力':   flag += '2';
@@ -284,7 +369,7 @@ function CardStateChange(){
     break;
     default: flag = '0';
   }
-  switch (cells[i].attr('.attribute/updown')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/updown')) {
     case '上がった': flag += '1';
     break;
     case '下がった': flag += '2';
@@ -293,42 +378,75 @@ function CardStateChange(){
   }
   console.log(flag);
   switch (flag) {
-    case '111':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '121':cells[i].attr('.attribute/fill','blue');cells[i].attr('.attribute/text','■');break;
-    case '131':cells[i].attr('.attribute/fill','green');cells[i].attr('.attribute/text','■');break;
-    case '112':cells[i].attr('.attribute/fill','gray');cells[i].attr('.attribute/text','■');break;
-    case '122':cells[i].attr('.attribute/fill','pink');cells[i].attr('.attribute/text','■');break;
-    case '132':cells[i].attr('.attribute/fill','skyblue');cells[i].attr('.attribute/text','■');break;
-    case '211':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '221':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '231':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '212':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '222':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '232':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '311':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '321':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '331':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '312':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '322':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
-    case '332':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','blue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','green');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','gray');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','pink');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','skyblue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
     default:
 
   }
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/fill'));
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/text'));
+}
 }
   //cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
-}
+
 //下の属性変更
 function CardStateChange2(){
   var card_attribute_number = CardState2.source.value;
   var card_attribute_human = CardState2.human.value;
   var card_attribute_state = CardState2.state.value;
   var card_attribute_UpDown = CardState2.UpDown.value;
+  var attflag=0;
+  if(
+    (cells[card_attribute_number].attr('.attribute2/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute2/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute2/updown')==card_attribute_UpDown)
+    ||
+    (cells[card_attribute_number].attr('.attribute4/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute4/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute4/updown')==card_attribute_UpDown)
+    ||
+    (cells[card_attribute_number].attr('.attribute6/human')==card_attribute_human &&
+    cells[card_attribute_number].attr('.attribute6/state')==card_attribute_state &&
+    cells[card_attribute_number].attr('.attribute6/updown')==card_attribute_UpDown)
+  ){
+    alert('同じ属性がすでに設定されています');
+  }else{
+  if(cells[card_attribute_number].attr('.attribute2/human')==''){
   cells[card_attribute_number].attr('.attribute2/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute2/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute2/updown',card_attribute_UpDown);
-  for(i = 0; i < cells.length ; i++){
+  console.log(cells[card_attribute_number].attr('.attribute1/updown'));
+attflag = 2;}
+  else if (cells[card_attribute_number].attr('.attribute4/human')=='') {
+    cells[card_attribute_number].attr('.attribute4/human',card_attribute_human);
+    cells[card_attribute_number].attr('.attribute4/state',card_attribute_state);
+    cells[card_attribute_number].attr('.attribute4/updown',card_attribute_UpDown);attflag = 4;
+  }
+  else{
+    cells[card_attribute_number].attr('.attribute6/human',card_attribute_human);
+    cells[card_attribute_number].attr('.attribute6/state',card_attribute_state);
+    cells[card_attribute_number].attr('.attribute6/updown',card_attribute_UpDown);
+    attflag = 6;
+  }
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/updown'));
   var flag = '0';
-  switch (cells[i].attr('.attribute2/human')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/human')) {
     case '武士':  flag = '1';
     break;
     case '商人':  flag = '2';
@@ -337,7 +455,7 @@ function CardStateChange2(){
     break;
     default:  flag = '0';
   }
-  switch (cells[i].attr('.attribute2/state')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/state')) {
     case '地位': flag += '1';
     break;
     case '力':   flag += '2';
@@ -346,7 +464,7 @@ function CardStateChange2(){
     break;
     default: flag = '0';
   }
-  switch (cells[i].attr('.attribute2/updown')) {
+  switch (cells[card_attribute_number].attr('.attribute'+attflag+'/updown')) {
     case '上がった': flag += '1';
     break;
     case '下がった': flag += '2';
@@ -355,29 +473,30 @@ function CardStateChange2(){
   }
   console.log(flag);
   switch (flag) {
-    case '111':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '121':cells[i].attr('.attribute2/fill','blue');cells[i].attr('.attribute2/text','■');break;
-    case '131':cells[i].attr('.attribute2/fill','green');cells[i].attr('.attribute2/text','■');break;
-    case '112':cells[i].attr('.attribute2/fill','gray');cells[i].attr('.attribute2/text','■');break;
-    case '122':cells[i].attr('.attribute2/fill','pink');cells[i].attr('.attribute2/text','■');break;
-    case '132':cells[i].attr('.attribute2/fill','skyblue');cells[i].attr('.attribute2/text','■');break;
-    case '211':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '221':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '231':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '212':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '222':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '232':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '311':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '321':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '331':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '312':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '322':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
-    case '332':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','blue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','green');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','gray');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','pink');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','skyblue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
     default:
 
   }
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/fill'));
+  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/text'));
 }
-  //cells[card_attribute_number].attr('.attribute2/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
 }
 
 //新規で矢印作成
@@ -392,9 +511,34 @@ function addLink(){
   矢印を引くための条件分岐
   */
   if(source1 != target1){
-  if(cells[source1].attr('.attribute/human') != '' && cells[target1].attr('.attribute2/human') != ''){
-    if((cells[source1].attr('.attribute/human') == cells[target1].attr('.attribute2/human')) &&  (cells[source1].attr('.attribute/state') == cells[target1].attr('.attribute2/state')) &&
-  (cells[source1].attr('.attribute/updown') == cells[target1].attr('.attribute2/updown'))){
+  if(cells[source1].attr('.attribute1/human') != '' && cells[target1].attr('.attribute2/human') != ''){
+
+  if(
+
+      ((cells[source1].attr('.attribute1/human')  == cells[target1].attr('.attribute2/human'))
+
+    &&  (cells[source1].attr('.attribute1/state')  == cells[target1].attr('.attribute2/state'))
+
+    &&  (cells[source1].attr('.attribute1/updown') == cells[target1].attr('.attribute2/updown')))
+
+    ||
+
+      ((cells[source1].attr('.attribute1/human')  == cells[target1].attr('.attribute4/human'))
+
+    &&  (cells[source1].attr('.attribute1/state')  == cells[target1].attr('.attribute4/state'))
+
+    &&  (cells[source1].attr('.attribute1/updown') == cells[target1].attr('.attribute4/updown')))
+
+    ||
+
+        ((cells[source1].attr('.attribute1/human')  == cells[target1].attr('.attribute6/human'))
+
+    &&  (cells[source1].attr('.attribute1/state')  == cells[target1].attr('.attribute6/state'))
+
+    &&  (cells[source1].attr('.attribute1/updown') == cells[target1].attr('.attribute6/updown')))
+
+  )
+    {
  links[link_length] = new joint.dia.Link({
       source: { id: cells[source1].id },
       target: { id: cells[target1].id },
@@ -416,6 +560,98 @@ function addLink(){
   cell_link_target[link_length] = target1;
   cell_link_reason[link_length] = reason;
   graph.addCells(links);
+}else if (cells[source1].attr('.attribute3/human') != '') {
+  if(
+    ((cells[source1].attr('.attribute3/human')  == cells[target1].attr('.attribute2/human'))
+
+  &&  (cells[source1].attr('.attribute3/state')  == cells[target1].attr('.attribute2/state'))
+
+  &&  (cells[source1].attr('.attribute3/updown') == cells[target1].attr('.attribute2/updown')))
+
+  ||
+
+    ((cells[source1].attr('.attribute3/human')  == cells[target1].attr('.attribute4/human'))
+
+  &&  (cells[source1].attr('.attribute3/state')  == cells[target1].attr('.attribute4/state'))
+
+  &&  (cells[source1].attr('.attribute3/updown') == cells[target1].attr('.attribute4/updown')))
+
+  ||
+
+      ((cells[source1].attr('.attribute3/human')  == cells[target1].attr('.attribute6/human'))
+
+  &&  (cells[source1].attr('.attribute3/state')  == cells[target1].attr('.attribute6/state'))
+
+  &&  (cells[source1].attr('.attribute3/updown') == cells[target1].attr('.attribute6/updown')))
+){
+  links[link_length] = new joint.dia.Link({
+     source: { id: cells[source1].id },
+     target: { id: cells[target1].id },
+ connector: { name: 'rounded' },
+ attrs: {
+     '.connection': {
+         stroke: '#333333',
+         'stroke-width': 4
+     },
+     '.marker-target': {
+         fill: '#333333',
+         d: 'M 10 0 L 0 5 L 10 10 z'
+     }
+ },
+labels: [
+     { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+ });
+ cell_link_source[link_length] = source1;
+ cell_link_target[link_length] = target1;
+ cell_link_reason[link_length] = reason;
+ graph.addCells(links);}
+
+}else if (cells[source1].attr('.attribute5/human') != '') {
+  if(
+    ((cells[source1].attr('.attribute5/human')  == cells[target1].attr('.attribute2/human'))
+
+  &&  (cells[source1].attr('.attribute5/state')  == cells[target1].attr('.attribute2/state'))
+
+  &&  (cells[source1].attr('.attribute5/updown') == cells[target1].attr('.attribute2/updown')))
+
+  ||
+
+    ((cells[source1].attr('.attribute5/human')  == cells[target1].attr('.attribute4/human'))
+
+  &&  (cells[source1].attr('.attribute5/state')  == cells[target1].attr('.attribute4/state'))
+
+  &&  (cells[source1].attr('.attribute5/updown') == cells[target1].attr('.attribute4/updown')))
+
+  ||
+
+      ((cells[source1].attr('.attribute5/human')  == cells[target1].attr('.attribute6/human'))
+
+  &&  (cells[source1].attr('.attribute5/state')  == cells[target1].attr('.attribute6/state'))
+
+  &&  (cells[source1].attr('.attribute5/updown') == cells[target1].attr('.attribute6/updown')))
+){
+  links[link_length] = new joint.dia.Link({
+       source: { id: cells[source1].id },
+       target: { id: cells[target1].id },
+   connector: { name: 'rounded' },
+   attrs: {
+       '.connection': {
+           stroke: '#333333',
+           'stroke-width': 4
+       },
+       '.marker-target': {
+           fill: '#333333',
+           d: 'M 10 0 L 0 5 L 10 10 z'
+       }
+   },
+  labels: [
+       { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+   });
+   cell_link_source[link_length] = source1;
+   cell_link_target[link_length] = target1;
+   cell_link_reason[link_length] = reason;
+   graph.addCells(links);
+}
 }else{
   alert("カードの属性が一致していません");
 }
@@ -454,9 +690,9 @@ graph.on('remove',function(cell,collection,opt){
        cells_position_x.push(cells[i].get('position').x);
        cells_position_y.push(cells[i].get('position').y);
        cell_color.push(cells[i].attr('.element-node/data-color'));
-       cell_attribute_human.push(cells[i].attr('.attribute/human'));
-       cell_attribute_state.push(cells[i].attr('.attribute/state'));
-       cell_attribute_updown.push(cells[i].attr('.attribute/updown'));
+       cell_attribute_human.push(cells[i].attr('.attribute1/human'));
+       cell_attribute_state.push(cells[i].attr('.attribute1/state'));
+       cell_attribute_updown.push(cells[i].attr('.attribute1/updown'));
        cell_attribute_human2.push(cells[i].attr('.attribute2/human'));
        cell_attribute_state2.push(cells[i].attr('.attribute2/state'));
        cell_attribute_updown2.push(cells[i].attr('.attribute2/updown'));
