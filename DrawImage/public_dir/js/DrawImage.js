@@ -30,12 +30,9 @@ var cell_attribute_updown = [];
 var cell_attribute_human2 = [];
 var cell_attribute_state2 = [];
 var cell_attribute_updown2 = [];
-<<<<<<< HEAD
 
 var cardWidth=150;
 var cardHeight=100;
-=======
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
@@ -98,11 +95,7 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-<<<<<<< HEAD
             '<text class="label" font-size="10"></text>'+'<text><tspan class="attribute"></tspan></text>'+
-=======
-            '<text class="label"></text>'+'<text><tspan class="attribute"></tspan></text>'+
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
             '<text><tspan class="attribute2"></tspan></text>'+
             '<g class="inPorts"/>' +
           '<g class="outPorts"/>' +
@@ -134,22 +127,15 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute' : {
       text: '',
-<<<<<<< HEAD
       'font-size':10,
-=======
-      'font-size':15,
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
+      'fill':'',
       'human' : '',
       'state' : '',
       'updown' : ''
     },
     '.attribute2' : {
       text: '',
-<<<<<<< HEAD
       'font-size':10,
-=======
-      'font-size':15,
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
       //card_hightの方が良い
       'y':80,
       'human':'',
@@ -199,8 +185,6 @@ function splitByLength(str, length) {
     return resultArrNew;
 }
 
-<<<<<<< HEAD
-
 var cellText0='0, 794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
 var cellText1='1, 11生気になると、貴族が摂政や関白となって政治の実権を握るようになった貴族たちはこの地位に就くため娘を天皇に嫁がせ外せき関係を結んだ';
 var cellText2='2, 10世紀になると貴族たちが持つ荘園を守るため「武士」と呼ばれる人々が現れた。彼らは次第に棟梁と呼ばれる指導者の下で武士団が形成されるようになった';
@@ -221,9 +205,6 @@ cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 
 
 
-
-=======
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
 graph.addCells(cells);
 
 //他人ようカードの生成
@@ -283,7 +264,58 @@ function CardStateChange(){
   cells[card_attribute_number].attr('.attribute/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute/updown',card_attribute_UpDown);
-  cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
+  for(i = 0; i < cells.length ; i++){
+  var flag = '0';
+  switch (cells[i].attr('.attribute/human')) {
+    case '武士':  flag = '1';
+    break;
+    case '商人':  flag = '2';
+    break;
+    case '農民':  flag = '3';
+    break;
+    default:  flag = '0';
+  }
+  switch (cells[i].attr('.attribute/state')) {
+    case '地位': flag += '1';
+    break;
+    case '力':   flag += '2';
+    break;
+    case '経済力': flag += '3';
+    break;
+    default: flag = '0';
+  }
+  switch (cells[i].attr('.attribute/updown')) {
+    case '上がった': flag += '1';
+    break;
+    case '下がった': flag += '2';
+    break;
+    default: flag = '0';
+  }
+  console.log(flag);
+  switch (flag) {
+    case '111':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '121':cells[i].attr('.attribute/fill','blue');cells[i].attr('.attribute/text','■');break;
+    case '131':cells[i].attr('.attribute/fill','green');cells[i].attr('.attribute/text','■');break;
+    case '112':cells[i].attr('.attribute/fill','gray');cells[i].attr('.attribute/text','■');break;
+    case '122':cells[i].attr('.attribute/fill','pink');cells[i].attr('.attribute/text','■');break;
+    case '132':cells[i].attr('.attribute/fill','skyblue');cells[i].attr('.attribute/text','■');break;
+    case '211':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '221':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '231':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '212':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '222':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '232':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '311':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '321':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '331':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '312':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '322':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    case '332':cells[i].attr('.attribute/fill','red');cells[i].attr('.attribute/text','■');break;
+    default:
+
+  }
+}
+  //cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
 }
 //下の属性変更
 function CardStateChange2(){
@@ -294,7 +326,58 @@ function CardStateChange2(){
   cells[card_attribute_number].attr('.attribute2/human',card_attribute_human);
   cells[card_attribute_number].attr('.attribute2/state',card_attribute_state);
   cells[card_attribute_number].attr('.attribute2/updown',card_attribute_UpDown);
-  cells[card_attribute_number].attr('.attribute2/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
+  for(i = 0; i < cells.length ; i++){
+  var flag = '0';
+  switch (cells[i].attr('.attribute2/human')) {
+    case '武士':  flag = '1';
+    break;
+    case '商人':  flag = '2';
+    break;
+    case '農民':  flag = '3';
+    break;
+    default:  flag = '0';
+  }
+  switch (cells[i].attr('.attribute2/state')) {
+    case '地位': flag += '1';
+    break;
+    case '力':   flag += '2';
+    break;
+    case '経済力': flag += '3';
+    break;
+    default: flag = '0';
+  }
+  switch (cells[i].attr('.attribute2/updown')) {
+    case '上がった': flag += '1';
+    break;
+    case '下がった': flag += '2';
+    break;
+    default: flag = '0';
+  }
+  console.log(flag);
+  switch (flag) {
+    case '111':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '121':cells[i].attr('.attribute2/fill','blue');cells[i].attr('.attribute2/text','■');break;
+    case '131':cells[i].attr('.attribute2/fill','green');cells[i].attr('.attribute2/text','■');break;
+    case '112':cells[i].attr('.attribute2/fill','gray');cells[i].attr('.attribute2/text','■');break;
+    case '122':cells[i].attr('.attribute2/fill','pink');cells[i].attr('.attribute2/text','■');break;
+    case '132':cells[i].attr('.attribute2/fill','skyblue');cells[i].attr('.attribute2/text','■');break;
+    case '211':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '221':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '231':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '212':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '222':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '232':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '311':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '321':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '331':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '312':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '322':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    case '332':cells[i].attr('.attribute2/fill','red');cells[i].attr('.attribute2/text','■');break;
+    default:
+
+  }
+}
+  //cells[card_attribute_number].attr('.attribute2/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
 }
 
 //新規で矢印作成
@@ -483,14 +566,10 @@ graph.on('remove',function(cell,collection,opt){
     for(i=0;i<cells2.length;i++){
       if(cells2[i].attr('.attribute/human')==cells3[i].attr('.attribute/human')&&
     cells2[i].attr('.attribute/state')==cells3[i].attr('.attribute/state')&&
-<<<<<<< HEAD
-  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')){
-=======
   cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')&&
   cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
   cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
   cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
->>>>>>> a6d53c045f6e98fe550d97945bf31bb7500659ff
         cells2[i].attr('.body/opacity',0.2);
         cells3[i].attr('.body/opacity',0.2);
       }
