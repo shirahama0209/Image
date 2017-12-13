@@ -89,7 +89,6 @@ markupはsvg記法
 オブジェクトを作成した際にclass内のtextを読み込む。
 ここでは、.attributeタグ内でtextタグを探している
 属性の見た目を変える場合は、カードの生成部分の、.attributeタグ内を編集すればよい（はず）
-その際、既存のものは変えないで下さい。(font-sizeは変更化)
 ------------------------------------------------------------------------------------
 */
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
@@ -252,33 +251,75 @@ graph.addCells(cells);
 //他人ようカードの生成
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
-  position: {x: 0, y: 0},
+  position: {x: 20, y: 20},
   attrs: {
     '.body': {
       width: cardWidth,
       height: cardHeight
     },
     '.label': {
-      text: 'カード１',
+      text: 'カード１'
     },
     '.element-node' : {
-      'data-color': "#FF00C0"
+      'data-color': 'gray'
     },
-    '.attribute' : {
-      'font-size' : 15,
+    '.attribute1' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
       'human' : '',
       'state' : '',
       'updown' : ''
     },
     '.attribute2' : {
-        'font-size':15,
-        'human':'',
-        'state':'',
-        'updown':'',
-        'y':80
-      }
+      text: '',
+      'font-size':10,
+      //card_hightの方が良い
+      'y':80,
+      'human':'',
+      'state':'',
+      'updown':''
+    },
+    '.attribute3' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 10,
+    },
+    '.attribute4' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 10,
+      'y':80
+    },
+    '.attribute5' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 20,
+    },
+    '.attribute6' : {
+      text: '',
+      'font-size':10,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 20,
+      'y':80,
+    },
   },
-  inPorts: ['center']
+  inPorts: ['center'],
 });
 //他のカードの複製
 others_cells[1] = others_cells[0].clone();
@@ -289,9 +330,14 @@ others_cells[5] = others_cells[0].clone();
 others_cells[6] = others_cells[0].clone();
 others_cells[7] = others_cells[0].clone();
 //各カードにラベルづけ
-for(var i=0;i<8;i++){
-others_cells[i].attr('.label/text', 'カード'+i);
-}
+others_cells[0].attr('.label/text', splitByLength(cellText0,cellTextLength));
+others_cells[1].attr('.label/text', splitByLength(cellText1,cellTextLength));
+others_cells[2].attr('.label/text', splitByLength(cellText2,cellTextLength));
+others_cells[3].attr('.label/text', splitByLength(cellText3,cellTextLength));
+others_cells[4].attr('.label/text', splitByLength(cellText4,cellTextLength));
+others_cells[5].attr('.label/text', splitByLength(cellText5,cellTextLength));
+others_cells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
+others_cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 
 
 }
@@ -494,8 +540,6 @@ attflag = 2;}
     default:
 
   }
-  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/fill'));
-  console.log(cells[card_attribute_number].attr('.attribute'+attflag+'/text'));
 }
 }
 
@@ -682,6 +726,18 @@ graph.on('remove',function(cell,collection,opt){
    var cells_position_x = [];
    var cells_position_y = [];
    var cell_color =[];
+   var cell_attribute_human3=[];
+   var cell_attribute_human4=[];
+   var cell_attribute_human5=[];
+   var cell_attribute_human6=[];
+   var cell_attribute_state3=[];
+   var cell_attribute_state4=[];
+   var cell_attribute_state5=[];
+   var cell_attribute_state6=[];
+   var cell_attribute_updown3=[];
+   var cell_attribute_updown4=[];
+   var cell_attribute_updown5=[];
+   var cell_attribute_updown6=[];
 
    if(user){
      //user is signed in.
@@ -696,6 +752,18 @@ graph.on('remove',function(cell,collection,opt){
        cell_attribute_human2.push(cells[i].attr('.attribute2/human'));
        cell_attribute_state2.push(cells[i].attr('.attribute2/state'));
        cell_attribute_updown2.push(cells[i].attr('.attribute2/updown'));
+       cell_attribute_human3.push(cells[i].attr('.attribute3/human'));
+       cell_attribute_state3.push(cells[i].attr('.attribute3/state'));
+       cell_attribute_updown3.push(cells[i].attr('.attribute3/updown'));
+       cell_attribute_human4.push(cells[i].attr('.attribute4/human'));
+       cell_attribute_state4.push(cells[i].attr('.attribute4/state'));
+       cell_attribute_updown4.push(cells[i].attr('.attribute4/updown'));
+       cell_attribute_human5.push(cells[i].attr('.attribute5/human'));
+       cell_attribute_state5.push(cells[i].attr('.attribute5/state'));
+       cell_attribute_updown5.push(cells[i].attr('.attribute5/updown'));
+       cell_attribute_human6.push(cells[i].attr('.attribute6/human'));
+       cell_attribute_state6.push(cells[i].attr('.attribute6/state'));
+       cell_attribute_updown6.push(cells[i].attr('.attribute6/updown'));
      }
 
      userRef.set(
@@ -713,7 +781,19 @@ graph.on('remove',function(cell,collection,opt){
          cell_attribute_updown : cell_attribute_updown,
          cell_attribute_human2 : cell_attribute_human2,
          cell_attribute_state2 : cell_attribute_state2,
-         cell_attribute_updown2 : cell_attribute_updown2
+         cell_attribute_updown2 : cell_attribute_updown2,
+         cell_attribute_human3 : cell_attribute_human3,
+         cell_attribute_state3 : cell_attribute_state3,
+         cell_attribute_updown3 : cell_attribute_updown3,
+         cell_attribute_human4 : cell_attribute_human4,
+         cell_attribute_state4 : cell_attribute_state4,
+         cell_attribute_updown4 : cell_attribute_updown4,
+         cell_attribute_human5 : cell_attribute_human5,
+         cell_attribute_state5 : cell_attribute_state5,
+         cell_attribute_updown5 : cell_attribute_updown5,
+         cell_attribute_human6 : cell_attribute_human6,
+         cell_attribute_state6 : cell_attribute_state6,
+         cell_attribute_updown6 : cell_attribute_updown6
        }
      );alert("送信しました");
    }else{
@@ -745,17 +825,95 @@ graph.on('remove',function(cell,collection,opt){
      others_link_target.length=0;
      others_link_reason.length=0;
      for(var i=0;i<8;i++){
+       var attflag = 0;
      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
-     others_cells[i].attr('.attribute/human',snapshot.val().cell_attribute_human[i]);
-     others_cells[i].attr('.attribute/state',snapshot.val().cell_attribute_state[i]);
-     others_cells[i].attr('.attribute/updown',snapshot.val().cell_attribute_updown[i]);
-     others_cells[i].attr('.attribute/text',others_cells[i].attr('.attribute/human')+" "+others_cells[i].attr('.attribute/state')+" "+others_cells[i].attr('.attribute/updown'));
+     others_cells[i].attr('.attribute1/human',snapshot.val().cell_attribute_human[i]);
+     others_cells[i].attr('.attribute1/state',snapshot.val().cell_attribute_state[i]);
+     others_cells[i].attr('.attribute1/updown',snapshot.val().cell_attribute_updown[i]);
      others_cells[i].attr('.attribute2/human',snapshot.val().cell_attribute_human2[i]);
      others_cells[i].attr('.attribute2/state',snapshot.val().cell_attribute_state2[i]);
      others_cells[i].attr('.attribute2/updown',snapshot.val().cell_attribute_updown2[i]);
-     others_cells[i].attr('.attribute2/text',others_cells[i].attr('.attribute2/human')+" "+others_cells[i].attr('.attribute2/state')+" "+others_cells[i].attr('.attribute2/updown'));
+     others_cells[i].attr('.attribute3/human',snapshot.val().cell_attribute_human3[i]);
+     others_cells[i].attr('.attribute3/state',snapshot.val().cell_attribute_state3[i]);
+     others_cells[i].attr('.attribute3/updown',snapshot.val().cell_attribute_updown3[i]);
+     others_cells[i].attr('.attribute4/human',snapshot.val().cell_attribute_human4[i]);
+     others_cells[i].attr('.attribute4/state',snapshot.val().cell_attribute_state4[i]);
+     others_cells[i].attr('.attribute4/updown',snapshot.val().cell_attribute_updown4[i]);
+     others_cells[i].attr('.attribute5/human',snapshot.val().cell_attribute_human5[i]);
+     others_cells[i].attr('.attribute5/state',snapshot.val().cell_attribute_state5[i]);
+     others_cells[i].attr('.attribute5/updown',snapshot.val().cell_attribute_updown5[i]);
+     others_cells[i].attr('.attribute6/human',snapshot.val().cell_attribute_human6[i]);
+     others_cells[i].attr('.attribute6/state',snapshot.val().cell_attribute_state6[i]);
+     others_cells[i].attr('.attribute6/updown',snapshot.val().cell_attribute_updown6[i]);
+     /*
+     if(others_cells[i].attr('.attribute1/human')==''){
+     others_cells[i].attr('.attribute1/human',card_attribute_human);
+     others_cells[i].attr('.attribute1/state',card_attribute_state);
+     others_cells[i].attr('.attribute1/updown',card_attribute_UpDown);
+   attflag = 1;}
+     else if (others_cells[i].attr('.attribute3/human')=='') {
+       others_cells[i].attr('.attribute3/human',card_attribute_human);
+       others_cells[i].attr('.attribute3/state',card_attribute_state);
+       others_cells[i].attr('.attribute3/updown',card_attribute_UpDown);attflag = 3;
+     }
+     else{
+       others_cells[i].attr('.attribute5/human',card_attribute_human);
+       others_cells[i].attr('.attribute5/state',card_attribute_state);
+       others_cells[i].attr('.attribute5/updown',card_attribute_UpDown);
+       attflag = 5;
+     }*/
+     for(j=0;j<=6;j++){
+     var flag = '0';
+     switch (others_cells[i].attr('.attribute'+j+'/human')) {
+       case '武士':  flag = '1';
+       break;
+       case '商人':  flag = '2';
+       break;
+       case '農民':  flag = '3';
+       break;
+       default:  flag = '0';
+     }
+     switch (others_cells[i].attr('.attribute'+j+'/state')) {
+       case '地位': flag += '1';
+       break;
+       case '力':   flag += '2';
+       break;
+       case '経済力': flag += '3';
+       break;
+       default: flag = '0';
+     }
+     switch (others_cells[i].attr('.attribute'+j+'/updown')) {
+       case '上がった': flag += '1';
+       break;
+       case '下がった': flag += '2';
+       break;
+       default: flag = '0';
+     }
+     switch (flag) {
+       case '111':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '121':others_cells[i].attr('.attribute'+j+'/fill','blue');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '131':others_cells[i].attr('.attribute'+j+'/fill','green');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '112':others_cells[i].attr('.attribute'+j+'/fill','gray');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '122':others_cells[i].attr('.attribute'+j+'/fill','pink');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '132':others_cells[i].attr('.attribute'+j+'/fill','skyblue');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '211':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '221':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '231':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '212':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '222':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '232':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '311':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '321':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '331':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '312':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '322':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '332':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       default:
+
+     }
    }
+ }
    graph2.addCells(others_cells);
 
    /*
@@ -800,12 +958,13 @@ graph.on('remove',function(cell,collection,opt){
   }
   function differences(){
     for(i=0;i<cells2.length;i++){
-      if(cells2[i].attr('.attribute/human')==cells3[i].attr('.attribute/human')&&
-    cells2[i].attr('.attribute/state')==cells3[i].attr('.attribute/state')&&
-  cells2[i].attr('.attribute/updown')==cells3[i].attr('.attribute/updown')&&
-  cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
-  cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
-  cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
+      if(
+        cells2[i].attr('.attribute1/human')==cells3[i].attr('.attribute1/human')&&
+        cells2[i].attr('.attribute1/state')==cells3[i].attr('.attribute1/state')&&
+        cells2[i].attr('.attribute1/updown')==cells3[i].attr('.attribute1/updown')&&
+        cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
+        cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
+        cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
         cells2[i].attr('.body/opacity',0.2);
         cells3[i].attr('.body/opacity',0.2);
       }
