@@ -345,7 +345,7 @@ others_cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 
 
 function CardStateClear(){
-    var can = CardState.source.value;
+    var can = cardstateclear.source.value;
     for(i=0;i<=6;i++){
       cells[can].attr('.attribute'+i+'/text','');
       cells[can].attr('.attribute'+i+'/fill','');
@@ -604,8 +604,7 @@ function addLink(){
   cell_link_target[link_length] = target1;
   cell_link_reason[link_length] = reason;
   graph.addCells(links);
-}else if (cells[source1].attr('.attribute3/human') != '') {
-  if(
+}else if ((cells[source1].attr('.attribute3/human') != '')&&
     ((cells[source1].attr('.attribute3/human')  == cells[target1].attr('.attribute2/human'))
 
   &&  (cells[source1].attr('.attribute3/state')  == cells[target1].attr('.attribute2/state'))
@@ -648,10 +647,9 @@ labels: [
  cell_link_source[link_length] = source1;
  cell_link_target[link_length] = target1;
  cell_link_reason[link_length] = reason;
- graph.addCells(links);}
+ graph.addCells(links);
 
-}else if (cells[source1].attr('.attribute5/human') != '') {
-  if(
+}else if ((cells[source1].attr('.attribute5/human') != '')&&
     ((cells[source1].attr('.attribute5/human')  == cells[target1].attr('.attribute2/human'))
 
   &&  (cells[source1].attr('.attribute5/state')  == cells[target1].attr('.attribute2/state'))
@@ -695,7 +693,6 @@ labels: [
    cell_link_target[link_length] = target1;
    cell_link_reason[link_length] = reason;
    graph.addCells(links);
-}
 }else{
   alert("カードの属性が一致していません");
 }
