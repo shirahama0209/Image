@@ -1,9 +1,13 @@
+//図形描写の取得
 var canvas = $('#canvas');
 var canvas2 = $('#canvas2');
 var canvas3 = $('#canvas3');
 var canvas4 = $('#canvas4');
+//ピックアップのための変数
 var filter = $('#filter');
+//カードの色を変えるための変数のIDを取得
 var addColor = $('#addColor');
+//カード、リンク関連の配列
 var cells = [];
 var others_cells = [];
 var cells2=[];
@@ -14,11 +18,12 @@ var links3=[];
 var cell_link_source = [];
 var cell_link_target = [];
 var cell_link_reason =[];
-var message = $('#message');
+//joint.dia.Graphを使うため
 var graph  = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var graph3 = new joint.dia.Graph();
 var graph4 = new joint.dia.Graph();
+//データベースに送るデータ
 var user;
 var others_links = [];
 var others_link_source = [];
@@ -30,16 +35,16 @@ var cell_attribute_updown = [];
 var cell_attribute_human2 = [];
 var cell_attribute_state2 = [];
 var cell_attribute_updown2 = [];
-
-var cardWidth=150;
-var cardHeight=100;
+//カードの大きさを管理
+var cardWidth=300;
+var cardHeight=170;
 
 //描画用のキャンバス
 var paper = new joint.dia.Paper({
   el: canvas,
   //キャンバスのサイズ
-  width: 700,
-  height: 700,
+  width: 1184,
+  height: 1000,
   model: graph,
   gridSize: 1,
   clickThreshold: 1,
@@ -49,32 +54,30 @@ var paper = new joint.dia.Paper({
 var paper2 = new joint.dia.Paper({
   el: canvas2,
   //キャンバスのサイズ
-  width: 700,
-  height: 700,
+  width: 1184,
+  height: 1000,
   model: graph2,
   gridSize: 1,
 
   clickThreshold: 1
 });
+//paper3,4は小さくして比較画面に表示
 var paper3 = new joint.dia.Paper({
   el: canvas3,
   //キャンバスのサイズ
-  width: 700,
-  height: 700,
+  width: 592,
+  height: 500,
   model: graph3,
   gridSize: 1,
-
   clickThreshold: 1
 });
-
 var paper4 = new joint.dia.Paper({
   el: canvas4,
   //キャンバスのサイズ
-  width: 700,
-  height: 700,
+  width: 592,
+  height: 500,
   model: graph4,
   gridSize: 1,
-
   clickThreshold: 1
 });
 
@@ -94,7 +97,8 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" font-size="10"></text>'+'<text><tspan class="attribute1"></tspan></text>'+
+            '<text class="label" font-size="20"></text>'+
+            '<text><tspan class="attribute1"></tspan></text>'+
             '<text><tspan class="attribute2"></tspan></text>'+
             '<text><tspan class="attribute3"></tspan></text>'+
             '<text><tspan class="attribute4"></tspan></text>'+
@@ -112,25 +116,26 @@ function initialize(){
   var data = location.href.split("?")[1];
   user = data.split("=")[1];
 
-//カードの生成
 
+//カードの生成
 cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
-  position: {x: 20, y: 20},
+  position: {x: 10, y: 10},
   attrs: {
     '.body': {
       width: cardWidth,
       height: cardHeight
     },
     '.label': {
-      text: 'カード１'
+      text: 'カード１',
+      'y':40
     },
     '.element-node' : {
       'data-color': 'gray'
     },
     '.attribute1' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -138,69 +143,69 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute2' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       //card_hightの方が良い
-      'y':80,
+      'y':170,
       'human':'',
       'state':'',
       'updown':''
     },
     '.attribute3' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 10,
+      'dx' : 30,
     },
     '.attribute4' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 10,
-      'y':80
+      'dx' : 30,
+      'y':170
     },
     '.attribute5' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 20,
+      'dx' : 30,
     },
     '.attribute6' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 20,
-      'y':80,
+      'dx' : 30,
+      'y':170,
     },
   },
   inPorts: ['center'],
 });
 //他のカードの複製
 cells[1] = cells[0].clone();
-cells[1].translate(170, 0);
+cells[1].translate(400, 0);
 cells[2] = cells[0].clone();
-cells[2].translate(340, 0);
+cells[2].translate(800, 0);
 cells[3] = cells[0].clone();
-cells[3].translate(510, 0);
+cells[3].translate(0, 200);
 cells[4] = cells[0].clone();
-cells[4].translate(0, 200);
+cells[4].translate(400, 200);
 cells[5] = cells[0].clone();
-cells[5].translate(170,200);
+cells[5].translate(800,200);
 cells[6] = cells[0].clone();
-cells[6].translate(340, 200);
+cells[6].translate(200, 400);
 cells[7] = cells[0].clone();
-cells[7].translate(510, 200);
+cells[7].translate(600, 400);
 //カードの属性設定
 //cells[3].attr('.element-node/data-color','green');
 //各カードにラベルづけ
@@ -225,7 +230,7 @@ function splitByLength(str, length) {
 
     return resultArrNew;
 }
-
+//カードの内容を記述
 var cellText0='0, 794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
 var cellText1='1, 11生気になると、貴族が摂政や関白となって政治の実権を握るようになった貴族たちはこの地位に就くため娘を天皇に嫁がせ外せき関係を結んだ';
 var cellText2='2, 10世紀になると貴族たちが持つ荘園を守るため「武士」と呼ばれる人々が現れた。彼らは次第に棟梁と呼ばれる指導者の下で武士団が形成されるようになった';
@@ -243,29 +248,27 @@ cells[4].attr('.label/text', splitByLength(cellText4,cellTextLength));
 cells[5].attr('.label/text', splitByLength(cellText5,cellTextLength));
 cells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
 cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
-
-
-
 graph.addCells(cells);
 
-//他人ようカードの生成
+//他者カードの生成
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
-  position: {x: 20, y: 20},
+  position: {x: 10, y: 10},
   attrs: {
     '.body': {
       width: cardWidth,
       height: cardHeight
     },
     '.label': {
-      text: 'カード１'
+      text: 'カード１',
+      'y':40
     },
     '.element-node' : {
       'data-color': 'gray'
     },
     '.attribute1' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -273,54 +276,56 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute2' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       //card_hightの方が良い
-      'y':80,
+      'y':170,
       'human':'',
       'state':'',
       'updown':''
     },
     '.attribute3' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 10,
+      'dx' : 30,
     },
     '.attribute4' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 10,
-      'y':80
+      'dx' : 30,
+      'y':170
     },
     '.attribute5' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 20,
+      'dx' : 30,
     },
     '.attribute6' : {
       text: '',
-      'font-size':10,
+      'font-size':20,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 20,
-      'y':80,
+      'dx' : 30,
+      'y':170,
     },
   },
   inPorts: ['center'],
-});
+  });
+
+
 //他のカードの複製
 others_cells[1] = others_cells[0].clone();
 others_cells[2] = others_cells[0].clone();
@@ -338,12 +343,10 @@ others_cells[4].attr('.label/text', splitByLength(cellText4,cellTextLength));
 others_cells[5].attr('.label/text', splitByLength(cellText5,cellTextLength));
 others_cells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
 others_cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
-
-
 }
 
 
-
+//カードの状態変化を削除
 function CardStateClear(){
     var can = cardstateclear.source.value;
     for(i=0;i<=6;i++){
@@ -356,7 +359,7 @@ function CardStateClear(){
 }
 
 
-//上の属性変更
+//上の属性変更　attribute1,3,5
 function CardStateChange(){
   var card_attribute_number = CardState.source.value;
   var card_attribute_human = CardState.human.value;
@@ -424,24 +427,24 @@ attflag = 1;}
   }
   console.log(flag);
   switch (flag) {
-    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','blue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','green');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','gray');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','pink');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','skyblue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff0000');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff007f');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff66ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7a7a');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7abc');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7f00ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#0000ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#007fff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#bc7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7a7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7abcff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ffff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ff7f');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ff00');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7affff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7affbc');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7aff7a');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
     default:
 
   }
@@ -451,7 +454,7 @@ attflag = 1;}
 }
   //cells[card_attribute_number].attr('.attribute/text',card_attribute_human+"の"+card_attribute_state+"が"+card_attribute_UpDown);
 
-//下の属性変更
+//下の属性変更 attribute2,4,6
 function CardStateChange2(){
   var card_attribute_number = CardState2.source.value;
   var card_attribute_human = CardState2.human.value;
@@ -519,24 +522,24 @@ attflag = 2;}
   }
   console.log(flag);
   switch (flag) {
-    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','blue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','green');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','gray');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','pink');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','skyblue');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
-    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','red');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '111':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff0000');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '121':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff007f');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '131':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff66ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '112':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7a7a');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '122':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7abc');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '132':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#ff7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '211':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7f00ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '221':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#0000ff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '231':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#007fff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '212':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#bc7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '222':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7a7aff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '232':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7abcff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '311':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ffff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '321':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ff7f');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '331':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#00ff00');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '312':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7affff');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '322':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7affbc');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
+    case '332':cells[card_attribute_number].attr('.attribute'+attflag+'/fill','#7aff7a');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');break;
     default:
 
   }
@@ -555,10 +558,8 @@ function addLink(){
   矢印を引くための条件分岐
   */
   if(source1 != target1){
-  if(cells[source1].attr('.attribute1/human') != '' && cells[target1].attr('.attribute2/human') != ''){
-
   if(
-
+//attribut1の条件確認
       ((cells[source1].attr('.attribute1/human')  == cells[target1].attr('.attribute2/human'))
 
     &&  (cells[source1].attr('.attribute1/state')  == cells[target1].attr('.attribute2/state'))
@@ -694,11 +695,8 @@ labels: [
    cell_link_reason[link_length] = reason;
    graph.addCells(links);
 }else{
-  alert("カードの属性が一致していません");
+  alert("カードの状態が一致していません");
 }
-  }else{
-    alert("カードに属性が設定されていません");
-  }
 }else{
   alert("同じカードを選択しています")
 }
@@ -798,6 +796,7 @@ graph.on('remove',function(cell,collection,opt){
      alert("ログインしていません");
    }
  }
+
 
 
 
@@ -994,6 +993,7 @@ $(filter).on('change', function(e){
 });*/
 
 //canvasの図形を拡大表示、縮小表示する
+/*
 var svgZoom = svgPanZoom('#canvas svg', {
   center: false,
   zoomEnabled: true,
@@ -1048,24 +1048,7 @@ $(filter).on('change', function(e){
 });*/
 
 
-//どのカードを触っているか表示
-(function(){
-  paper.on('cell:pointerdown', function(){
-    svgZoom.disablePan();
-  });
-  paper.on('cell:pointerup', function(){
-    svgZoom.enablePan();
-  });
-
-  paper.on('cell:pointerclick', function(e){
-    message.addClass('visible');
-    message.html(e.el.textContent+'選択');
-  setTimeout(function(){  message.removeClass('visible');
-                       }, 1000);
-  });
-});
-
-
+/*
 // create an array with nodes
 var nodes = new vis.DataSet([
   {id: 1, label: 'カード 1'},
@@ -1098,7 +1081,7 @@ var data = {
 };
 var options = {};
 var network = new vis.Network(container, data, options);
-
+*/
 //メニュー表示の切り替え
 (function() {
   'use strict';
@@ -1181,3 +1164,6 @@ var network = new vis.Network(container, data, options);
   }
 
 })();
+
+paper3=paper3.scale(0.5, 0.5)
+paper4=paper4.scale(0.5, 0.5)

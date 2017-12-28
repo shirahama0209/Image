@@ -28,16 +28,12 @@
       <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
       <li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>
       <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
-      <li><a href="#" data-id="DataInformation" class="menu_item">情報画面</a></li>
+  <!--    <li><a href="#" data-id="DataInformation" class="menu_item">情報画面</a></li>-->
     </ul>
 <!-- 自分の画面描写画面-->
+
     <div class="content active" id="Mypicture">
-      <div id="layoutAll">
-        <div id="MyScreen">
-      <!--
-        クリックしているもの
-        <label id="message"></label>
-      -->
+図形描写画面
           <div id="canvas" data-filter="all"></div>
             <body onload = "initialize()">
       <!--
@@ -48,9 +44,8 @@
         <option value="green">green</option>
       </select>
       <button id="addCell">新たなカードを作成する</button>
-      -->
-      状態変化　
-      <form name="CardState">カード
+      -->　
+      <form name="CardState">イベント後　カード
         <select name="source">
           <option value="0">0</option>
           <option value="1">1</option>
@@ -60,7 +55,7 @@
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
-        </select>の状態
+        </select>の
         <select name="human">
           <option value="武士">武士</option>
           <option value="商人">商人</option>
@@ -75,10 +70,10 @@
           <option value="上がった">上がった</option>
           <option value="下がった">下がった</option>
         </select>
-      <input type="button" value="状態変化" onclick="CardStateChange()">
+      <input type="button" value="追加" onclick="CardStateChange()">
       </form>
 
-      <form name="CardState2">カード
+      <form name="CardState2">イベント前　カード
         <select name="source">
           <option value="0">0</option>
           <option value="1">1</option>
@@ -88,7 +83,7 @@
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
-        </select>の状態
+        </select>の
         <select name="human">
           <option value="武士">武士</option>
           <option value="商人">商人</option>
@@ -103,7 +98,7 @@
           <option value="上がった">上がった</option>
           <option value="下がった">下がった</option>
         </select>
-      <input type="button" value="状態変化" onclick="CardStateChange2()">
+      <input type="button" value="追加" onclick="CardStateChange2()">
       </form>
       <form name="cardstateclear">カード
         <select name="source">
@@ -140,20 +135,6 @@
           <option value="7">7</option>
         </select> に<input type="button" value="矢印作成" onclick="addLink()">
         </form>
-      <!--
-      <select name="colorchange">
-        <option value="0">0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-        <option value="4">4</option>
-        <option value="5">5</option>
-        <option value="6">6</option>
-        <option value="7">7</option>
-      </select>のカードの色を変更
-      <input type="button" value="色を変更" onclick="colorChange()">
-
-      <button id="addLink">理由を作成する</button>-->
 
       <form name="ChangeColor">
         カード
@@ -176,55 +157,35 @@
       </select>
       に
       <input type="button" onclick="colorChange()" value="変更する">
-
       </form>
-
-
-
       自分の図形描写情報を<button id="send">送信</button>
-
-      </div>
-
-
 </div>
 
-    </div>
+
     <!-- 他人の画面描写画面-->
   <div class="content" id="OtherPicture">
-      <div id="OtherScreen">
-
-        <div id="canvas2" data-filter="all"></div>
-      </div>
-
-
-
-
-
-      <div id="dataInfo">
-        様々なデータを集計
-        <input type="text" id="user_name" placeholder="名前" >さんの情報を
-        <button id="get">取得</button>
-        <br>
-        <label for"filter">フィルター</label>
-        <select id="filter">
-          <option value="all">なし</option>
-          <option value="red">赤</option>
-          <option value="blue">青</option>
-          <option value="green">緑</option>
-        </select>
-
-      </div>
+    他者図形画面
+    <div id="canvas2" data-filter="all"></div>
+          <input type="text" id="user_name" placeholder="名前" >さんの情報を
+          <button id="get">取得</button>
   </div>
 
 
 
 
-    <div class="content" id="Comparing">
-      自分の画面
+<div class="content" id="Comparing">
+  <div class="layoutAll">
+<div class="layoutleft">
+自分の画面
 <div id="canvas3" data-filter="all"></div>
+</div>
+<div class="layoutright">
 相手の画面
-<div id="canvas4" data-filter="all"></div>
-<form name = "pickup">
+<div id="canvas4"  data-filter="all"></div>
+</div>
+</div>
+<br>
+  <form name = "pickup">
   <select name="cardnumber">
     <option value="0">0</option>
     <option value="1">1</option>
@@ -235,19 +196,29 @@
     <option value="6">6</option>
     <option value="7">7</option>
   </select> を<input type="button" value="ピックアップ" onclick="pickup2()">
-</form>
-<button id="differences">違いをピックアップ</button>
-    </div>
+  </form>
+  <button id="differences">違いをピックアップ</button>
+  <br>
+  <label for"filter">属性フィルター</label>
+<select id="filter">
+  <option value="all">なし</option>
+  <option value="red">赤</option>
+  <option value="blue">青</option>
+  <option value="green">緑</option>
+</select>
 
+</div>
+
+<!--
    <div class="content" id="DataInformation">
      ネットワーク図のようなものでクラス全体のデータを描写
-     <!--
+
      <img src="network.png" width="500" height="500">
--->
+
 <br>どのカードが話題になっているかピックアップする機能
 <!--http://visjs.org/examples/network/edgeStyles/arrows.html
 <script type="text/javascript" src="../../../dist/vis.js"></script>
-<link href="../../../dist/vis-network.min.css" rel="stylesheet" type="text/css" />-->
+<link href="../../../dist/vis-network.min.css" rel="stylesheet" type="text/css" />
 <script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js'></script>
 <style type="text/css">
   #mynetwork {
@@ -260,20 +231,9 @@
 </head>
 <body>
 
-
 <div id="mynetwork"></div>
-
-
-
-
+-->
    </div>
-
-
-
-  </div>
-  <script>
-
-  </script>
 </body>
 
 

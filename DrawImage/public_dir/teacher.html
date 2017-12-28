@@ -19,11 +19,7 @@
 
       @import url(https://fonts.googleapis.com/css?family=Roboto:300);
 
-      .login-page {
-        width: 360px;
-        padding: 3% 0 0;
-        margin: auto;
-      }
+
       .form {
         position: relative;
         z-index: 1;
@@ -69,34 +65,27 @@
       }
 
 
-
-
-
-
     </style>
   </head>
   <body>
-    <h1 class="header-title">ユーザー登録</h1>
+    <h1 class="header-title">カード内容記入</h1>
 
     <div class="form">
-      <div id="input-area">
-        <input id="user" type="text" placeholder="名前を入力" required/>
-        <input id="classnumber" type="text" placeholder="クラス番号を入力" required/>
-        <input id="password" type="password" placeholder="パスワードを入力" required/>
-        <button id="login">ログイン</button>
-        <button id="newuser">新規登録</button>
-        <button id="logout" class="hide">ログアウト</button>
-        <button id="teacher">教師用ページ</button>
-      </div>
+      <input type="text" name="reason" placeholder="カード０">
+      <input type="text" name="reason" placeholder="カード１">
+      <input type="text" name="reason" placeholder="カード２">
+      <input type="text" name="reason" placeholder="カード３">
+      <input type="text" name="reason" placeholder="カード４">
+      <input type="text" name="reason" placeholder="カード５">
+      <input type="text" name="reason" placeholder="カード６">
+      <input type="text" name="reason" placeholder="カード７">
+      <button id="send2">送信</button>
     </div>
 
+    <script src="js/DrawImage.js"></script>
 
-
-    <!-- テキスト表示用 -->
-    <p id="info"></p>
 
 
     <script src="https://www.gstatic.com/firebasejs/4.6.2/firebase.js"></script>
-    <script src="js/app.js"></script>
   </body>
 </html>

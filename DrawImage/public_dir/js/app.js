@@ -19,7 +19,7 @@ var newuser = document.getElementById('newuser');
 var login = document.getElementById('login');
 var logout = document.getElementById('logout');
 var info = document.getElementById('info');
-
+var teacher = document.getElementById('teacher');
 
 
 //新規登録処理
@@ -49,7 +49,12 @@ login.addEventListener('click', function(e) {
   });*/
 });
 
-
+//教師画面に移動
+teacher.addEventListener('click', function(e) {
+  var user = document.getElementById('user').value;
+  var password = document.getElementById('password').value;
+location.href = "teacher.html?data="+encodeURIComponent(user);
+});
 
 //ログアウト処理
 logout.addEventListener('click', function() {

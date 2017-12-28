@@ -1,8 +1,20 @@
 
-#layoutAll {
-  width: 1200px; /* 幅(px指定) */
+.layoutAll {
+  width: 1165px; /* 幅(px指定) */
   margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
 
+}
+
+.layoutleft {
+  margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
+  float: left;
+  width: 50%;
+}
+
+.layoutright {
+  margin: 0 auto;  /* 余白の大きさ 中央寄せ(センタリング)) */
+  float: left;
+  width: 50%;
 }
 /*
 メニュー関連のcssの記述
@@ -11,9 +23,9 @@
 
 .container {
   padding: 0;
-  margin: 30px auto;
-  width: 728px;
-  height:1028px;
+  margin: 10px auto;
+  width: 1200px;
+  height:1920px;
 }
 ul.menu {
   list-style: none;
@@ -27,13 +39,11 @@ ul.menu li {
 }
 ul.menu li a {
   display: inline-block;
-  font-size: 25px;
-  width: 160px;
-  height: 20px;
-  line-height: 20px;
+  font-size: 40px;
+  width: 392px;
+  height: 60px;
   text-align: center;
   text-decoration: none;
-  padding: 7px;
   background: #E6E6E6;
   color: #000000;
   border-style:groove;
@@ -47,11 +57,11 @@ ul.menu li a:not(.active):hover {
   transition: .8s;
 }
 .content {
-  font-size: 25px;
-  padding: 7px 10px;
-  line-height: 1.4;
+  font-size: 40px;
+  padding: 2px 4px;
+  line-height: 1;
   background: #F2F2F2;
-  height: 1024px;
+  height: 1724px;
   display: none;
   border-style:groove;
 }
@@ -88,12 +98,13 @@ ul.menu li a:not(.active):hover {
 */
 body {
   font-family: sans-serif;
-  font-size: 30px;
+  font-size: 40px;
 }
 
 select {
   font-size: inherit;
   padding: 1px;
+  font-size: 40px;
 }
 
 
@@ -107,7 +118,7 @@ input[type="button"]{
   padding: 5px 10px;
   margin: 2px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 input[type="text"]{
@@ -117,7 +128,7 @@ input[type="text"]{
   padding: 5px 10px;
   margin: 2px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 40px;
 }
 
 
@@ -130,83 +141,13 @@ button {
   padding: 5px 10px;
   margin: 2px 0;
   cursor: pointer;
-  font-size: 20px;
+  font-size: 40px;
 }
-/*
-#message {
-  //opacity : 0;より変更
-  opacity: 1;
-  transition: opacity 5s linear;
-}
-#message.visible {
-  opacity: 1;
-  transition: opacity 0.1s linear;
-}
-*/
 
-/*
-#canvas　#cavas2 {
+#canvas, #canvas2 {
   border: 1px solid;
-  width: 700px;
-  height: 700px;
-  min-height: 300px;
-  border-style:dotted;
-  background: #FAFAFA;
-}
-
-#canvas3 #canvas4 {
-  border: 1px solid;
-  width: 400px;
-  height: 400px;
-  min-height: 300px;
-  border-style:dotted;
-  background: #FAFAFA;
-}
-
-#canvas #canvas2 #canvas3 #canvas4.element-node {
-  opacity: 0.5;
-}
-
-#canvas #canvas2 #canvas3 #canvas4.element-node[data-color="gray"] {
-  fill: #D8D8D8;
-}
-
-#canvas #canvas2 #canvas3 #canvas4.element-node[data-color="red"] {
-  fill: #F7BE81;
-}
-#canvas #canvas2 #canvas3 #canvas4.element-node[data-color="blue"] {
-  fill: #CEF6F5;
-}
-#canvas #canvas2 #canvas3 #canvas4.element-node[data-color="green"] {
-  fill: #9FF781;
-}
-#canvas #canvas2 #canvas3 #canvas4.element-node text {
-  fill: #000000;
-}
-
-#canvas #canvas2 #canvas3 #canvas4.element-node:hover .port {
-  opacity: 0.1;
-}
-
-#canvas #canvas2 #canvas3 #canvas4[data-filter="red"] .element-node[data-color="red"] {
-  opacity: 1;
-}
-#canvas #canvas2 #canvas3 #canvas4[data-filter="blue"] .element-node[data-color="blue"] {
-  opacity: 1;
-}
-#canvas #canvas2 #canvas3 #canvas4[data-filter="green"] .element-node[data-color="green"] {
-  opacity: 1;
-}
-#canvas #canvas2 #canvas3 #canvas4[data-filter="all"] .element-node {
-  opacity: 1;
-}
-*/
-
-#canvas {
-  border: 1px solid;
-  width: 700px;
-  height: 700px;
-  min-height: 300px;
+  width: 1184px;
+  height: 1000px;
   border-style:dotted;
   background: #FAFAFA;
 }
@@ -247,11 +188,49 @@ button {
 #canvas[data-filter="all"] .element-node {
   opacity: 1;
 }
-#canvas3 {
+
+
+
+#canvas2 .element-node {
+  opacity: 0.5;
+}
+/*カードの最初の色は灰色*/
+#canvas2 .element-node[data-color="gray"] {
+  fill: #D8D8D8;
+}
+
+#canvas2 .element-node[data-color="red"] {
+  fill: #F7BE81;
+}
+#canvas2 .element-node[data-color="blue"] {
+  fill: #CEF6F5;
+}
+#canvas2 .element-node[data-color="green"] {
+  fill: #9FF781;
+}
+#canvas2 .element-node text {
+  fill: #000000;
+}
+#canvas2 .element-node:hover .port {
+  opacity: 1;
+}
+#canvas2[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas2[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas2[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas2[data-filter="all"] .element-node {
+  opacity: 1;
+}
+
+#canvas3, #canvas4 {
+  width: 592;
+  height: 500;
   border: 1px solid;
-  width: 700px;
-  height: 700px;
-  min-height: 300px;
   border-style:dotted;
   background: #FAFAFA;
 }
@@ -294,59 +273,7 @@ button {
 }
 
 
-#canvas2 {
-  border: 1px solid;
-  width: 700px;
-  height: 700px;
-  min-height: 300px;
-  border-style:dotted;
-  background: #FAFAFA;
-}
 
-#canvas2 .element-node {
-  opacity: 0.5;
-}
-/*カードの最初の色は灰色*/
-#canvas2 .element-node[data-color="gray"] {
-  fill: #D8D8D8;
-}
-
-#canvas2 .element-node[data-color="red"] {
-  fill: #F7BE81;
-}
-#canvas2 .element-node[data-color="blue"] {
-  fill: #CEF6F5;
-}
-#canvas2 .element-node[data-color="green"] {
-  fill: #9FF781;
-}
-#canvas2 .element-node text {
-  fill: #000000;
-}
-#canvas2 .element-node:hover .port {
-  opacity: 1;
-}
-#canvas2[data-filter="red"] .element-node[data-color="red"] {
-  opacity: 1;
-}
-#canvas2[data-filter="blue"] .element-node[data-color="blue"] {
-  opacity: 1;
-}
-#canvas2[data-filter="green"] .element-node[data-color="green"] {
-  opacity: 1;
-}
-#canvas2[data-filter="all"] .element-node {
-  opacity: 1;
-}
-
-#canvas4 {
-  border: 1px solid;
-  width: 700px;
-  height: 700px;
-  min-height: 300px;
-  border-style:dotted;
-  background: #FAFAFA;
-}
 
 #canvas4 .element-node {
   opacity: 0.5;
