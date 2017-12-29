@@ -558,8 +558,10 @@ function addLink(){
   矢印を引くための条件分岐
   */
   if(source1 != target1){
+  if(cells[source1].attr('.attribute1/human') != '' && cells[target1].attr('.attribute2/human') != ''){
+
   if(
-//attribut1の条件確認
+
       ((cells[source1].attr('.attribute1/human')  == cells[target1].attr('.attribute2/human'))
 
     &&  (cells[source1].attr('.attribute1/state')  == cells[target1].attr('.attribute2/state'))
@@ -695,12 +697,17 @@ labels: [
    cell_link_reason[link_length] = reason;
    graph.addCells(links);
 }else{
-  alert("カードの状態が一致していません");
+  alert("カードの属性が一致していません");
 }
+  }else{
+    alert("カードに状態が一致していません。カードの状態をもう一度確認してみましょう");
+  }
 }else{
-  alert("同じカードを選択しています")
+  alert("同じカードを選択しています。別のカードを選択しましょう")
 }
 }
+
+
 
 //矢印を削除した時にトリガー,リストから矢印を削除
 graph.on('remove',function(cell,collection,opt){
@@ -887,25 +894,27 @@ graph.on('remove',function(cell,collection,opt){
        default: flag = '0';
      }
      switch (flag) {
-       case '111':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '121':others_cells[i].attr('.attribute'+j+'/fill','blue');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '131':others_cells[i].attr('.attribute'+j+'/fill','green');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '112':others_cells[i].attr('.attribute'+j+'/fill','gray');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '122':others_cells[i].attr('.attribute'+j+'/fill','pink');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '132':others_cells[i].attr('.attribute'+j+'/fill','skyblue');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '211':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '221':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '231':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '212':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '222':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '232':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '311':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '321':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '331':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '312':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '322':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
-       case '332':others_cells[i].attr('.attribute'+j+'/fill','red');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '111':others_cells[i].attr('.attribute'+j+'/fill','#ff0000');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '121':others_cells[i].attr('.attribute'+j+'/fill','#ff007f');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '131':others_cells[i].attr('.attribute'+j+'/fill','#ff66ff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '112':others_cells[i].attr('.attribute'+j+'/fill','#ff7a7a');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '122':others_cells[i].attr('.attribute'+j+'/fill','#ff7abc');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '132':others_cells[i].attr('.attribute'+j+'/fill','#ff7aff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '211':others_cells[i].attr('.attribute'+j+'/fill','#7f00ff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '221':others_cells[i].attr('.attribute'+j+'/fill','#0000ff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '231':others_cells[i].attr('.attribute'+j+'/fill','#007fff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '212':others_cells[i].attr('.attribute'+j+'/fill','#bc7aff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '222':others_cells[i].attr('.attribute'+j+'/fill','#7a7aff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '232':others_cells[i].attr('.attribute'+j+'/fill','#7abcff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '311':others_cells[i].attr('.attribute'+j+'/fill','#00ffff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '321':others_cells[i].attr('.attribute'+j+'/fill','#00ff7f');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '331':others_cells[i].attr('.attribute'+j+'/fill','#00ff00');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '312':others_cells[i].attr('.attribute'+j+'/fill','#7affff');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '322':others_cells[i].attr('.attribute'+j+'/fill','#7affbc');others_cells[i].attr('.attribute'+j+'/text','■');break;
+       case '332':others_cells[i].attr('.attribute'+j+'/fill','#7aff7a');others_cells[i].attr('.attribute'+j+'/text','■');break;
        default:
+
+
 
      }
    }
@@ -944,14 +953,22 @@ graph.on('remove',function(cell,collection,opt){
 
   $('#get').on('click', get);
   $('#send').on('click', send);
-  function pickup2(){
+
+//指定したカード番号以外のopacityを下げる
+function pickup2(){
     var cardnumber = pickup.cardnumber.value;
+    for(i=0;i<cells2.length;i++){
+        cells2[i].attr('.body/opacity',1);
+        cells3[i].attr('.body/opacity',1);
+    }
     for(i=0;i<cells2.length;i++){
       if(i!=cardnumber){
         cells2[i].attr('.body/opacity',0.2);
+        cells3[i].attr('.body/opacity',0.2);
       }
     }
-  }
+}
+
   function differences(){
     for(i=0;i<cells2.length;i++){
       if(
@@ -960,12 +977,24 @@ graph.on('remove',function(cell,collection,opt){
         cells2[i].attr('.attribute1/updown')==cells3[i].attr('.attribute1/updown')&&
         cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
         cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
-        cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')){
+        cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')
+      ){
         cells2[i].attr('.body/opacity',0.2);
         cells3[i].attr('.body/opacity',0.2);
       }
     }
   }
+
+//ピックアップを止めるために全てのopacityを１にする
+  function ReturnPickup(){
+    for(i=0;i<cells2.length;i++){
+        cells2[i].attr('.body/opacity',1);
+        cells3[i].attr('.body/opacity',1);
+      }
+  }
+
+
+
 
 function addCell(){
   var color = addColor.val();
@@ -986,6 +1015,14 @@ function colorChange(){
   var colors = ChangeColor.color.value;
   cells[cardnumber].attr('.element-node/data-color',colors);
 }
+
+$('#ReturnPickup').on('click',ReturnPickup);
+function colorChange(){
+  var cardnumber = ChangeColor.cardnumber.value;
+  var colors = ChangeColor.color.value;
+  cells[cardnumber].attr('.element-node/data-color',colors);
+}
+
 
 /*
 $(filter).on('change', function(e){
