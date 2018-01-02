@@ -1069,7 +1069,7 @@ function pickup2(){
       }
     }
 }
-
+//矢印が違うものを取り出したい
 function differencesLinks(){
   for(i=0;i<links.length;i++){
     for(j=0;j<others_links.length;j++){
@@ -1085,7 +1085,7 @@ function differencesLinks(){
   }
 
 
-
+//状態変化が違うものを取り出す
   function differences(){
     //上部が状態変化が一致しているものがあるか判定
     for(i=0;i<cells2.length;i++){
