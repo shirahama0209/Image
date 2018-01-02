@@ -110,7 +110,16 @@
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
-        </select> の属性を<input type="button" value="削除" onclick="CardStateClear()">
+        </select>
+        <select name="attribute">
+          <option value="1">左上</option>
+          <option value="3">中上</option>
+          <option value="5">右上</option>
+          <option value="2">左下</option>
+          <option value="4">中下</option>
+          <option value="6">右下</option>
+        </select>
+         の属性を<input type="button" value="削除" onclick="CardStateClear()">
         </form>
       <form name="input_sample">カード
         <select name="source">
@@ -212,30 +221,6 @@
 
 </div>
 
-<!--
-   <div class="content" id="DataInformation">
-     ネットワーク図のようなものでクラス全体のデータを描写
-
-     <img src="network.png" width="500" height="500">
-
-<br>どのカードが話題になっているかピックアップする機能
-<!--http://visjs.org/examples/network/edgeStyles/arrows.html
-<script type="text/javascript" src="../../../dist/vis.js"></script>
-<link href="../../../dist/vis-network.min.css" rel="stylesheet" type="text/css" />
-<script src='https://cdnjs.cloudflare.com/ajax/libs/vis/4.21.0/vis.min.js'></script>
-<style type="text/css">
-  #mynetwork {
-    width: 700px;
-    height: 500px;
-    border: 1px solid lightgray;
-    background:#ffffff;
-  }
-</style>
-</head>
-<body>
-
-<div id="mynetwork"></div>
--->
    </div>
 </body>
 

@@ -12,6 +12,9 @@ var cells = [];
 var others_cells = [];
 var cells2=[];
 var cells3=[];
+
+var teachercell=[];
+
 var links = [];
 var links2=[];
 var links3=[];
@@ -157,7 +160,7 @@ cells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 140,
     },
     '.attribute4' : {
       text: '',
@@ -166,7 +169,7 @@ cells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 140,
       'y':170
     },
     '.attribute5' : {
@@ -176,7 +179,7 @@ cells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 280,
     },
     '.attribute6' : {
       text: '',
@@ -185,7 +188,7 @@ cells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 280,
       'y':170,
     },
   },
@@ -231,14 +234,14 @@ function splitByLength(str, length) {
     return resultArrNew;
 }
 //カードの内容を記述
-var cellText0='0, 794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
-var cellText1='1, 11生気になると、貴族が摂政や関白となって政治の実権を握るようになった貴族たちはこの地位に就くため娘を天皇に嫁がせ外せき関係を結んだ';
-var cellText2='2, 10世紀になると貴族たちが持つ荘園を守るため「武士」と呼ばれる人々が現れた。彼らは次第に棟梁と呼ばれる指導者の下で武士団が形成されるようになった';
-var cellText3='3, 1156年、天皇家内部で政治の実権を巡る争いが起こった（保元の乱）。天皇家の人々は武士団の協力を得てこれを争った。';
-var cellText4='4, 1159年、後白河上皇の政権内で藤原氏同士の勢力争いが起こり、源氏と平氏もこれに加わった。これに買った平時は中央での地位を固めた（平治の乱）。';
-var cellText5='5, 平治の乱に勝利した。平清盛は武士でありながら太政大臣となり、政治の実権を握った。また西日本を中心に荘園を拡大し、西国一体の武士を支配した。';
-var cellText6='6, 源頼朝が挙兵して東国の支持を集め頼朝の名を受けた義経が1185年に壇ノ浦で平氏を滅ぼした。';
-var cellText7='7, 平安時代の半ば、各地の戦乱や飢餓などに苦しんだ人々は阿弥陀仏にすがり、あの世で極楽浄土に生まれ変わることを願う浄土宗を進行するようになった。';
+var cellText0='0, 　794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
+var cellText1='1, 　11世紀になると、貴族が摂政や関白となって政治の実権を握るようになった。貴族たちはこの地位に就くため娘を天皇に嫁がせ、外戚関係を結んだ';
+var cellText2='2, 　10世紀になると貴族たちが持つ荘園を守るため「武士」と呼ばれる人々が現れた。彼らは次第に棟梁と呼ばれる指導者の下で武士団が形成されるようになった';
+var cellText3='3, 　1156年、天皇家内部で政治の実権を巡る争いが起こった（保元の乱）。天皇家の人々は武士団の協力を得てこれを争った。';
+var cellText4='4, 　1159年、後白河上皇の政権内で藤原氏同士の勢力争いが起こり、源氏と平氏もこれに加わった。これに勝った平氏は中央での地位を固めた（平治の乱）。';
+var cellText5='5, 　平治の乱に勝利した平清盛は武士でありながら太政大臣となり、政治の実権を握った。また西日本を中心に荘園を拡大し、西国一帯の武士を支配した。';
+var cellText6='6, 　源頼朝が挙兵して東国の支持を集め頼朝の名を受けた義経が1185年に壇ノ浦で平氏を滅ぼした。';
+var cellText7='7, 　平安時代の半ば、各地の戦乱や飢餓などに苦しんだ人々は阿弥陀仏にすがり、あの世で極楽浄土に生まれ変わることを願う浄土宗を進行するようになった。';
 var cellTextLength=14;
 cells[0].attr('.label/text', splitByLength(cellText0,cellTextLength));
 cells[1].attr('.label/text', splitByLength(cellText1,cellTextLength));
@@ -324,6 +327,104 @@ others_cells[0] = new joint.shapes.devs.Model({
   },
   inPorts: ['center'],
   });
+/*
+//教師カードの作成
+teachercells[0] = new joint.shapes.devs.Model({
+  type: 'devs.Model',
+  position: {x: 10, y: 10},
+  attrs: {
+    '.body': {
+      width: cardWidth,
+      height: cardHeight
+    },
+    '.label': {
+      text: 'カード１',
+      'y':40
+    },
+    '.element-node' : {
+      'data-color': 'gray'
+    },
+    '.attribute1' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : ''
+    },
+    '.attribute2' : {
+      text: '',
+      'font-size':20,
+      //card_hightの方が良い
+      'y':170,
+      'human':'',
+      'state':'',
+      'updown':''
+    },
+    '.attribute3' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 30,
+    },
+    '.attribute4' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 30,
+      'y':170
+    },
+    '.attribute5' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 30,
+    },
+    '.attribute6' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 30,
+      'y':170,
+    },
+  },
+  inPorts: ['center'],
+  });
+teachercells[0].attr('.attribute'+attflag+'/fill','#ff0000');cells[card_attribute_number].attr('.attribute'+attflag+'/text','■');
+
+teacherlinks[0] = new joint.dia.Link({
+     source: { id: teachercell[].id },
+     target: { id: teachercell[].id },
+ connector: { name: 'rounded' },
+ attrs: {
+     '.connection': {
+         stroke: '#333333',
+         'stroke-width': 4
+     },
+     '.marker-target': {
+         fill: '#333333',
+         d: 'M 10 0 L 0 5 L 10 10 z'
+     }
+ },
+labels: [
+     { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#D8D8D8', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+ });
+
+*/
+
+
 
 
 //他のカードの複製
@@ -349,14 +450,14 @@ others_cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 //カードの状態変化を削除
 function CardStateClear(){
     var can = cardstateclear.source.value;
-    for(i=0;i<=6;i++){
-      cells[can].attr('.attribute'+i+'/text','');
-      cells[can].attr('.attribute'+i+'/fill','');
-      cells[can].attr('.attribute'+i+'/human','');
-      cells[can].attr('.attribute'+i+'/state','');
-      cells[can].attr('.attribute'+i+'/updown','');
-    }
+    var attributnumber =cardstateclear.attribute.value;
+      cells[can].attr('.attribute'+attributnumber+'/text','');
+      cells[can].attr('.attribute'+attributnumber+'/fill','');
+      cells[can].attr('.attribute'+attributnumber+'/human','');
+      cells[can].attr('.attribute'+attributnumber+'/state','');
+      cells[can].attr('.attribute'+attributnumber+'/updown','');
 }
+
 
 
 //上の属性変更　attribute1,3,5
@@ -970,20 +1071,107 @@ function pickup2(){
 }
 
   function differences(){
+    //上部が状態変化が一致しているものがあるか判定
     for(i=0;i<cells2.length;i++){
-      if(
-        cells2[i].attr('.attribute1/human')==cells3[i].attr('.attribute1/human')&&
-        cells2[i].attr('.attribute1/state')==cells3[i].attr('.attribute1/state')&&
-        cells2[i].attr('.attribute1/updown')==cells3[i].attr('.attribute1/updown')&&
-        cells2[i].attr('.attribute2/human')==cells3[i].attr('.attribute2/human')&&
-        cells2[i].attr('.attribute2/state')==cells3[i].attr('.attribute2/state')&&
-        cells2[i].attr('.attribute2/updown')==cells3[i].attr('.attribute2/updown')
-      ){
-        cells2[i].attr('.body/opacity',0.2);
-        cells3[i].attr('.body/opacity',0.2);
-      }
-    }
-  }
+      if (!(
+         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribute1/human'))
+       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute1/state'))
+       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute1/updown')))
+       ||
+         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribute3/human'))
+       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute3/state'))
+       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute3/updown')))
+       ||
+         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribut5/human'))
+       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute5/state'))
+       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute5/updown')))
+
+       ||
+
+       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribute1/human'))
+     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute1/state'))
+     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute1/updown')))
+     ||
+       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribute3/human'))
+     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute3/state'))
+     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute3/updown')))
+     ||
+       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribut5/human'))
+     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute5/state'))
+     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute5/updown')))
+
+     ||
+
+     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribute1/human'))
+   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute1/state'))
+   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute1/updown')))
+   ||
+     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribute3/human'))
+   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute3/state'))
+   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute3/updown')))
+   ||
+     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribut5/human'))
+   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute5/state'))
+   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute5/updown')))
+     ))
+{
+  alert("カード"+i+"上部の状態が一致していません。カードの状態をもう一度確認してみましょう");
+ }
+}
+
+//上部が状態変化が一致しているものがあるか判定
+for(i=0;i<cells2.length;i++){
+  if (!(
+     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribute2/human'))
+   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute2/state'))
+   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute2/updown')))
+   ||
+     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribute4/human'))
+   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute4/state'))
+   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute4/updown')))
+   ||
+     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribut6/human'))
+   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute6/state'))
+   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute6/updown')))
+
+   ||
+
+   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribute2/human'))
+  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute2/state'))
+  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute2/updown')))
+  ||
+   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribute4/human'))
+  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute4/state'))
+  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute4/updown')))
+  ||
+   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribut6/human'))
+  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute6/state'))
+  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute6/updown')))
+
+  ||
+
+  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribute2/human'))
+ &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute2/state'))
+ &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute2/updown')))
+ ||
+  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribute4/human'))
+ &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute4/state'))
+ &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute4/updown')))
+ ||
+  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribut6/human'))
+ &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute6/state'))
+ &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute6/updown')))
+
+ ))
+{
+alert("カード"+i+"下部の状態が一致していません。カードの状態をもう一度確認してみましょう");
+}
+}
+
+
+
+}
+
 
 //ピックアップを止めるために全てのopacityを１にする
   function ReturnPickup(){
@@ -1085,40 +1273,6 @@ $(filter).on('change', function(e){
 });*/
 
 
-/*
-// create an array with nodes
-var nodes = new vis.DataSet([
-  {id: 1, label: 'カード 1'},
-  {id: 2, label: 'カード 2'},
-  {id: 3, label: 'カード 3'},
-  {id: 4, label: 'カード 4'},
-  {id: 5, label: 'カード 5'},
-  {id: 6, label: 'カード 6'},
-  {id: 7, label: 'カード 7'},
-  {id: 8, label: 'カード 8'}
-]);
-
-// create an array with edges
-var edges = new vis.DataSet([
-  {from: 1, to: 8, arrows:'to'},
-  {from: 1, to: 3, arrows:'from'},
-  {from: 8, to: 7, arrows:'to'},
-  {from: 7, to: 4, arrows:'to'},
-  {from: 1, to: 2, arrows:'to'},
-  {from: 2, to: 4, arrows:'to'},
-  {from: 2, to: 5, arrows:'to'},
-  {from: 6, to: 7, arrows:'to'},
-]);
-
-// create a network
-var container = document.getElementById('mynetwork');
-var data = {
-  nodes: nodes,
-  edges: edges
-};
-var options = {};
-var network = new vis.Network(container, data, options);
-*/
 //メニュー表示の切り替え
 (function() {
   'use strict';
