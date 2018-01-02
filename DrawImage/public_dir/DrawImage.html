@@ -28,7 +28,7 @@
       <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
       <li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>
       <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
-  <!--    <li><a href="#" data-id="DataInformation" class="menu_item">情報画面</a></li>-->
+      <li><a href="#" data-id="DataInformation" class="menu_item">差異一覧</a></li>
     </ul>
 <!-- 自分の画面描写画面-->
 
@@ -206,10 +206,11 @@
     <option value="6">6</option>
     <option value="7">7</option>
   </select> を<input type="button" value="ピックアップ" onclick="pickup2()">
-  </form>
+  </form><button id="ReturnPickup">解除</button>
+  <br>
   <button id="differences">状態変化の違いをピックアップ</button>
   <br>
-  <button id="ReturnPickup">ピックアップを解除</button>
+  <button id="differencesLinks">リンクの違いをピックアップ</button>
   <br>
   <label for"filter">属性フィルター</label>
 <select id="filter">
@@ -220,6 +221,26 @@
 </select>
 
 </div>
+
+<div class="content " id="DataInformation">
+話し合うべき議題
+<br>
+優先度１ 状態変化が一致していないもの
+
+
+<br>
+優先度２　結線が一致していないもの
+
+
+<br>
+優先度３　先生の図と結線が違うもの
+
+
+</div>
+
+
+
+
 
    </div>
 </body>

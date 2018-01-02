@@ -40,7 +40,7 @@ ul.menu li {
 ul.menu li a {
   display: inline-block;
   font-size: 40px;
-  width: 392px;
+  width: 292px;  /*3つの時 392*/
   height: 60px;
   text-align: center;
   text-decoration: none;
@@ -102,7 +102,7 @@ body {
 }
 
 select {
-  font-size: inherit;
+  font-size: sans-serif;
   padding: 1px;
   font-size: 40px;
 }
@@ -147,7 +147,7 @@ button {
 #canvas, #canvas2 {
   border: 1px solid;
   width: 1184px;
-  height: 1000px;
+  height: 1200px;
   border-style:dotted;
   background: #FAFAFA;
 }
@@ -156,7 +156,7 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas .element-node[data-color="gray"] {
-  fill: #D8D8D8;
+  fill: #E6E6E6;
 }
 
 #canvas .element-node[data-color="red"] {
@@ -196,7 +196,7 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas2 .element-node[data-color="gray"] {
-  fill: #D8D8D8;
+  fill: #E6E6E6;
 }
 
 #canvas2 .element-node[data-color="red"] {
@@ -229,7 +229,7 @@ button {
 
 #canvas3, #canvas4 {
   width: 592;
-  height: 500;
+  height: 600;
   border: 1px solid;
   border-style:dotted;
   background: #FAFAFA;
@@ -239,7 +239,7 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas3 .element-node[data-color="gray"] {
-  fill: #D8D8D8;
+  fill: #E6E6E6;
 }
 
 #canvas3 .element-node[data-color="red"] {
@@ -280,7 +280,7 @@ button {
 }
 /*カードの最初の色は灰色*/
 #canvas4 .element-node[data-color="gray"] {
-  fill: #D8D8D8;
+  fill: #E6E6E6;
 }
 
 #canvas4 .element-node[data-color="red"] {

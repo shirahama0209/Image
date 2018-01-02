@@ -47,7 +47,7 @@ var paper = new joint.dia.Paper({
   el: canvas,
   //キャンバスのサイズ
   width: 1184,
-  height: 1000,
+  height: 1200,
   model: graph,
   gridSize: 1,
   clickThreshold: 1,
@@ -58,7 +58,7 @@ var paper2 = new joint.dia.Paper({
   el: canvas2,
   //キャンバスのサイズ
   width: 1184,
-  height: 1000,
+  height: 1200,
   model: graph2,
   gridSize: 1,
 
@@ -69,7 +69,7 @@ var paper3 = new joint.dia.Paper({
   el: canvas3,
   //キャンバスのサイズ
   width: 592,
-  height: 500,
+  height: 600,
   model: graph3,
   gridSize: 1,
   clickThreshold: 1
@@ -78,7 +78,7 @@ var paper4 = new joint.dia.Paper({
   el: canvas4,
   //キャンバスのサイズ
   width: 592,
-  height: 500,
+  height: 600,
   model: graph4,
   gridSize: 1,
   clickThreshold: 1
@@ -1070,105 +1070,84 @@ function pickup2(){
     }
 }
 
+function differencesLinks(){
+  for(i=0;i<links.length;i++){
+    for(j=0;j<others_links.length;j++){
+      if(cell_link_source[i]==others_link_source[j]
+        &&
+        cell_link_target[i]==others_link_target[j]
+      ){
+        alert("カード"+cell_link_source[i]+"からカード"+cell_link_target[i]+"への矢印は一致");
+      }
+
+      }
+    }
+  }
+
+
+
   function differences(){
     //上部が状態変化が一致しているものがあるか判定
     for(i=0;i<cells2.length;i++){
-      if (!(
-         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribute1/human'))
-       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute1/state'))
-       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute1/updown')))
+      for(j=1;j<5;j=j+2){
+
+      if (cells2[i].attr('.attribute'+j+'/human') != ''){
+          if(!(
+         ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribute1/human'))
+       &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute1/state'))
+       &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute1/updown')))
        ||
-         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribute3/human'))
-       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute3/state'))
-       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute3/updown')))
+         ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribute3/human'))
+       &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute3/state'))
+       &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute3/updown')))
        ||
-         ((cells2[i].attr('.attribute1/human')  == cells3[i].attr('.attribut5/human'))
-       &&  (cells2[i].attr('.attribute1/state')  == cells3[i].attr('.attribute5/state'))
-       &&  (cells2[i].attr('.attribute1/updown') == cells3[i].attr('.attribute5/updown')))
+         ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribut5/human'))
+       &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute5/state'))
+       &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute5/updown')))
+)){
+    switch(j){
+      case 1:alert("カード"+i+"の左上の状態が一致していません。カードの状態をもう一度確認してみましょう");
+      break;
+      case 3:alert("カード"+i+"の中上の状態が一致していません。カードの状態をもう一度確認してみましょう");
+      break;
+      case 5:alert("カード"+i+"の右上の状態が一致していません。カードの状態をもう一度確認してみましょう");
+      break;
 
-       ||
+    }
+  }
+     }
+     }
+  }
+  //下部が状態変化が一致しているものがあるか判定
+  for(i=0;i<cells2.length;i++){
+    for(j=2;j<6;j=j+2){
 
-       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribute1/human'))
-     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute1/state'))
-     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute1/updown')))
+    if (cells2[i].attr('.attribute'+j+'/human') != ''){
+        if(!(
+       ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribute2/human'))
+     &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute2/state'))
+     &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute2/updown')))
      ||
-       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribute3/human'))
-     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute3/state'))
-     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute3/updown')))
+       ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribute4/human'))
+     &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute4/state'))
+     &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute4/updown')))
      ||
-       ((cells2[i].attr('.attribute3/human')  == cells3[i].attr('.attribut5/human'))
-     &&  (cells2[i].attr('.attribute3/state')  == cells3[i].attr('.attribute5/state'))
-     &&  (cells2[i].attr('.attribute3/updown') == cells3[i].attr('.attribute5/updown')))
-
-     ||
-
-     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribute1/human'))
-   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute1/state'))
-   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute1/updown')))
-   ||
-     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribute3/human'))
-   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute3/state'))
-   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute3/updown')))
-   ||
-     ((cells2[i].attr('.attribute5/human')  == cells3[i].attr('.attribut5/human'))
-   &&  (cells2[i].attr('.attribute5/state')  == cells3[i].attr('.attribute5/state'))
-   &&  (cells2[i].attr('.attribute5/updown') == cells3[i].attr('.attribute5/updown')))
-     ))
-{
-  alert("カード"+i+"上部の状態が一致していません。カードの状態をもう一度確認してみましょう");
- }
+       ((cells2[i].attr('.attribute'+j+'/human')  == cells3[i].attr('.attribut6/human'))
+     &&  (cells2[i].attr('.attribute'+j+'/state')  == cells3[i].attr('.attribute6/state'))
+     &&  (cells2[i].attr('.attribute'+j+'/updown') == cells3[i].attr('.attribute6/updown')))
+)){
+  switch(j){
+    case 2:alert("カード"+i+"の左下の状態が一致していません。カードの状態をもう一度確認してみましょう");
+    break;
+    case 4:alert("カード"+i+"の中下の状態が一致していません。カードの状態をもう一度確認してみましょう");
+    break;
+    case 6:alert("カード"+i+"の右下の状態が一致していません。カードの状態をもう一度確認してみましょう");
+    break;
+  }
 }
-
-//上部が状態変化が一致しているものがあるか判定
-for(i=0;i<cells2.length;i++){
-  if (!(
-     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribute2/human'))
-   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute2/state'))
-   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute2/updown')))
-   ||
-     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribute4/human'))
-   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute4/state'))
-   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute4/updown')))
-   ||
-     ((cells2[i].attr('.attribute2/human')  == cells3[i].attr('.attribut6/human'))
-   &&  (cells2[i].attr('.attribute2/state')  == cells3[i].attr('.attribute6/state'))
-   &&  (cells2[i].attr('.attribute2/updown') == cells3[i].attr('.attribute6/updown')))
-
-   ||
-
-   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribute2/human'))
-  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute2/state'))
-  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute2/updown')))
-  ||
-   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribute4/human'))
-  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute4/state'))
-  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute4/updown')))
-  ||
-   ((cells2[i].attr('.attribute4/human')  == cells3[i].attr('.attribut6/human'))
-  &&  (cells2[i].attr('.attribute4/state')  == cells3[i].attr('.attribute6/state'))
-  &&  (cells2[i].attr('.attribute4/updown') == cells3[i].attr('.attribute6/updown')))
-
-  ||
-
-  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribute2/human'))
- &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute2/state'))
- &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute2/updown')))
- ||
-  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribute4/human'))
- &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute4/state'))
- &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute4/updown')))
- ||
-  ((cells2[i].attr('.attribute6/human')  == cells3[i].attr('.attribut6/human'))
- &&  (cells2[i].attr('.attribute6/state')  == cells3[i].attr('.attribute6/state'))
- &&  (cells2[i].attr('.attribute6/updown') == cells3[i].attr('.attribute6/updown')))
-
- ))
-{
-alert("カード"+i+"下部の状態が一致していません。カードの状態をもう一度確認してみましょう");
+   }
+   }
 }
-}
-
-
 
 }
 
@@ -1193,23 +1172,25 @@ function addCell(){
   cells[number].attr('.label/text', 'NEW');
   graph.addCells(cells);
 }
-//ボタンをクリックするとイベントが発生するようにする
-//$('#addLink').on('click', addLink);
-//$('#addCell').on('click', addCell);
-//$('#colorChange').on('click', colorChange);
-$('#differences').on('click',differences);
+
+
 function colorChange(){
   var cardnumber = ChangeColor.cardnumber.value;
   var colors = ChangeColor.color.value;
   cells[cardnumber].attr('.element-node/data-color',colors);
 }
 
+//ボタンをクリックするとイベントが発生するようにする
+//$('#addLink').on('click', addLink);
+//$('#addCell').on('click', addCell);
+$('#colorChange').on('click', colorChange);
+$('#differences').on('click',differences);
+
+
 $('#ReturnPickup').on('click',ReturnPickup);
-function colorChange(){
-  var cardnumber = ChangeColor.cardnumber.value;
-  var colors = ChangeColor.color.value;
-  cells[cardnumber].attr('.element-node/data-color',colors);
-}
+
+
+$('#differencesLinks').on('click',differencesLinks);
 
 
 /*
