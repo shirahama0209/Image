@@ -19,6 +19,7 @@
     <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
 </head>
 
 <body>
@@ -28,7 +29,7 @@
       <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
       <li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>
       <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
-      <li><a href="#" data-id="DataInformation" class="menu_item">差異一覧</a></li>
+      <li><a href="#" data-id="DataInformation" class="menu_item">状態、矢印の差</a></li>
     </ul>
 <!-- 自分の画面描写画面-->
 
@@ -36,16 +37,7 @@
 図形描写画面
           <div id="canvas" data-filter="all"></div>
             <body onload = "initialize()">
-      <!--
-      <label for"addColor">ノード</label>
-      <select id="addColor">
-        <option value="red">red</option>
-        <option value="blue">blue</option>
-        <option value="green">green</option>
-      </select>
-      <button id="addCell">新たなカードを作成する</button>
-      -->　
-      <form name="CardState">イベント後　カード
+      <form name="CardState">カード
         <select name="source">
           <option value="0">0</option>
           <option value="1">1</option>
@@ -57,23 +49,32 @@
           <option value="7">7</option>
         </select>の
         <select name="human">
+          <option value="天皇">天皇</option>
+          <option value="貴族">貴族</option>
           <option value="武士">武士</option>
-          <option value="商人">商人</option>
+          <option value="源氏">源氏</option>
+          <option value="平氏">平氏</option>
+          <option value="庶民">庶民</option>
           <option value="農民">農民</option>
         </select>の
         <select name="state">
-          <option value="地位">地位</option>
-          <option value="力">力</option>
           <option value="経済力">経済力</option>
+          <option value="武力">武力</option>
+          <option value="地位">地位</option>
+          <option value="生活">生活</option>
+          <option value="対立">対立</option>
+          <option value="不満">不満</option>
         </select>が
         <select name="UpDown">
           <option value="上がった">上がった</option>
           <option value="下がった">下がった</option>
+          <option value="増えた">増えた</option>
+          <option value="減った">減った</option>
         </select>
-      <input type="button" value="追加" onclick="CardStateChange()">
+      <input type="button" value="結果追加" onclick="CardStateChange()">
       </form>
 
-      <form name="CardState2">イベント前　カード
+      <form name="CardState2">カード
         <select name="source">
           <option value="0">0</option>
           <option value="1">1</option>
@@ -85,20 +86,29 @@
           <option value="7">7</option>
         </select>の
         <select name="human">
+          <option value="天皇">天皇</option>
+          <option value="貴族">貴族</option>
           <option value="武士">武士</option>
-          <option value="商人">商人</option>
+          <option value="源氏">源氏</option>
+          <option value="平氏">平氏</option>
+          <option value="庶民">庶民</option>
           <option value="農民">農民</option>
         </select>の
         <select name="state">
-          <option value="地位">地位</option>
-          <option value="力">力</option>
           <option value="経済力">経済力</option>
+          <option value="武力">武力</option>
+          <option value="地位">地位</option>
+          <option value="生活">生活</option>
+          <option value="対立">対立</option>
+          <option value="不満">不満</option>
         </select>が
         <select name="UpDown">
           <option value="上がった">上がった</option>
           <option value="下がった">下がった</option>
+          <option value="増えた">増えた</option>
+          <option value="減った">減った</option>
         </select>
-      <input type="button" value="追加" onclick="CardStateChange2()">
+      <input type="button" value="原因追加" onclick="CardStateChange2()">
       </form>
       <form name="cardstateclear">カード
         <select name="source">
@@ -119,7 +129,7 @@
           <option value="4">中下</option>
           <option value="6">右下</option>
         </select>
-         の属性を<input type="button" value="削除" onclick="CardStateClear()">
+         の状態を<input type="button" value="削除" onclick="CardStateClear()">
         </form>
       <form name="input_sample">カード
         <select name="source">
@@ -156,17 +166,20 @@
         <option value="5">5</option>
         <option value="6">6</option>
         <option value="7">7</option>
-      </select>の属性を
-      <select name="color">
-        <div class="colors">
-         <option value="red">政治</option>
-         <option value="blue">経済</option>
-         <option value="green">農業</option>
-        </div>
-      </select>
+     </select>の属性を
+     <select name="color">
+            <div class="colors">
+             <option value="red" style="background-color:#FF0000">政治</option>
+             <option value="blue">経済</option>
+             <option value="green">農業</option>
+            </div>
+          </select>
+
+
       に
       <input type="button" onclick="colorChange()" value="変更する">
       </form>
+
       自分の図形描写情報を<button id="send">送信</button>
 </div>
 
@@ -194,6 +207,9 @@
 </div>
 </div>
 <br>
+<input type="text" id="user_name" placeholder="名前" >さんの情報を
+<button id="get">取得</button>
+
   <form name = "pickup">
     カード
   <select name="cardnumber">
@@ -205,13 +221,15 @@
     <option value="5">5</option>
     <option value="6">6</option>
     <option value="7">7</option>
+    <option value="解除">解除</option>
   </select> を<input type="button" value="ピックアップ" onclick="pickup2()">
-  </form><button id="ReturnPickup">解除</button>
+  </form>
   <br>
-  <button id="differences">状態変化の違いをピックアップ</button>
+  <button id="differences">生徒、先生との状態変化、矢印の違いをピックアップ</button>
   <br>
-  <button id="differencesLinks">リンクの違いをピックアップ</button>
-  <br>
+
+
+<!--
   <label for"filter">属性フィルター</label>
 <select id="filter">
   <option value="all">なし</option>
@@ -219,21 +237,85 @@
   <option value="blue">青</option>
   <option value="green">緑</option>
 </select>
+-->
 
 </div>
 
 <div class="content " id="DataInformation">
-話し合うべき議題
+  <div class="layoutAll">
+
+<div class="smallSize">
+<div class="subject">話し合うべき議題の優先順位</div>
 <br>
-優先度１ 状態変化が一致していないもの
-
-
+<!--
 <br>
-優先度２　結線が一致していないもの
-
-
+<div class="subject">優先順位１　相手との違い</div>
 <br>
-優先度３　先生の図と結線が違うもの
+<p2>自分の図にあり相手の図にない状態</p2>
+  <div class=datadisplay id="myStatues">自分の図から見て足りない状態</div>
+<p2>相手の図にあり自分の図にない状態</p2>
+  <div class=datadisplay id="otherStatues">相手の図から見て足りない状態</div>
+<br>
+<p2>相手との矢印の違い</p2>
+  <div class=datadisplay id="Links">共通してない矢印</div>
+<br>
+-->
+
+
+<div class="subject">優先順位1　先生との状態変化の違い</div>
+<br>
+<p2>自分の図にあり先生の図にない状態</p2>
+  <div class=datadisplay id="teacherStatues">自分の図から見て足りない状態</div>
+<br>
+<p2>先生の図にあり自分の図にない状態</p2>
+<div class=datadisplay id="othersteacherStatues">先生の図から見て足りない状態</div>
+<br>
+
+<div class="subject">優先順位２　先生との矢印の違い</div>
+<br>
+<p2>過剰結線</p2>
+  <div class=datadisplay id="teacherLinks1">過剰結線</div>
+<br>
+<p2>足りない結線</p2>
+<br>
+  <div class=datadisplay id="teacherLinks2">先生の図にはある結線</div>
+
+
+
+<!--
+<div class="layoutleft">
+  自分から見て違うもの
+  優先度１ 状態変化が一致していないもの
+  <output id=”priority1”>優先度１</output>
+
+  <br>
+  優先度２　結線が一致していないもの
+  <output id=”priority2”>優先度2</output>
+
+  <br>
+  優先度３　先生の図と結線が違うもの
+  <output id=”priority3”>優先度3</output>
+</div>
+
+<div class="layoutright">
+  相手から見て違うもの
+  優先度１ 状態変化が一致していないもの
+  <output id=”priority1”>優先度１</output>
+
+  <br>
+  優先度２　結線が一致していないもの
+  <output id=”priority2”>優先度2</output>
+
+  <br>
+  優先度３　先生の図と結線が違うもの
+  <output id=”priority3”>優先度3</output>
+</div>
+-->
+
+</div>
+
+</div>
+
 
 
 </div>
@@ -244,8 +326,7 @@
 
    </div>
 </body>
-
-
+</body>
 
 
 
@@ -253,7 +334,9 @@
 
 
 </div>
+
     <script  type="text/javascript" src="js/DrawImage.js"></script>
+<script type="text/javascript" src="js/teacherdata.js"></script>
 
 </body>
 </html>
