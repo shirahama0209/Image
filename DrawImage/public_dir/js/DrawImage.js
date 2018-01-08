@@ -86,6 +86,7 @@ var paper4 = new joint.dia.Paper({
 
 
 
+
 /*
 カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
 --------------------------extend,markupについての覚書---------------------------------
@@ -374,6 +375,89 @@ function CardStateClear(){
       cells[can].attr('.attribute'+attributnumber+'/updown','');
 }
 
+
+
+
+
+//カードの状態変化を確認
+function CardStateView(){
+    var can = cardstateclear.source.value;
+    var attributnumber =cardstateclear.attribute.value;
+if(cells[can].attr('.attribute'+attributnumber+'/human')==""){
+  alert("属性なし");
+}else{
+    alert("カード"+can+"の左上の状態("+cells[can].attr('.attribute'+attributnumber+'/human')+"の"+cells[can].attr('.attribute'+attributnumber+'/state')+"が"+cells[can].attr('.attribute'+attributnumber+'/updown')+")");
+}
+}
+
+
+
+//カードの状態変化を確認
+function CardStateView2(){
+    var can = cardstateclear1.source2.value;
+    var attributnumber =parseInt(cardstateclear1.attribute2.value);
+    var text=[];
+if((cells2[can].attr('.attribute'+attributnumber+'/human')=="")
+&&
+(cells3[can].attr('.attribute'+attributnumber+'/human')=="")
+){alert("状態が設定されていません。");}
+else{
+    if(attributnumber==1){
+    if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
+      　text.push("自分のカード"+can+"の上の状態");
+        text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
+     if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+        text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+     if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+        text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+    }
+    }
+    }
+
+    if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
+    　text.push("");
+      text.push("相手のカード"+can+"の上の状態");
+        text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
+     if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+        text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+     if(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+        text.push(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+    }
+    }
+    }
+alert(text.join('\n'));
+    }
+
+
+if(attributnumber==2){
+if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
+  　text.push("自分のカード"+can+"の下の状態");
+    text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
+ if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+    text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+ if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+    text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+}
+}
+}
+
+if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
+　text.push("");
+  text.push("相手のカード"+can+"の下の状態");
+    text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
+ if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+    text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+ if(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+    text.push(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+}
+}
+}
+alert(text.join('\n'));
+}
+}
+
+
+}
 
 
 //上の属性変更　attribute1,3,5
@@ -694,13 +778,47 @@ labels: [
 }else{
   alert("カードの属性が一致していません");
 }
+//状態変化が一致してない時のアラート
   }else{
-    alert("カードに状態が一致していません。カードの状態をもう一度確認してみましょう");
+    if( confirm("カードに状態が一致していませが本当に矢印を引きますか？") ) {
+      links[link_length] = new joint.dia.Link({
+           source: { id: cells[source1].id },
+           target: { id: cells[target1].id },
+       connector: { name: 'rounded' },
+       attrs: {
+           '.connection': {
+               stroke: '#333333',
+               'stroke-width': 4
+           },
+           '.marker-target': {
+               fill: '#333333',
+               d: 'M 10 0 L 0 5 L 10 10 z'
+           }
+       },
+      labels: [
+           { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+       });
+       cell_link_source[link_length] = source1;
+       cell_link_target[link_length] = target1;
+       cell_link_reason[link_length] = reason;
+       graph.addCells(links);
+    }
+    else {
+        alert("矢印作成をやめます。");
+    }
+
   }
 }else{
   alert("同じカードを選択しています")
 }
 }
+
+
+
+
+
+
+
 
 
 //矢印を削除した時にトリガー,リストから矢印を削除
@@ -791,7 +909,7 @@ graph.on('remove',function(cell,collection,opt){
          cell_attribute_state6 : cell_attribute_state6,
          cell_attribute_updown6 : cell_attribute_updown6
        }
-     );alert("送信しました");
+     );alert("送信しました.違いを抽出しました。状態、矢印の差を見てみましょう");
    }else{
      //no user is singed in.
      alert("ログインしていません");
@@ -943,8 +1061,7 @@ others_cells[i].attr('.attribute'+j+'/fill','#'+flag);others_cells[i].attr('.att
 }
 }
 
-  $('#get').on('click', get);
-  $('#send').on('click', send);
+
 
 //指定したカード番号以外のopacityを下げる
 function pickup2(){
@@ -1304,13 +1421,6 @@ BallImg.src = "http://sites.google.com/site/westinthefareast/home/datafiles/chro
 
 
 
-//ピックアップを止めるために全てのopacityを１にする
-  function ReturnPickup(){
-    for(i=0;i<cells2.length;i++){
-        cells2[i].attr('.body/opacity',1);
-        cells3[i].attr('.body/opacity',1);
-      }
-  }
 
 
 
@@ -1332,21 +1442,81 @@ function colorChange(){
   cells[cardnumber].attr('.element-node/data-color',colors);
 }
 
+//selectボックスの色を変える
+function changeColor(){
+var e = document.getElementById("color");
+e.style.background = e.options[e.selectedIndex].style.background;
+}
+
+
 //ボタンをクリックするとイベントが発生するようにする
 //$('#addLink').on('click', addLink);
 //$('#addCell').on('click', addCell);
-$('#colorChange').on('click', colorChange);
-$('#ReturnPickup').on('click',ReturnPickup);
 
-$('#differences').on('click',differences);
-$('#differences').on('click',differencesLinks);
-$('#differences').on('click',teacherdifferences);
-$('#differences').on('click',teacherdifferencesLinks);
-$('#differences').on('click',reWrite);
-$('#differences').on('click',aaa);
-function aaa(){
-alert("違いを抽出しました。状態、矢印の差を見てみましょう")
+$('#get').on('click', get);
+$('#send').on('click', send);
+
+$('#colorChange').on('click', colorChange);
+
+$('#send').on('click',differences);
+$('#send').on('click',differencesLinks);
+$('#send').on('click',teacherdifferences);
+$('#send').on('click',teacherdifferencesLinks);
+$('#send').on('click',reWrite);
+$('#get').on('click',Reset);
+function Reset(){
+  graph3.clear();
+  graph4.clear();
+  for(i = 0 ; i < cells.length ; i++){
+    cells2[i]=cells[i].clone();
+  }
+  for(i = 0 ; i < links.length ; i++){
+    links2[i] = new joint.dia.Link({
+         source: { id: cells2[cell_link_source[i]].id },
+         target: { id: cells2[cell_link_target[i]].id },
+     connector: { name: 'rounded' },
+     attrs: {
+         '.connection': {
+             stroke: '#333333',
+             'stroke-width': 4
+         },
+         '.marker-target': {
+             fill: '#333333',
+             d: 'M 10 0 L 0 5 L 10 10 z'
+         }
+     },
+    labels: [
+         { position: 0.5, attrs: { text: { text: cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+     });
+  }
+  graph3.addCells(cells2);
+  graph3.addCells(links2);
+  for(i = 0 ; i < others_cells.length ; i++){
+    cells3[i]=others_cells[i].clone();
+  }
+  for(i = 0 ; i < others_links.length ; i++){
+    links3[i] = new joint.dia.Link({
+         source: { id: cells3[others_link_source[i]].id },
+         target: { id: cells3[others_link_target[i]].id },
+     connector: { name: 'rounded' },
+     attrs: {
+         '.connection': {
+             stroke: '#333333',
+             'stroke-width': 4
+         },
+         '.marker-target': {
+             fill: '#333333',
+             d: 'M 10 0 L 0 5 L 10 10 z'
+         }
+     },
+    labels: [
+         { position: 0.5, attrs: { text: { text: others_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+     });
+  }
+  graph4.addCells(cells3);
+  graph4.addCells(links3);
 }
+
 /*
 $('#differencesLinks').on('click',differencesLinks);
 $('#teacherdifferences').on('click',teacherdifferences);
@@ -1502,7 +1672,7 @@ $(filter).on('change', function(e){
 
 
 
-//差異一覧画面い違いを表示する
+//差異一覧画面の違いを表示する
 function reWrite(){
   /*
       document.getElementById("myStatues").innerText=mydiffereceStatuesArray.sort().join('\n');
@@ -1526,12 +1696,7 @@ function reWrite(){
       document.getElementById("teacherLinks2").innerText=differeceLinksArray2.sort().join('\n');
       console.log(differeceLinksArray2.join("\n"));
 
-      console.log(teachercells[2].attr('.attribute2/human'));
-      console.log((teachercells[2].attr('.attribute2/state')));
-      console.log((teachercells[2].attr('.attribute2/updown')));
-      console.log(cells2[0].attr('.attribute1/human'));
-      console.log(cells2[0].attr('.attribute1/state'));
-      console.log(cells2[0].attr('.attribute1/updown'));
+
 }
 
 

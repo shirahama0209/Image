@@ -27,9 +27,10 @@
   <div class="container">
     <ul class="menu">
       <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
-      <li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>
+      <li><a href="#" data-id="DataInformation" class="menu_item">状態、結線の差</a></li>
       <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
-      <li><a href="#" data-id="DataInformation" class="menu_item">状態、矢印の差</a></li>
+<!--<li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>-->
+
     </ul>
 <!-- 自分の画面描写画面-->
 
@@ -129,7 +130,9 @@
           <option value="4">中下</option>
           <option value="6">右下</option>
         </select>
-         の状態を<input type="button" value="削除" onclick="CardStateClear()">
+         の状態を<input type="button" value="確認" onclick="CardStateView()">
+         or
+         <input type="button" value="削除" onclick="CardStateClear()">
         </form>
       <form name="input_sample">カード
         <select name="source">
@@ -167,31 +170,30 @@
         <option value="6">6</option>
         <option value="7">7</option>
      </select>の属性を
-     <select name="color">
-            <div class="colors">
-             <option value="red" style="background-color:#FF0000">政治</option>
-             <option value="blue">経済</option>
-             <option value="green">農業</option>
-            </div>
+     <select name="color"  id="color" onchange="changeColor()">
+             <option style="background:#F2F5A9;" value="red" >政治</option>
+             <option style="background:#CEF6F5;" value="blue">経済</option>
+             <option style="background:#9FF781;" value="green">農業</option>
           </select>
-
-
       に
       <input type="button" onclick="colorChange()" value="変更する">
       </form>
 
       自分の図形描写情報を<button id="send">送信</button>
+
+
 </div>
 
 
     <!-- 他人の画面描写画面-->
+<!--
   <div class="content" id="OtherPicture">
     他者図形画面
     <div id="canvas2" data-filter="all"></div>
           <input type="text" id="user_name" placeholder="名前" >さんの情報を
           <button id="get">取得</button>
   </div>
-
+-->
 
 
 
@@ -209,7 +211,7 @@
 <br>
 <input type="text" id="user_name" placeholder="名前" >さんの情報を
 <button id="get">取得</button>
-
+<!--
   <form name = "pickup">
     カード
   <select name="cardnumber">
@@ -224,9 +226,27 @@
     <option value="解除">解除</option>
   </select> を<input type="button" value="ピックアップ" onclick="pickup2()">
   </form>
+-->
   <br>
-  <button id="differences">生徒、先生との状態変化、矢印の違いをピックアップ</button>
-  <br>
+  <form name="cardstateclear1">カード
+    <select name="source2">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>の
+    <select name="attribute2">
+      <option value="1">上</option>
+      <option value="2">下</option>
+
+    </select>の状態を
+     <input type="button" value="確認" onclick="CardStateView2()">
+    </form>
+
 
 
 <!--
@@ -245,7 +265,7 @@
   <div class="layoutAll">
 
 <div class="smallSize">
-<div class="subject">話し合うべき議題の優先順位</div>
+<div class="subject">自分のチャートと比べてみよう</div>
 <br>
 <!--
 <br>
@@ -262,7 +282,7 @@
 -->
 
 
-<div class="subject">優先順位1　先生との状態変化の違い</div>
+<div class="subject">以下の事象の状態変化を見直しましょう</div>
 <br>
 <p2>自分の図にあり先生の図にない状態</p2>
   <div class=datadisplay id="teacherStatues">自分の図から見て足りない状態</div>
@@ -271,15 +291,16 @@
 <div class=datadisplay id="othersteacherStatues">先生の図から見て足りない状態</div>
 <br>
 
-<div class="subject">優先順位２　先生との矢印の違い</div>
+<div class="subject">以下の事象間の関係性を見直して見ましょう</div>
 <br>
 <p2>過剰結線</p2>
   <div class=datadisplay id="teacherLinks1">過剰結線</div>
 <br>
+<!--
 <p2>足りない結線</p2>
 <br>
   <div class=datadisplay id="teacherLinks2">先生の図にはある結線</div>
-
+-->
 
 
 <!--

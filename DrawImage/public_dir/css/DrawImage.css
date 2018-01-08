@@ -42,7 +42,7 @@ ul.menu li {
 ul.menu li a {
   display: inline-block;
   font-size: 40px;
-  width: 292px;  /*3つの時 392*/
+  width: 392px;  /*3つの時 392*/
   height: 60px;
   text-align: center;
   text-decoration: none;
@@ -176,7 +176,7 @@ button {
 }
 
 #canvas .element-node[data-color="red"] {
-  fill: #F7BE81;
+  fill: #F2F5A9;
 }
 #canvas .element-node[data-color="blue"] {
   fill: #CEF6F5;
@@ -216,7 +216,7 @@ button {
 }
 
 #canvas2 .element-node[data-color="red"] {
-  fill: #F7BE81;
+  fill: #F2F5A9;
 }
 #canvas2 .element-node[data-color="blue"] {
   fill: #CEF6F5;
@@ -259,7 +259,7 @@ button {
 }
 
 #canvas3 .element-node[data-color="red"] {
-  fill: #F7BE81;
+  fill: #F2F5A9;
 }
 #canvas3 .element-node[data-color="blue"] {
   fill: #CEF6F5;
@@ -300,7 +300,7 @@ button {
 }
 
 #canvas4 .element-node[data-color="red"] {
-  fill: #F7BE81;
+  fill: #F2F5A9;
 }
 #canvas4 .element-node[data-color="blue"] {
   fill: #CEF6F5;
