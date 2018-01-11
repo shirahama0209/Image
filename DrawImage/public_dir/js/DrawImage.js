@@ -1079,7 +1079,7 @@ graph.on('remove',function(cell,collection,opt){
 //firebaseに送信用メソッド
  function send(){
 
-   var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user);
+   var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber+"/"+user);
    var cells_number = [];
    var cells_position_x = [];
    var cells_position_y = [];
@@ -1166,7 +1166,7 @@ graph.on('remove',function(cell,collection,opt){
     var user_name = document.getElementById('user_name').value;
     if(user_name){
 
- var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
+ var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber+"/"+user_name);
       /*
       ---------------ref.on('value',function(snapshot){});について------------------------------------
       特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
@@ -1306,11 +1306,21 @@ graph.on('remove',function(cell,collection,opt){
       https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
       ------------------------------------------------------------------------------------------------
       */
-      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+"/"+user);
+      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber);
+      var ff=[];
     ref.on("value",function(snapshot){
-    console.log(snapshot.child().val());
+    console.log(snapshot.numChildren()+"人");
+    var aaaaaa = JSON.stringify(snapshot.val());
+    //var arrayusr = JSON.parse(aaaaaa);
+    JSON.parse(aaaaaa,function(key,value){
+      if(key==='user_name'){
+      ff.push(value);
+      console.log(ff);
+    }
+    });
 
- })}
+  })
+  }
 
 
 
