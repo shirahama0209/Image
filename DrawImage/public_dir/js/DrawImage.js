@@ -1080,9 +1080,9 @@ graph.on('remove',function(cell,collection,opt){
  function send(){
 
    var userRef = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber+"/"+user);
-   var cells_number = [];
-   var cells_position_x = [];
-   var cells_position_y = [];
+   var cell_number = [];
+   var cell_position_x = [];
+   var cell_position_y = [];
    var cell_color =[];
    var cell_attribute_human3=[];
    var cell_attribute_human4=[];
@@ -1100,9 +1100,9 @@ graph.on('remove',function(cell,collection,opt){
    if(user){
      //user is signed in.
      for(var i = 0; i < 8; i++){
-       cells_number.push(i);
-       cells_position_x.push(cells[i].get('position').x);
-       cells_position_y.push(cells[i].get('position').y);
+       cell_number.push(i);
+       cell_position_x.push(cells[i].get('position').x);
+       cell_position_y.push(cells[i].get('position').y);
        cell_color.push(cells[i].attr('.element-node/data-color'));
        cell_attribute_human.push(cells[i].attr('.attribute1/human'));
        cell_attribute_state.push(cells[i].attr('.attribute1/state'));
@@ -1126,11 +1126,11 @@ graph.on('remove',function(cell,collection,opt){
 
      userRef.set(
        {
-         user_name : user,
+         user_name : user_name,
          classnumber : classnumber,
-         cell_number   : cells_number,
-         cell_position_x : cells_position_x,
-         cell_position_y : cells_position_y,
+         cell_number   : cell_number,
+         cell_position_x : cell_position_x,
+         cell_position_y : cell_position_y,
          cell_link_source : cell_link_source,
          cell_link_target : cell_link_target,
          cell_link_reason : cell_link_reason,
@@ -1259,7 +1259,7 @@ graph.on('remove',function(cell,collection,opt){
 
     }
   }
-    graph2.addCells(others_cells);
+    graph4.addCells(others_cells);
 
     /*
     矢印の処理
@@ -1286,42 +1286,190 @@ graph.on('remove',function(cell,collection,opt){
     labels: [
          { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
      });}
-   graph2.addCells(others_links);}
+   graph4.addCells(others_links);}
    });
  }
  }
 
 
-
-
  //セルの位置情報のgetter
-  function get2(){
+   function get2(){
+
+     var user_name=[];
+     var classnumber=[];
+     var cell_number=[];
+     var cell_position_x=[];
+     var cell_position_y=[];
+     var cell_link_source=[];
+     var cell_link_target=[];
+     var cell_link_reason=[];
+     var cell_color=[];
+     var cell_attribute_human=[];
+     var cell_attribute_state=[];
+     var cell_attribute_updown=[];
+     var cell_attribute_human2=[];
+     var cell_attribute_state2=[];
+     var cell_attribute_updown2=[];
+     var cell_attribute_human3=[];
+     var cell_attribute_state3=[];
+     var cell_attribute_updown3=[];
+     var cell_attribute_human4=[];
+     var cell_attribute_state4=[];
+     var cell_attribute_updown4=[];
+     var cell_attribute_human5=[];
+     var cell_attribute_state5=[];
+     var cell_attribute_updown5=[];
+     var cell_attribute_human6=[];
+     var cell_attribute_state6=[];
+     var cell_attribute_updown6=[];
+
+     var Dataset =[user_name,
+              classnumber,
+              cell_number,
+              cell_position_x,
+              cell_position_y,
+              cell_link_source,
+              cell_link_target,
+              cell_link_reason,
+              cell_color,
+              cell_attribute_human,
+              cell_attribute_state,
+              cell_attribute_updown,
+              cell_attribute_human2,
+              cell_attribute_state2,
+              cell_attribute_updown2,
+              cell_attribute_human3,
+              cell_attribute_state3,
+              cell_attribute_updown3,
+              cell_attribute_human4,
+              cell_attribute_state4,
+              cell_attribute_updown4,
+              cell_attribute_human5,
+              cell_attribute_state5,
+              cell_attribute_updown5,
+              cell_attribute_human6,
+              cell_attribute_state6,
+              cell_attribute_updown6];
 
 
 
-      /*
-      ---------------ref.on('value',function(snapshot){});について------------------------------------
-      特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
-      データの更新があると、その度に再トリガーされる。
-      https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
-      ------------------------------------------------------------------------------------------------
-      */
-      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber);
-      var ff=[];
-    ref.on("value",function(snapshot){
-    console.log(snapshot.numChildren()+"人");
-    var aaaaaa = JSON.stringify(snapshot.val());
-    //var arrayusr = JSON.parse(aaaaaa);
-    JSON.parse(aaaaaa,function(key,value){
-      if(key==='user_name'){
-      ff.push(value);
-      console.log(ff);
-    }
-    });
+       /*
+       ---------------ref.on('value',function(snapshot){});について------------------------------------
+       特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
+       データの更新があると、その度に再トリガーされる。
+       https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
+       ------------------------------------------------------------------------------------------------
+       */
 
-  })
-  }
 
+       var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+classnumber);
+       var ff=[];
+     ref.on("value",function(snapshot){
+     console.log(snapshot.child(user).numChildren()+"人");
+     var aaaaaa = JSON.stringify(snapshot.val());
+     //var arrayusr = JSON.parse(aaaaaa);
+     JSON.parse(aaaaaa,function(key,value){
+
+
+
+if(key==='user_name'){
+user_name.push(value);
+}
+if(key==='classnumber'){
+classnumber.push(value);
+}
+if(key==='cell_number'){
+cell_number.push(value);
+}
+if(key==='cell_position_y'){
+cell_position_y.push(value);
+}
+if(key==='cell_position_x'){
+cell_position_x.push(value);
+}
+if(key==='cell_link_source'){
+cell_link_source.push(value);
+}
+if(key==='cell_link_target'){
+cell_link_target.push(value);
+}
+if(key==='cell_link_reason'){
+cell_link_reason.push(value);
+}
+if(key==='cell_color'){
+cell_color.push(value);
+}
+if(key==='cell_attribute_human'){
+cell_attribute_human.push(value);
+}
+if(key==='cell_attribute_state'){
+cell_attribute_state.push(value);
+}
+if(key==='cell_attribute_updown'){
+cell_attribute_updown.push(value);
+}
+if(key==='cell_attribute_human2'){
+cell_attribute_human2.push(value);
+}
+if(key==='cell_attribute_state2'){
+cell_attribute_state2.push(value);
+}
+if(key==='cell_attribute_updown2'){
+cell_attribute_updown2.push(value);
+}
+if(key==='cell_attribute_human3'){
+cell_attribute_human3.push(value);
+}
+if(key==='cell_attribute_state3'){
+cell_attribute_state3.push(value);
+}
+if(key==='cell_attribute_updown3'){
+cell_attribute_updown3.push(value);
+}
+if(key==='cell_attribute_human4'){
+cell_attribute_human4.push(value);
+}
+if(key==='cell_attribute_state4'){
+cell_attribute_state4.push(value);
+}
+if(key==='cell_attribute_updown4'){
+cell_attribute_updown4.push(value);
+}
+if(key==='cell_attribute_human5'){
+cell_attribute_human5.push(value);
+}
+if(key==='cell_attribute_state5'){
+cell_attribute_state5.push(value);
+}
+if(key==='cell_attribute_updown5'){
+cell_attribute_updown5.push(value);
+}
+if(key==='cell_attribute_human6'){
+cell_attribute_human6.push(value);
+}
+if(key==='cell_attribute_state6'){
+cell_attribute_state6.push(value);
+}
+if(key==='cell_attribute_updown6'){
+cell_attribute_updown6.push(value);
+}
+
+
+
+
+
+
+     });
+console.log(user_name);
+console.log(classnumber);
+console.log(cell_number);
+console.log(cell_link_source);
+console.log(cell_link_target);
+console.log(cell_attribute_human);
+console.log(cell_attribute_state);
+console.log(cell_attribute_updown);
+   })
+   }
 
 
 
