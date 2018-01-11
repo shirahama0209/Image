@@ -5,7 +5,9 @@ teachercells[0] = new joint.shapes.devs.Model({
   attrs: {
     '.body': {
       width: cardWidth,
-      height: cardHeight
+      height: cardHeight,
+    'stroke-width':1,
+      stroke:'black'
     },
     '.label': {
       text: 'カード１',
@@ -38,7 +40,7 @@ teachercells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 140,
     },
     '.attribute4' : {
       text: '',
@@ -47,7 +49,7 @@ teachercells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 140,
       'y':170
     },
     '.attribute5' : {
@@ -57,7 +59,7 @@ teachercells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 280,
     },
     '.attribute6' : {
       text: '',
@@ -66,12 +68,16 @@ teachercells[0] = new joint.shapes.devs.Model({
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 30,
+      'dx' : 280,
       'y':170,
     },
   },
   inPorts: ['center'],
   });
+
+
+
+
 
   //教師用カードの複製
    teachercells[1] = teachercells[0].clone();
@@ -81,7 +87,14 @@ teachercells[0] = new joint.shapes.devs.Model({
    teachercells[5] = teachercells[0].clone();
    teachercells[6] = teachercells[0].clone();
    teachercells[7] = teachercells[0].clone();
-  //教師用カードの状態
+   teachercells[1].translate(400, 0);
+   teachercells[2].translate(800, 0);
+   teachercells[3].translate(0, 200);
+   teachercells[4].translate(400, 200);
+   teachercells[5].translate(800,200);
+   teachercells[6].translate(200, 400);
+   teachercells[7].translate(600, 400);
+     //教師用カードの状態
    teachercells[0].attr('.attribute1/human',"天皇");
    teachercells[0].attr('.attribute1/state',"地位");
    teachercells[0].attr('.attribute1/updown',"下がった");
@@ -196,3 +209,7 @@ teachercells[0] = new joint.shapes.devs.Model({
    teachercells[7].attr('.attribute1/human',"庶民");
    teachercells[7].attr('.attribute1/state',"不満");
    teachercells[7].attr('.attribute1/updown',"減った");
+
+
+   graph5.addCells(teachercells);
+   graph5.addCells(others_links);

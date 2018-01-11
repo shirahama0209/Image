@@ -40,8 +40,11 @@ newuser.addEventListener('click', function(e) {
 //ログイン処理
 login.addEventListener('click', function(e) {
   var user = document.getElementById('user').value;
+  var classnumber = document.getElementById('classnumber').value;
   var password = document.getElementById('password').value;
-  location.href = "DrawImage.html?data="+encodeURIComponent(user);
+//  location.href = "DrawImage.html?data="+encodeURIComponent(user);
+location.href = "DrawImage.html?data="+encodeURIComponent(user)+"?class="+encodeURIComponent(classnumber);
+
   /*
   firebase.auth().signInWithEmailAndPassword(email, password)
   .catch(function(error) {
@@ -66,7 +69,10 @@ logout.addEventListener('click', function() {
 //認証状態の確認
 firebase.auth().onAuthStateChanged(function(user) {
   if(user) {
-    location.href = "DrawImage.html?data="+encodeURIComponent(user);
+  //  location.href = "DrawImage.html?data="+encodeURIComponent(user);
+    location.href = "DrawImage.html?data="+encodeURIComponent(user)+"?class="+encodeURIComponent(classnumber);
+
+
     //window.location.href = 'DrawImage.html';
   }
   else {

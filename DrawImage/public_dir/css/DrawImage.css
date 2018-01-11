@@ -42,7 +42,7 @@ ul.menu li {
 ul.menu li a {
   display: inline-block;
   font-size: 40px;
-  width: 392px;  /*3つの時 392*/
+  width: 292px;  /*3つの時 392*/
   height: 60px;
   text-align: center;
   text-decoration: none;
@@ -160,7 +160,7 @@ button {
   font-size: 40px;
 }
 
-#canvas, #canvas2 {
+#canvas, #canvas2,#canvas5 {
   border: 1px solid;
   width: 1184px;
   height: 1200px;
@@ -326,6 +326,53 @@ button {
 #canvas4[data-filter="all"] .element-node {
   opacity: 1;
 }
+
+
+#canvas5 .element-node {
+  opacity: 0.5;
+}
+/*カードの最初の色は灰色*/
+#canvas5 .element-node[data-color="gray"] {
+  fill: #E6E6E6;
+}
+
+#canvas5 .element-node[data-color="red"] {
+  fill: #F2F5A9;
+}
+#canvas5 .element-node[data-color="blue"] {
+  fill: #CEF6F5;
+}
+#canvas5 .element-node[data-color="green"] {
+  fill: #9FF781;
+}
+#canvas5 .element-node text {
+  fill: #000000;
+}
+/*
+#canvas .element-node:hover .port {
+  opacity: 1;
+}
+*/
+#canvas5[data-filter="red"] .element-node[data-color="red"] {
+  opacity: 1;
+}
+#canvas5[data-filter="blue"] .element-node[data-color="blue"] {
+  opacity: 1;
+}
+#canvas5[data-filter="green"] .element-node[data-color="green"] {
+  opacity: 1;
+}
+#canvas5[data-filter="all"] .element-node {
+  opacity: 1;
+}
+
+
+
+
+
+
+
+
 .inPorts {
   width: 10px;
   height: 10px;

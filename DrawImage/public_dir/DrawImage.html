@@ -19,6 +19,7 @@
     <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
 </head>
 
@@ -27,9 +28,9 @@
   <div class="container">
     <ul class="menu">
       <li><a href="#" data-id="Mypicture" class="active menu_item">図形描写画面</a></li>
-      <li><a href="#" data-id="DataInformation" class="menu_item">状態、結線の差</a></li>
+      <li><a href="#" data-id="DataInformation" class="menu_item">内省画面</a></li>
       <li><a href="#" data-id="Comparing" class="menu_item">比較画面</a></li>
-<!--<li><a href="#" data-id="OtherPicture" class="menu_item">他者図形描写</a></li>-->
+　     <li><a href="#" data-id="Summary" class="menu_item">全体把握</a></li>
 
     </ul>
 <!-- 自分の画面描写画面-->
@@ -38,8 +39,8 @@
 図形描写画面
           <div id="canvas" data-filter="all"></div>
             <body onload = "initialize()">
-      <form name="CardState">カード
-        <select name="source">
+      <form name="CardState"  >カード
+        <select name="source" style="width:80px;">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -49,7 +50,7 @@
           <option value="6">6</option>
           <option value="7">7</option>
         </select>の
-        <select name="human">
+        <select name="human" >
           <option value="天皇">天皇</option>
           <option value="貴族">貴族</option>
           <option value="武士">武士</option>
@@ -76,7 +77,7 @@
       </form>
 
       <form name="CardState2">カード
-        <select name="source">
+        <select name="source" style="width:80px;">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -112,7 +113,7 @@
       <input type="button" value="原因追加" onclick="CardStateChange2()">
       </form>
       <form name="cardstateclear">カード
-        <select name="source">
+        <select name="source" style="width:80px;">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -121,21 +122,21 @@
           <option value="5">5</option>
           <option value="6">6</option>
           <option value="7">7</option>
-        </select>
-        <select name="attribute">
+        </select>の
+        <select name="attribute" >
           <option value="1">左上</option>
-          <option value="3">中上</option>
+          <option value="3">真上</option>
           <option value="5">右上</option>
           <option value="2">左下</option>
-          <option value="4">中下</option>
+          <option value="4">真下</option>
           <option value="6">右下</option>
         </select>
          の状態を<input type="button" value="確認" onclick="CardStateView()">
          or
          <input type="button" value="削除" onclick="CardStateClear()">
         </form>
-      <form name="input_sample">カード
-        <select name="source">
+      <form name="input_sample" >カード
+        <select name="source" style="width:80px;">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -146,7 +147,7 @@
           <option value="7">7</option>
         </select> から
       <input type="text" name="reason" placeholder="理由">で
-        <select name="target">
+        <select name="target" style="width:80px;">
           <option value="0">0</option>
           <option value="1">1</option>
           <option value="2">2</option>
@@ -160,7 +161,7 @@
 
       <form name="ChangeColor">
         カード
-      <select name="cardnumber">
+      <select name="cardnumber" style="width:80px;">
         <option value="0">0</option>
         <option value="1">1</option>
         <option value="2">2</option>
@@ -229,7 +230,7 @@
 -->
   <br>
   <form name="cardstateclear1">カード
-    <select name="source2">
+    <select name="source2" style="width:80px;">
       <option value="0">0</option>
       <option value="1">1</option>
       <option value="2">2</option>
@@ -239,14 +240,14 @@
       <option value="6">6</option>
       <option value="7">7</option>
     </select>の
-    <select name="attribute2">
-      <option value="1">上</option>
-      <option value="2">下</option>
+    <select name="attribute2" >
+      <option value="1">イベント後</option>
+      <option value="2">イベント前</option>
 
     </select>の状態を
      <input type="button" value="確認" onclick="CardStateView2()">
     </form>
-
+</div>
 
 
 <!--
@@ -259,7 +260,7 @@
 </select>
 -->
 
-</div>
+
 
 <div class="content " id="DataInformation">
   <div class="layoutAll">
@@ -284,17 +285,13 @@
 
 <div class="subject">以下の事象の状態変化を見直しましょう</div>
 <br>
-<p2>自分の図にあり先生の図にない状態</p2>
-  <div class=datadisplay id="teacherStatues">自分の図から見て足りない状態</div>
-<br>
-<p2>先生の図にあり自分の図にない状態</p2>
-<div class=datadisplay id="othersteacherStatues">先生の図から見て足りない状態</div>
+  <div class=datadisplay id="teacherStatues"></div>
+<div class=datadisplay id="othersteacherStatues"></div>
 <br>
 
 <div class="subject">以下の事象間の関係性を見直して見ましょう</div>
 <br>
-<p2>過剰結線</p2>
-  <div class=datadisplay id="teacherLinks1">過剰結線</div>
+  <div class=datadisplay id="teacherLinks1"></div>
 <br>
 <!--
 <p2>足りない結線</p2>
@@ -334,12 +331,74 @@
 -->
 
 </div>
-
+</div>
 </div>
 
 
 
+
+<div class="content" id="Summary">
+  全体把握
+<div id="canvas5" data-filter="all"></div>
+
+<form name="cardstateclear">カード
+  <select name="source" style="width:80px;">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>の
+  <select name="attribute" >
+    <option value="1">左上</option>
+    <option value="3">真上</option>
+    <option value="5">右上</option>
+    <option value="2">左下</option>
+    <option value="4">真下</option>
+    <option value="6">右下</option>
+  </select>
+   の割合を<input type="button" value="表示" onclick="ShowStatuesPercent()">
+
+
+
+  </form>
+
+
+  <form name="cardstateclear">矢印
+    <select name="source" style="width:80px;">
+      <option value="0">0</option>
+      <option value="1">1</option>
+      <option value="2">2</option>
+      <option value="3">3</option>
+      <option value="4">4</option>
+      <option value="5">5</option>
+      <option value="6">6</option>
+      <option value="7">7</option>
+    </select>から
+    <select name="attribute" >
+      <option value="1">左上</option>
+      <option value="3">真上</option>
+      <option value="5">右上</option>
+      <option value="2">左下</option>
+      <option value="4">真下</option>
+      <option value="6">右下</option>
+    </select>
+     の割合を<input type="button" value="表示" onclick="ShowLinkPercent()">
+     <input type="button" value="get2" onclick=get2()>
+
+
+    </form>
+
+
+
+
+
+
 </div>
+
 
 
 

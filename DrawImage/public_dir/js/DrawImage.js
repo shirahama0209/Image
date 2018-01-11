@@ -3,6 +3,7 @@ var canvas = $('#canvas');
 var canvas2 = $('#canvas2');
 var canvas3 = $('#canvas3');
 var canvas4 = $('#canvas4');
+var canvas5 = $('#canvas5');
 //ピックアップのための変数
 var filter = $('#filter');
 //カードの色を変えるための変数のIDを取得
@@ -26,8 +27,10 @@ var graph  = new joint.dia.Graph();
 var graph2 = new joint.dia.Graph();
 var graph3 = new joint.dia.Graph();
 var graph4 = new joint.dia.Graph();
+var graph5 = new joint.dia.Graph();
 //データベースに送るデータ
 var user;
+var classnumber;
 var others_links = [];
 var others_link_source = [];
 var others_link_target = [];
@@ -83,8 +86,16 @@ var paper4 = new joint.dia.Paper({
   gridSize: 1,
   clickThreshold: 1
 });
-
-
+//全体把握画面
+var paper5 = new joint.dia.Paper({
+  el: canvas5,
+  //キャンバスのサイズ
+  width: 1184,
+  height: 1200,
+  model: graph5,
+  gridSize: 1,
+  clickThreshold: 1,
+});
 
 
 /*
@@ -118,8 +129,11 @@ portMarkup: '<g class="port port<%= id %>"><circle class="port-body"/></g>',
 function initialize(){
   //渡されたuserのパース
   var data = location.href.split("?")[1];
+  var class12 = location.href.split("?")[2];
   user = data.split("=")[1];
-
+  classnumber =class12.split('=')[1];
+console.log(user);
+console.log(classnumber);
 
 //カードの生成
 cells[0] = new joint.shapes.devs.Model({
@@ -128,7 +142,9 @@ cells[0] = new joint.shapes.devs.Model({
   attrs: {
     '.body': {
       width: cardWidth,
-      height: cardHeight
+      height: cardHeight,
+    'stroke-width':1,
+      stroke:'black'
     },
     '.label': {
       text: 'カード１',
@@ -197,9 +213,9 @@ cells[0] = new joint.shapes.devs.Model({
 });
 //他のカードの複製
 //初期値の設定
-cells[0].toFront({ deep: true });
-cells[0].toFront();
-_.invoke(graph.getConnectedLinks(cells[0]), 'toFront');
+
+
+
 cells[1] = cells[0].clone();
 cells[1].translate(400, 0);
 cells[2] = cells[0].clone();
@@ -264,14 +280,18 @@ graph.addCells(cells);
 
 
 
+
 //他者カードの生成
+
 others_cells[0] = new joint.shapes.devs.Model({
   type: 'devs.Model',
   position: {x: 10, y: 10},
   attrs: {
     '.body': {
       width: cardWidth,
-      height: cardHeight
+      height: cardHeight,
+    'stroke-width':1,
+      stroke:'black'
     },
     '.label': {
       text: 'カード１',
@@ -361,7 +381,231 @@ others_cells[4].attr('.label/text', splitByLength(cellText4,cellTextLength));
 others_cells[5].attr('.label/text', splitByLength(cellText5,cellTextLength));
 others_cells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
 others_cells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
+
+
+
+//教師カードの作成
+teachercells[0] = new joint.shapes.devs.Model({
+  type: 'devs.Model',
+  position: {x: 10, y: 10},
+  attrs: {
+    '.body': {
+      width: cardWidth,
+      height: cardHeight,
+    'stroke-width':1,
+      stroke:'black'
+    },
+    '.label': {
+      text: 'カード１',
+      'y':40
+    },
+    '.element-node' : {
+      'data-color': 'gray'
+    },
+    '.attribute1' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : ''
+    },
+    '.attribute2' : {
+      text: '',
+      'font-size':20,
+      //card_hightの方が良い
+      'y':170,
+      'human':'',
+      'state':'',
+      'updown':''
+    },
+    '.attribute3' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 140,
+    },
+    '.attribute4' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 140,
+      'y':170
+    },
+    '.attribute5' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 280,
+    },
+    '.attribute6' : {
+      text: '',
+      'font-size':20,
+      'fill':'',
+      'human' : '',
+      'state' : '',
+      'updown' : '',
+      'dx' : 280,
+      'y':170,
+    },
+  },
+  inPorts: ['center'],
+  });
+
+
+
+
+
+  //教師用カードの複製
+   teachercells[1] = teachercells[0].clone();
+   teachercells[2] = teachercells[0].clone();
+   teachercells[3] = teachercells[0].clone();
+   teachercells[4] = teachercells[0].clone();
+   teachercells[5] = teachercells[0].clone();
+   teachercells[6] = teachercells[0].clone();
+   teachercells[7] = teachercells[0].clone();
+   teachercells[1].translate(400, 0);
+   teachercells[2].translate(800, 0);
+   teachercells[3].translate(0, 200);
+   teachercells[4].translate(400, 200);
+   teachercells[5].translate(800,200);
+   teachercells[6].translate(200, 400);
+   teachercells[7].translate(600, 400);
+     //教師用カードの状態
+   teachercells[0].attr('.attribute1/human',"天皇");
+   teachercells[0].attr('.attribute1/state',"地位");
+   teachercells[0].attr('.attribute1/updown',"下がった");
+
+
+   //others_cells[i].attr('.attribute1/human',snapshot.val().cell_attribute_human[i]);
+
+   teachercells[0].attr('.attribute3/human',"貴族");
+   teachercells[0].attr('.attribute3/state',"地位");
+   teachercells[0].attr('.attribute3/updown',"上がった");
+
+
+  //cells[card_attribute_number].attr('.attribute5/human',card_attribute_human)
+
+   teachercells[1].attr('.attribute2/human',"天皇");
+   teachercells[1].attr('.attribute2/state',"地位");
+   teachercells[1].attr('.attribute2/updown',"下がった");
+
+   teachercells[1].attr('.attribute4/human',"貴族");
+   teachercells[1].attr('.attribute4/state',"地位");
+   teachercells[1].attr('.attribute4/updown',"上がった");
+
+
+   teachercells[1].attr('.attribute1/human',"天皇") ;
+   teachercells[1].attr('.attribute1/state',"地位") ;
+   teachercells[1].attr('.attribute1/updown',"下がった");
+
+   teachercells[1].attr('.attribute3/human',"貴族");
+   teachercells[1].attr('.attribute3/state',"経済力");
+   teachercells[1].attr('.attribute3/updown',"上がった");
+
+   teachercells[2].attr('.attribute2/human',"貴族") ;
+   teachercells[2].attr('.attribute2/state',"経済力") ;
+   teachercells[2].attr('.attribute2/updown',"上がった");
+
+   teachercells[2].attr('.attribute1/human',"貴族");
+   teachercells[2].attr('.attribute1/state',"対立");
+   teachercells[2].attr('.attribute1/updown',"増えた");
+
+   teachercells[2].attr('.attribute3/human',"武士");
+   teachercells[2].attr('.attribute3/state',"地位");
+   teachercells[2].attr('.attribute3/updown',"上がった");
+
+   teachercells[2].attr('.attribute5/human',"庶民");
+   teachercells[2].attr('.attribute5/state',"生活");
+   teachercells[2].attr('.attribute5/updown',"下がった");
+
+   teachercells[3].attr('.attribute2/human',"貴族");
+   teachercells[3].attr('.attribute2/state',"対立");
+   teachercells[3].attr('.attribute2/updown',"増えた");
+
+   teachercells[3].attr('.attribute1/human',"武士");
+   teachercells[3].attr('.attribute1/state',"地位");
+   teachercells[3].attr('.attribute1/updown',"上がった");
+
+   teachercells[3].attr('.attribute3/human',"貴族");
+   teachercells[3].attr('.attribute3/state',"対立");
+   teachercells[3].attr('.attribute3/updown',"増えた");
+
+   teachercells[3].attr('.attribute5/human',"庶民" );
+   teachercells[3].attr('.attribute5/state',"生活");
+   teachercells[3].attr('.attribute5/updown',"下がった");
+
+
+   teachercells[4].attr('.attribute2/human',"貴族");
+   teachercells[4].attr('.attribute2/state',"対立");
+   teachercells[4].attr('.attribute2/updown',"増えた");
+
+   teachercells[4].attr('.attribute1/human',"庶民");
+   teachercells[4].attr('.attribute1/state',"生活");
+   teachercells[4].attr('.attribute1/updown',"下がった");
+
+   teachercells[4].attr('.attribute3/human',"平氏");
+   teachercells[4].attr('.attribute3/state',"地位");
+   teachercells[4].attr('.attribute3/updown',"上がった");
+
+
+
+   teachercells[5].attr('.attribute2/human',"平氏");
+   teachercells[5].attr('.attribute2/state',"地位");
+   teachercells[5].attr('.attribute2/updown',"上がった");
+
+   teachercells[5].attr('.attribute1/human',"源氏");
+   teachercells[5].attr('.attribute1/state',"不満");
+   teachercells[5].attr('.attribute1/updown',"上がった");
+
+   teachercells[5].attr('.attribute3/human',"庶民" );
+   teachercells[5].attr('.attribute3/state',"生活");
+   teachercells[5].attr('.attribute3/updown',"下がった");
+
+
+   teachercells[6].attr('.attribute2/human',"源氏");
+   teachercells[6].attr('.attribute2/state',"不満");
+   teachercells[6].attr('.attribute2/updown',"上がった");
+
+   teachercells[6].attr('.attribute1/human',"平氏");
+   teachercells[6].attr('.attribute1/state',"地位");
+   teachercells[6].attr('.attribute1/updown',"下がった");
+
+   teachercells[6].attr('.attribute3/human',"源氏");
+   teachercells[6].attr('.attribute3/state',"不満");
+   teachercells[6].attr('.attribute3/updown',"減った");
+
+   teachercells[6].attr('.attribute5/human',"庶民" );
+   teachercells[6].attr('.attribute5/state',"生活");
+   teachercells[6].attr('.attribute5/updown',"下がった");
+
+   teachercells[7].attr('.attribute2/human',"庶民");
+   teachercells[7].attr('.attribute2/state',"生活");
+   teachercells[7].attr('.attribute2/updown',"下がった");
+
+   teachercells[7].attr('.attribute1/human',"庶民");
+   teachercells[7].attr('.attribute1/state',"不満");
+   teachercells[7].attr('.attribute1/updown',"減った");
+
+
+
+
+
 }
+//以上がセルの初期化
+
+
+   graph5.addCells(teachercells);
+   graph5.addCells(others_links);
 
 
 //カードの状態変化を削除
@@ -404,7 +648,7 @@ if((cells2[can].attr('.attribute'+attributnumber+'/human')=="")
 else{
     if(attributnumber==1){
     if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
-      　text.push("自分のカード"+can+"の上の状態");
+      　text.push("自分のカード"+can+"のイベント後の状態");
         text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
      if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
         text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
@@ -416,7 +660,7 @@ else{
 
     if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
     　text.push("");
-      text.push("相手のカード"+can+"の上の状態");
+      text.push("相手のカード"+can+"のイベント後の状態");
         text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
      if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
         text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
@@ -431,7 +675,7 @@ alert(text.join('\n'));
 
 if(attributnumber==2){
 if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
-  　text.push("自分のカード"+can+"の下の状態");
+  　text.push("自分のカード"+can+"のイベント前の状態");
     text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
  if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
     text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
@@ -443,7 +687,7 @@ if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
 
 if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
 　text.push("");
-  text.push("相手のカード"+can+"の下の状態");
+  text.push("相手のカード"+can+"のイベント前の状態");
     text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
  if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
     text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
@@ -482,7 +726,7 @@ function CardStateChange(){
     cells[card_attribute_number].attr('.attribute5/state')==card_attribute_state &&
     cells[card_attribute_number].attr('.attribute5/updown')==card_attribute_UpDown)
   ){
-    alert('同じ属性がすでに設定されています');
+    alert('同じ状態がすでに設定されています。'+'\n'+'状態を一度確認してみましょう。');
   }
 //もしattributeが空なら数字が少ない方から状態を代入
   else{
@@ -586,7 +830,7 @@ function CardStateChange2(){
     cells[card_attribute_number].attr('.attribute6/state')==card_attribute_state &&
     cells[card_attribute_number].attr('.attribute6/updown')==card_attribute_UpDown)
   ){
-    alert('同じ属性がすでに設定されています');
+    alert('同じ状態がすでに設定されています。'+'\n'+'状態を一度確認してみましょう。');
   }else{
   if(cells[card_attribute_number].attr('.attribute2/human')==''){
   cells[card_attribute_number].attr('.attribute2/human',card_attribute_human);
@@ -780,7 +1024,7 @@ labels: [
 }
 //状態変化が一致してない時のアラート
   }else{
-    if( confirm("カードに状態が一致していませが本当に矢印を引きますか？") ) {
+    if( confirm("この状態で大丈夫ですか？カードに状態が一致していませんが本当に矢印を引きますか？") ) {
       links[link_length] = new joint.dia.Link({
            source: { id: cells[source1].id },
            target: { id: cells[target1].id },
@@ -804,12 +1048,12 @@ labels: [
        graph.addCells(links);
     }
     else {
-        alert("矢印作成をやめます。");
+        alert("矢印作成を中止します。");
     }
 
   }
 }else{
-  alert("同じカードを選択しています")
+  alert('同じカードを選択しています。'+'\n'+'カードの数字を一度確認してみましょう。')
 }
 }
 
@@ -883,6 +1127,7 @@ graph.on('remove',function(cell,collection,opt){
      userRef.set(
        {
          user_name : user,
+         classnumber : classnumber,
          cell_number   : cells_number,
          cell_position_x : cells_position_x,
          cell_position_y : cells_position_y,
@@ -909,157 +1154,167 @@ graph.on('remove',function(cell,collection,opt){
          cell_attribute_state6 : cell_attribute_state6,
          cell_attribute_updown6 : cell_attribute_updown6
        }
-     );alert("送信しました.違いを抽出しました。状態、矢印の差を見てみましょう");
+     );alert('自身のデータを送信しました.'+'\n'+'内省画面に移動しましょう');
    }else{
      //no user is singed in.
      alert("ログインしていません");
    }
  }
 
+ //セルの位置情報のgetter
+  function get(){
+    var user_name = document.getElementById('user_name').value;
+    if(user_name){
 
-//セルの位置情報のgetter
- function get(){
-   var user_name = document.getElementById('user_name').value;
-   if(user_name){
-     var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
-     /*
-     ---------------ref.on('value',function(snapshot){});について------------------------------------
-     特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
-     データの更新があると、その度に再トリガーされる。
-     https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
-     ------------------------------------------------------------------------------------------------
-     */
-   ref.on("value",function(snapshot){
-     //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
-     //graph内のセルを初期かする
-     graph2.clear();
-     others_links.length=0;
-     others_link_source.length=0;
-     others_link_target.length=0;
-     others_link_reason.length=0;
-     for(var i=0;i<8;i++){
-       var attflag = 0;
-     others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
-     others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
-     others_cells[i].attr('.attribute1/human',snapshot.val().cell_attribute_human[i]);
-     others_cells[i].attr('.attribute1/state',snapshot.val().cell_attribute_state[i]);
-     others_cells[i].attr('.attribute1/updown',snapshot.val().cell_attribute_updown[i]);
-     others_cells[i].attr('.attribute2/human',snapshot.val().cell_attribute_human2[i]);
-     others_cells[i].attr('.attribute2/state',snapshot.val().cell_attribute_state2[i]);
-     others_cells[i].attr('.attribute2/updown',snapshot.val().cell_attribute_updown2[i]);
-     others_cells[i].attr('.attribute3/human',snapshot.val().cell_attribute_human3[i]);
-     others_cells[i].attr('.attribute3/state',snapshot.val().cell_attribute_state3[i]);
-     others_cells[i].attr('.attribute3/updown',snapshot.val().cell_attribute_updown3[i]);
-     others_cells[i].attr('.attribute4/human',snapshot.val().cell_attribute_human4[i]);
-     others_cells[i].attr('.attribute4/state',snapshot.val().cell_attribute_state4[i]);
-     others_cells[i].attr('.attribute4/updown',snapshot.val().cell_attribute_updown4[i]);
-     others_cells[i].attr('.attribute5/human',snapshot.val().cell_attribute_human5[i]);
-     others_cells[i].attr('.attribute5/state',snapshot.val().cell_attribute_state5[i]);
-     others_cells[i].attr('.attribute5/updown',snapshot.val().cell_attribute_updown5[i]);
-     others_cells[i].attr('.attribute6/human',snapshot.val().cell_attribute_human6[i]);
-     others_cells[i].attr('.attribute6/state',snapshot.val().cell_attribute_state6[i]);
-     others_cells[i].attr('.attribute6/updown',snapshot.val().cell_attribute_updown6[i]);
-     /*
-     if(others_cells[i].attr('.attribute1/human')==''){
-     others_cells[i].attr('.attribute1/human',card_attribute_human);
-     others_cells[i].attr('.attribute1/state',card_attribute_state);
-     others_cells[i].attr('.attribute1/updown',card_attribute_UpDown);
-   attflag = 1;}
-     else if (others_cells[i].attr('.attribute3/human')=='') {
-       others_cells[i].attr('.attribute3/human',card_attribute_human);
-       others_cells[i].attr('.attribute3/state',card_attribute_state);
-       others_cells[i].attr('.attribute3/updown',card_attribute_UpDown);attflag = 3;
-     }
-     else{
-       others_cells[i].attr('.attribute5/human',card_attribute_human);
-       others_cells[i].attr('.attribute5/state',card_attribute_state);
-       others_cells[i].attr('.attribute5/updown',card_attribute_UpDown);
-       attflag = 5;
-     }*/
-     for(j=0;j<=6;j++){
-     var flag = '0';
-     if ((others_cells[i].attr('.attribute'+j+'/human'))!= ''){
-     switch (others_cells[i].attr('.attribute'+j+'/human')) {
-       case '天皇':  flag = '20';
-       break;
-       case '貴族':  flag = '40';
-       break;
-       case '武士':  flag = '60';
-       break;
-       case '源氏':  flag = '80';
-       break;
-       case '平氏':  flag = 'a0';
-       break;
-       case '庶民':  flag = 'c0';
-       break;
-       case '農民':  flag = 'e0';
-       break;
-       default:  flag = '0';
-     }
-     switch (others_cells[i].attr('.attribute'+j+'/state')) {
-       case '地位': flag += '20';
-       break;
-       case '力':   flag += '50';
-       break;
-       case '経済力': flag += '80';
-       break;
-       case '生活': flag += 'a0';
-       break;
-       case '対立':   flag += 'd0';
-       break;
-       case '不満': flag += 'f0';
-       break;
-       default: flag = '0';
-     }
-     switch (others_cells[i].attr('.attribute'+j+'/updown')) {
-       case '上がった': flag += '20';
-       break;
-       case '下がった': flag += '50';
-       break;
-       case '増えた': flag += '80';
-       break;
-       case '減った': flag += 'a0';
-       break;
-       default: flag = '0';
-     }
+ var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+user_name);
+      /*
+      ---------------ref.on('value',function(snapshot){});について------------------------------------
+      特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
+      データの更新があると、その度に再トリガーされる。
+      https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
+      ------------------------------------------------------------------------------------------------
+      */
+    ref.on("value",function(snapshot){
+      //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
+      //graph内のセルを初期かする
+      graph2.clear();
+      others_links.length=0;
+      others_link_source.length=0;
+      others_link_target.length=0;
+      others_link_reason.length=0;
+      for(var i=0;i<8;i++){
+        var attflag = 0;
+      others_cells[i].position(snapshot.val().cell_position_x[i],snapshot.val().cell_position_y[i]);
+      others_cells[i].attr('.element-node/data-color',snapshot.val().cell_color[i]);
+      others_cells[i].attr('.attribute1/human',snapshot.val().cell_attribute_human[i]);
+      others_cells[i].attr('.attribute1/state',snapshot.val().cell_attribute_state[i]);
+      others_cells[i].attr('.attribute1/updown',snapshot.val().cell_attribute_updown[i]);
+      others_cells[i].attr('.attribute2/human',snapshot.val().cell_attribute_human2[i]);
+      others_cells[i].attr('.attribute2/state',snapshot.val().cell_attribute_state2[i]);
+      others_cells[i].attr('.attribute2/updown',snapshot.val().cell_attribute_updown2[i]);
+      others_cells[i].attr('.attribute3/human',snapshot.val().cell_attribute_human3[i]);
+      others_cells[i].attr('.attribute3/state',snapshot.val().cell_attribute_state3[i]);
+      others_cells[i].attr('.attribute3/updown',snapshot.val().cell_attribute_updown3[i]);
+      others_cells[i].attr('.attribute4/human',snapshot.val().cell_attribute_human4[i]);
+      others_cells[i].attr('.attribute4/state',snapshot.val().cell_attribute_state4[i]);
+      others_cells[i].attr('.attribute4/updown',snapshot.val().cell_attribute_updown4[i]);
+      others_cells[i].attr('.attribute5/human',snapshot.val().cell_attribute_human5[i]);
+      others_cells[i].attr('.attribute5/state',snapshot.val().cell_attribute_state5[i]);
+      others_cells[i].attr('.attribute5/updown',snapshot.val().cell_attribute_updown5[i]);
+      others_cells[i].attr('.attribute6/human',snapshot.val().cell_attribute_human6[i]);
+      others_cells[i].attr('.attribute6/state',snapshot.val().cell_attribute_state6[i]);
+      others_cells[i].attr('.attribute6/updown',snapshot.val().cell_attribute_updown6[i]);
 
-others_cells[i].attr('.attribute'+j+'/fill','#'+flag);others_cells[i].attr('.attribute'+j+'/text','■');
 
-}
+      for(j=0;j<=6;j++){
+      var flag = '0';
+      if ((others_cells[i].attr('.attribute'+j+'/human'))!= ''){
+      switch (others_cells[i].attr('.attribute'+j+'/human')) {
+        case '天皇':  flag = '20';
+        break;
+        case '貴族':  flag = '40';
+        break;
+        case '武士':  flag = '60';
+        break;
+        case '源氏':  flag = '80';
+        break;
+        case '平氏':  flag = 'a0';
+        break;
+        case '庶民':  flag = 'c0';
+        break;
+        case '農民':  flag = 'e0';
+        break;
+        default:  flag = '0';
+      }
+      switch (others_cells[i].attr('.attribute'+j+'/state')) {
+        case '地位': flag += '20';
+        break;
+        case '力':   flag += '50';
+        break;
+        case '経済力': flag += '80';
+        break;
+        case '生活': flag += 'a0';
+        break;
+        case '対立':   flag += 'd0';
+        break;
+        case '不満': flag += 'f0';
+        break;
+        default: flag = '0';
+      }
+      switch (others_cells[i].attr('.attribute'+j+'/updown')) {
+        case '上がった': flag += '20';
+        break;
+        case '下がった': flag += '50';
+        break;
+        case '増えた': flag += '80';
+        break;
+        case '減った': flag += 'a0';
+        break;
+        default: flag = '0';
+      }
 
-   }
+ others_cells[i].attr('.attribute'+j+'/fill','#'+flag);others_cells[i].attr('.attribute'+j+'/text','■');
+
  }
-   graph2.addCells(others_cells);
 
-   /*
-   矢印の処理
-   */
-   if(snapshot.val().cell_link_source != null){
-   for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
-     others_link_source[i]=snapshot.val().cell_link_source[i];
-     others_link_target[i]=snapshot.val().cell_link_target[i];
-     others_link_reason[i]=snapshot.val().cell_link_reason[i];
-   others_links[i] = new joint.dia.Link({
-        source: { id: others_cells[snapshot.val().cell_link_source[i]].id },
-        target: { id: others_cells[snapshot.val().cell_link_target[i]].id },
-    connector: { name: 'rounded' },
-    attrs: {
-        '.connection': {
-            stroke: '#333333',
-            'stroke-width': 3
-        },
-        '.marker-target': {
-            fill: '#333333',
-            d: 'M 10 0 L 0 5 L 10 10 z'
-        }
-    },
-   labels: [
-        { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
-    });}
-  graph2.addCells(others_links);}
-  });
-}
-}
+    }
+  }
+    graph2.addCells(others_cells);
+
+    /*
+    矢印の処理
+    */
+    if(snapshot.val().cell_link_source != null){
+    for(var i = 0 ; i < snapshot.val().cell_link_source.length ; i++){
+      others_link_source[i]=snapshot.val().cell_link_source[i];
+      others_link_target[i]=snapshot.val().cell_link_target[i];
+      others_link_reason[i]=snapshot.val().cell_link_reason[i];
+    others_links[i] = new joint.dia.Link({
+         source: { id: others_cells[snapshot.val().cell_link_source[i]].id },
+         target: { id: others_cells[snapshot.val().cell_link_target[i]].id },
+     connector: { name: 'rounded' },
+     attrs: {
+         '.connection': {
+             stroke: '#333333',
+             'stroke-width': 3
+         },
+         '.marker-target': {
+             fill: '#333333',
+             d: 'M 10 0 L 0 5 L 10 10 z'
+         }
+     },
+    labels: [
+         { position: 0.5, attrs: { text: { text: snapshot.val().cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+     });}
+   graph2.addCells(others_links);}
+   });
+ }
+ }
+
+
+
+
+ //セルの位置情報のgetter
+  function get2(){
+
+
+
+      /*
+      ---------------ref.on('value',function(snapshot){});について------------------------------------
+      特定のDBパスにあるコンテンツの静的なsnapshotを読み取り、実行イベントの際に読み込まれる。
+      データの更新があると、その度に再トリガーされる。
+      https://firebase.google.com/docs/database/admin/retrieve-data?hl=ja
+      ------------------------------------------------------------------------------------------------
+      */
+      var ref = new Firebase("https://myfirstfirebase-cab79.firebaseio.com/"+"/"+user);
+    ref.on("value",function(snapshot){
+    console.log(snapshot.child().val());
+
+ })}
+
+
+
+
 
 
 
@@ -1245,11 +1500,11 @@ switch(j){
    }
    }
 }
-
-
 }
+
+
 //矢印の一致を判定するために関数を設定
-function arrayDiff(aOlder, aNewer){
+function arrayDiff1(aOlder, aNewer){
     function f(aElement, aIndex, aArray){  // コールバック関数
         /*
            filter の第 1 引数の各要素についてこの関数は繰り返し実行される。
@@ -1266,10 +1521,34 @@ function arrayDiff(aOlder, aNewer){
     var removed = aOlder.filter(f, aNewer);  // aOlder の要素のうち aNewer に含まれないものからなる配列
     var added = aNewer.filter(f, aOlder);  // aNewer の要素のうち aOlder に含まれないものからなる配列
 
-    return [removed, added];  // 複数の値を返す
+    return removed;  // 複数の値を返す
     //ex var [removed, added] = arrayDiff(["a", "b", "c", "d", "e", "f"], ["a", "bb", "c", "e", "g"]);
 
 }
+
+//矢印の一致を判定するために関数を設定
+function arrayDiff2(aOlder, aNewer){
+    function f(aElement, aIndex, aArray){  // コールバック関数
+        /*
+           filter の第 1 引数の各要素についてこの関数は繰り返し実行される。
+           filter の第 2 引数がこの関数内の this になる。
+        */
+        return (this.indexOf(aElement) == -1);  // 配列 this にその要素が含まれなければ true
+    }
+
+    /*
+       filter メソッドは対象の配列の各要素について反復し、
+       各要素について第 1 引数のコールバック関数（今回は f）が実行され、
+       その関数が true を返した要素からなる新たな配列を返す。
+    */
+    var removed = aOlder.filter(f, aNewer);  // aOlder の要素のうち aNewer に含まれないものからなる配列
+    var added = aNewer.filter(f, aOlder);  // aNewer の要素のうち aOlder に含まれないものからなる配列
+
+    return added;  // 複数の値を返す
+    //ex var [removed, added] = arrayDiff(["a", "b", "c", "d", "e", "f"], ["a", "bb", "c", "e", "g"]);
+
+}
+
 
 
 
@@ -1303,8 +1582,8 @@ function teacherdifferencesLinks(){
       teacherdiffereceLinkArray.push("カード"+6+"からカード"+7+"への矢印は一致してない");
 
 
- [differeceLinksArray1, differeceLinksArray2] = arrayDiff(mydiffereceLinkArray, teacherdiffereceLinkArray);
-
+ differeceLinksArray1  = arrayDiff1(mydiffereceLinkArray, teacherdiffereceLinkArray);
+ differeceLinksArray2  = arrayDiff2(mydiffereceLinkArray, teacherdiffereceLinkArray);
 
 }
 
@@ -1463,59 +1742,7 @@ $('#send').on('click',differencesLinks);
 $('#send').on('click',teacherdifferences);
 $('#send').on('click',teacherdifferencesLinks);
 $('#send').on('click',reWrite);
-$('#get').on('click',Reset);
-function Reset(){
-  graph3.clear();
-  graph4.clear();
-  for(i = 0 ; i < cells.length ; i++){
-    cells2[i]=cells[i].clone();
-  }
-  for(i = 0 ; i < links.length ; i++){
-    links2[i] = new joint.dia.Link({
-         source: { id: cells2[cell_link_source[i]].id },
-         target: { id: cells2[cell_link_target[i]].id },
-     connector: { name: 'rounded' },
-     attrs: {
-         '.connection': {
-             stroke: '#333333',
-             'stroke-width': 4
-         },
-         '.marker-target': {
-             fill: '#333333',
-             d: 'M 10 0 L 0 5 L 10 10 z'
-         }
-     },
-    labels: [
-         { position: 0.5, attrs: { text: { text: cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
-     });
-  }
-  graph3.addCells(cells2);
-  graph3.addCells(links2);
-  for(i = 0 ; i < others_cells.length ; i++){
-    cells3[i]=others_cells[i].clone();
-  }
-  for(i = 0 ; i < others_links.length ; i++){
-    links3[i] = new joint.dia.Link({
-         source: { id: cells3[others_link_source[i]].id },
-         target: { id: cells3[others_link_target[i]].id },
-     connector: { name: 'rounded' },
-     attrs: {
-         '.connection': {
-             stroke: '#333333',
-             'stroke-width': 4
-         },
-         '.marker-target': {
-             fill: '#333333',
-             d: 'M 10 0 L 0 5 L 10 10 z'
-         }
-     },
-    labels: [
-         { position: 0.5, attrs: { text: { text: others_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
-     });
-  }
-  graph4.addCells(cells3);
-  graph4.addCells(links3);
-}
+
 
 /*
 $('#differencesLinks').on('click',differencesLinks);
@@ -1637,6 +1864,7 @@ $(filter).on('change', function(e){
         }
         graph3.addCells(cells2);
         graph3.addCells(links2);
+
         for(i = 0 ; i < others_cells.length ; i++){
           cells3[i]=others_cells[i].clone();
         }
@@ -1661,6 +1889,35 @@ $(filter).on('change', function(e){
         }
         graph4.addCells(cells3);
         graph4.addCells(links3);
+
+
+        for(i = 0 ; i < others_cells.length ; i++){
+          cells3[i]=others_cells[i].clone();
+        }
+        for(i = 0 ; i < others_links.length ; i++){
+          links3[i] = new joint.dia.Link({
+               source: { id: cells3[others_link_source[i]].id },
+               target: { id: cells3[others_link_target[i]].id },
+           connector: { name: 'rounded' },
+           attrs: {
+               '.connection': {
+                   stroke: '#333333',
+                   'stroke-width': 4
+               },
+               '.marker-target': {
+                   fill: '#333333',
+                   d: 'M 10 0 L 0 5 L 10 10 z'
+               }
+           },
+          labels: [
+               { position: 0.5, attrs: { text: { text: others_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+           });
+        }
+
+
+
+        graph5.addCells(teachercells);
+        graph5.addCells(teachercells);
       }
     });
   }
@@ -1692,13 +1949,23 @@ function reWrite(){
 
       document.getElementById("teacherLinks1").innerText=differeceLinksArray1.sort().join('\n');
       console.log(differeceLinksArray1.join("\n"));
-
+/*
       document.getElementById("teacherLinks2").innerText=differeceLinksArray2.sort().join('\n');
       console.log(differeceLinksArray2.join("\n"));
-
+*/
 
 }
 
+
+$(function(){
+
+    $(window).on('beforeunload', function() {
+
+        return "このページを離れると、入力したデータが削除されます。";
+
+    });
+
+});
 
 
 
