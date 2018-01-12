@@ -1568,19 +1568,19 @@ for(var i = 0;i<jj.length;i++){
     }
   count = 1;
 }
-console.log(messege3);
+
 
 var forteacherlinks=[];
-for(var j = 0;j<cell_link_source.length;j++){
-  for(var k=0;k<cell_link_source[j].length;k++){
-forteacherlinks[j] = new joint.dia.Link({
-     source: { id: teachercells[cell_link_source[j][k]].id },
-     target: { id: teachercells[cell_link_target[j][k]].id },
+for(var i =0;i<messege3.length;i++){
+var wid = messege3[i].split(":")[1];
+forteacherlinks[i] = new joint.dia.Link({
+     source: { id: teachercells[messege3[i][0]].id },
+     target: { id: teachercells[messege3[i][1]].id },
  connector: { name: 'rounded' },
  attrs: {
      '.connection': {
          stroke: '#333333',
-         'stroke-width': 4
+         'stroke-width': wid
      },
      '.marker-target': {
          fill: '#333333',
@@ -1590,7 +1590,7 @@ forteacherlinks[j] = new joint.dia.Link({
 labels: [
      { position: 0.5, attrs: { text: { fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
 
-   })}}
+   })}
    graph5.addCells(forteacherlinks);
 })
 }
