@@ -473,13 +473,25 @@ teachercells[0] = new joint.shapes.devs.Model({
    teachercells[5] = teachercells[0].clone();
    teachercells[6] = teachercells[0].clone();
    teachercells[7] = teachercells[0].clone();
-   teachercells[1].translate(400, 0);
-   teachercells[2].translate(800, 0);
-   teachercells[3].translate(0, 200);
-   teachercells[4].translate(400, 200);
-   teachercells[5].translate(800,200);
-   teachercells[6].translate(200, 400);
-   teachercells[7].translate(600, 400);
+   teachercells[0].translate(250, 1000);
+   teachercells[1].translate(250, 750);
+   teachercells[2].translate(700, 750);
+   teachercells[3].translate(850, 500);
+   teachercells[4].translate(250,500);
+   teachercells[5].translate(400, 250);
+   teachercells[6].translate(400, 30);
+   teachercells[7].translate(30, 30);
+   teachercells[0].attr('.label/text', splitByLength(cellText0,cellTextLength));
+   teachercells[1].attr('.label/text', splitByLength(cellText1,cellTextLength));
+   teachercells[2].attr('.label/text', splitByLength(cellText2,cellTextLength));
+   teachercells[3].attr('.label/text', splitByLength(cellText3,cellTextLength));
+   teachercells[4].attr('.label/text', splitByLength(cellText4,cellTextLength));
+   teachercells[5].attr('.label/text', splitByLength(cellText5,cellTextLength));
+   teachercells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
+   teachercells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
+
+
+
      //教師用カードの状態
    teachercells[0].attr('.attribute1/human',"天皇");
    teachercells[0].attr('.attribute1/state',"地位");
@@ -595,8 +607,8 @@ teachercells[0] = new joint.shapes.devs.Model({
    teachercells[7].attr('.attribute1/human',"庶民");
    teachercells[7].attr('.attribute1/state',"不満");
    teachercells[7].attr('.attribute1/updown',"減った");
-
-
+graph5.clear();
+   graph5.addCells(teachercells);
 
 
 
@@ -604,8 +616,7 @@ teachercells[0] = new joint.shapes.devs.Model({
 //以上がセルの初期化
 
 
-   graph5.addCells(teachercells);
-   graph5.addCells(others_links);
+
 
 
 //カードの状態変化を削除
@@ -1023,7 +1034,8 @@ labels: [
   alert("カードの属性が一致していません");
 }
 //状態変化が一致してない時のアラート
-  }else{
+
+}else{
     if( confirm("この状態で大丈夫ですか？カードに状態が一致していませんが本当に矢印を引きますか？") ) {
       links[link_length] = new joint.dia.Link({
            source: { id: cells[source1].id },
@@ -1126,7 +1138,7 @@ graph.on('remove',function(cell,collection,opt){
 
      userRef.set(
        {
-         user_name : user_name,
+         user_name : user,
          classnumber : classnumber,
          cell_number   : cell_number,
          cell_position_x : cell_position_x,
@@ -1292,6 +1304,10 @@ graph.on('remove',function(cell,collection,opt){
  }
 
 
+
+
+
+
  //セルの位置情報のgetter
    function get2(){
 
@@ -1322,35 +1338,6 @@ graph.on('remove',function(cell,collection,opt){
      var cell_attribute_human6=[];
      var cell_attribute_state6=[];
      var cell_attribute_updown6=[];
-
-     var Dataset =[user_name,
-              classnumber,
-              cell_number,
-              cell_position_x,
-              cell_position_y,
-              cell_link_source,
-              cell_link_target,
-              cell_link_reason,
-              cell_color,
-              cell_attribute_human,
-              cell_attribute_state,
-              cell_attribute_updown,
-              cell_attribute_human2,
-              cell_attribute_state2,
-              cell_attribute_updown2,
-              cell_attribute_human3,
-              cell_attribute_state3,
-              cell_attribute_updown3,
-              cell_attribute_human4,
-              cell_attribute_state4,
-              cell_attribute_updown4,
-              cell_attribute_human5,
-              cell_attribute_state5,
-              cell_attribute_updown5,
-              cell_attribute_human6,
-              cell_attribute_state6,
-              cell_attribute_updown6];
-
 
 
        /*
@@ -1461,6 +1448,7 @@ cell_attribute_updown6.push(value);
 
      });
 console.log(user_name);
+console.log(user_name.length);
 console.log(classnumber);
 console.log(cell_number);
 console.log(cell_link_source);
@@ -1469,7 +1457,30 @@ console.log(cell_attribute_human);
 console.log(cell_attribute_state);
 console.log(cell_attribute_updown);
    })
-   }
+}
+
+
+//カードの状態変化を確認
+function ShowStatuesPercent(){
+    var can = cardstateclear3.source3.value;
+    var attributnumber =cardstateclear3.attribute3.value;
+
+alert(user_name);
+console.log(user_name.length);
+
+}
+
+
+//カードの状態変化を確認
+function ShowLinkPercent(){
+    var can = cardstateclear4.source4.value;
+    var attributnumber =cardstateclear4.attribute４.value;
+if(cells[can].attr('.attribute'+attributnumber+'/human')==""){
+  alert("属性なし");
+}else{
+    alert("カード"+can+"の左上の状態("+cells[can].attr('.attribute'+attributnumber+'/human')+"の"+cells[can].attr('.attribute'+attributnumber+'/state')+"が"+cells[can].attr('.attribute'+attributnumber+'/updown')+")");
+}
+}
 
 
 
@@ -1895,12 +1906,16 @@ $('#send').on('click', send);
 
 $('#colorChange').on('click', colorChange);
 
+
 $('#send').on('click',differences);
 $('#send').on('click',differencesLinks);
 $('#send').on('click',teacherdifferences);
 $('#send').on('click',teacherdifferencesLinks);
 $('#send').on('click',reWrite);
 
+
+//$('#ShowStatuesPercent').on('click', ShowStatuesPercent);
+//$('#ShowLinkPercent').on('click', ShowLinkPercent);
 
 /*
 $('#differencesLinks').on('click',differencesLinks);
@@ -1998,6 +2013,7 @@ $(filter).on('change', function(e){
       if(this.dataset.id == "Comparing"){
         graph3.clear();
         graph4.clear();
+        graph5.clear();
         for(i = 0 ; i < cells.length ; i++){
           cells2[i]=cells[i].clone();
         }
@@ -2074,7 +2090,6 @@ $(filter).on('change', function(e){
 
 
 
-        graph5.addCells(teachercells);
         graph5.addCells(teachercells);
       }
     });
