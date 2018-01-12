@@ -464,7 +464,6 @@ teachercells[0] = new joint.shapes.devs.Model({
 
 
 
-
   //教師用カードの複製
    teachercells[1] = teachercells[0].clone();
    teachercells[2] = teachercells[0].clone();
@@ -490,6 +489,30 @@ teachercells[0] = new joint.shapes.devs.Model({
    teachercells[6].attr('.label/text', splitByLength(cellText6,cellTextLength));
    teachercells[7].attr('.label/text', splitByLength(cellText7,cellTextLength));
 
+
+teachersource=[0,0,1,2,2,2,3,3,4,4,4,5,5,6];
+teachertarget=[1,2,2,3,4,7,4,7,5,6,7,6,7,7];
+for(var i=0;i<teachersource.length;i++){
+  console.log("こんにちは");
+   teacherlinks[i] = new joint.dia.Link({
+        source: { id: teachersource[i].id },
+        target: { id: teachertarget[i].id },
+    connector: { name: 'rounded' },
+    attrs: {
+        '.connection': {
+            stroke: '#333333',
+            'stroke-width': 4
+        },
+        '.marker-target': {
+            fill: '#333333',
+            d: 'M 10 0 L 0 5 L 10 10 z'
+        }
+    },
+   labels: [
+        { position: 0.5, attrs: {  rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+    });
+}
+graph5.addCells(teacherlinks);
 
 
      //教師用カードの状態
