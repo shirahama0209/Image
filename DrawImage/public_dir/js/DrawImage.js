@@ -1545,6 +1545,31 @@ for(var i = 0;i < stack4.length ; i++){
 }
 console.log(outputmssg2);
 
+count =1;
+var jj=[];
+for(var j = 0;j<cell_link_source.length;j++){
+  for(var k=0;k<cell_link_source[j].length;k++){
+    jj.push(cell_link_source[j][k]+cell_link_target[j][k]);
+  }
+}
+
+count = 1;
+var messege2=[];
+var messege3 = [];
+for(var i = 0;i<jj.length;i++){
+  for (var j = 0;j<jj.length;j++){
+    if(i!=j && jj[i]==jj[j]){
+      count++;
+    }
+  }
+    if(!messege2.some(function(value){return value === jj[i]})){
+      messege2.push(jj[i]);
+      messege3.push(jj[i]+":"+count);
+    }
+  count = 1;
+}
+console.log(messege3);
+
 var forteacherlinks=[];
 for(var j = 0;j<cell_link_source.length;j++){
   for(var k=0;k<cell_link_source[j].length;k++){
