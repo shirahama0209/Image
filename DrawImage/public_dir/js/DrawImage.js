@@ -1335,7 +1335,7 @@ graph.on('remove',function(cell,collection,opt){
    function get2(){
 
      var user_name=[];
-     var classnumber=[];
+     var classnumber2=[];
      var cell_number=[];
      var cell_position_x=[];
      var cell_position_y=[];
@@ -1377,7 +1377,9 @@ graph.on('remove',function(cell,collection,opt){
      ref.on("value",function(snapshot){
      console.log(snapshot.child(user).numChildren()+"人");
      var aaaaaa = JSON.stringify(snapshot.val());
-     //var arrayusr = JSON.parse(aaaaaa);
+     console.log(aaaaaa);
+     var testJSON = JSON.parse(aaaaaa);
+     console.log(classnumber);
      JSON.parse(aaaaaa,function(key,value){
 
 
@@ -1385,101 +1387,187 @@ graph.on('remove',function(cell,collection,opt){
 if(key==='user_name'){
 user_name.push(value);
 }
-if(key==='classnumber'){
-classnumber.push(value);
-}
-if(key==='cell_number'){
-cell_number.push(value);
-}
-if(key==='cell_position_y'){
-cell_position_y.push(value);
-}
-if(key==='cell_position_x'){
-cell_position_x.push(value);
-}
-if(key==='cell_link_source'){
-cell_link_source.push(value);
-}
-if(key==='cell_link_target'){
-cell_link_target.push(value);
-}
-if(key==='cell_link_reason'){
-cell_link_reason.push(value);
-}
-if(key==='cell_color'){
-cell_color.push(value);
-}
-if(key==='cell_attribute_human'){
-cell_attribute_human.push(value);
-}
-if(key==='cell_attribute_state'){
-cell_attribute_state.push(value);
-}
-if(key==='cell_attribute_updown'){
-cell_attribute_updown.push(value);
-}
-if(key==='cell_attribute_human2'){
-cell_attribute_human2.push(value);
-}
-if(key==='cell_attribute_state2'){
-cell_attribute_state2.push(value);
-}
-if(key==='cell_attribute_updown2'){
-cell_attribute_updown2.push(value);
-}
-if(key==='cell_attribute_human3'){
-cell_attribute_human3.push(value);
-}
-if(key==='cell_attribute_state3'){
-cell_attribute_state3.push(value);
-}
-if(key==='cell_attribute_updown3'){
-cell_attribute_updown3.push(value);
-}
-if(key==='cell_attribute_human4'){
-cell_attribute_human4.push(value);
-}
-if(key==='cell_attribute_state4'){
-cell_attribute_state4.push(value);
-}
-if(key==='cell_attribute_updown4'){
-cell_attribute_updown4.push(value);
-}
-if(key==='cell_attribute_human5'){
-cell_attribute_human5.push(value);
-}
-if(key==='cell_attribute_state5'){
-cell_attribute_state5.push(value);
-}
-if(key==='cell_attribute_updown5'){
-cell_attribute_updown5.push(value);
-}
-if(key==='cell_attribute_human6'){
-cell_attribute_human6.push(value);
-}
-if(key==='cell_attribute_state6'){
-cell_attribute_state6.push(value);
-}
-if(key==='cell_attribute_updown6'){
-cell_attribute_updown6.push(value);
-}
-
-
-
-
-
-
      });
 console.log(user_name);
 console.log(user_name.length);
-console.log(classnumber);
-console.log(cell_number);
-console.log(cell_link_source);
-console.log(cell_link_target);
+for(i=0;i<user_name.length;i++){
+  if(testJSON[user_name[i]]["cell_link_target"]!=null){
+  cell_link_target.push(testJSON[user_name[i]]["cell_link_target"]);
+}
+  if(testJSON[user_name[i]]["cell_link_source"]!=null){
+  cell_link_source.push(testJSON[user_name[i]]["cell_link_source"]);
+}
+if(testJSON[user_name[i]]["cell_attribute_human"]!=null)
+  cell_attribute_human.push(testJSON[user_name[i]]["cell_attribute_human"]);
+  if(testJSON[user_name[i]]["cell_attribute_human2"]!=null)
+  cell_attribute_human2.push(testJSON[user_name[i]]["cell_attribute_human2"]);
+  if(testJSON[user_name[i]]["cell_attribute_human3"]!=null)
+  cell_attribute_human3.push(testJSON[user_name[i]]["cell_attribute_human3"]);
+  if(testJSON[user_name[i]]["cell_attribute_human4"]!=null)
+  cell_attribute_human4.push(testJSON[user_name[i]]["cell_attribute_human4"]);
+  if(testJSON[user_name[i]]["cell_attribute_human5"]!=null)
+  cell_attribute_human5.push(testJSON[user_name[i]]["cell_attribute_human5"]);
+  if(testJSON[user_name[i]]["cell_attribute_human6"]!=null)
+  cell_attribute_human6.push(testJSON[user_name[i]]["cell_attribute_human6"]);
+  if(testJSON[user_name[i]]["cell_attribute_state"]!=null)
+  cell_attribute_state.push(testJSON[user_name[i]]["cell_attribute_state"]);
+  if(testJSON[user_name[i]]["cell_attribute_state2"]!=null)
+  cell_attribute_state2.push(testJSON[user_name[i]]["cell_attribute_state2"]);
+  if(testJSON[user_name[i]]["cell_attribute_state3"]!=null)
+  cell_attribute_state3.push(testJSON[user_name[i]]["cell_attribute_state3"]);
+  if(testJSON[user_name[i]]["cell_attribute_state4"]!=null)
+  cell_attribute_state4.push(testJSON[user_name[i]]["cell_attribute_state4"]);
+  if(testJSON[user_name[i]]["cell_attribute_state5"]!=null)
+  cell_attribute_state5.push(testJSON[user_name[i]]["cell_attribute_state5"]);
+  if(testJSON[user_name[i]]["cell_attribute_state6"]!=null)
+  cell_attribute_state6.push(testJSON[user_name[i]]["cell_attribute_state6"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown"]!=null)
+  cell_attribute_updown.push(testJSON[user_name[i]]["cell_attribute_updown"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown2"]!=null)
+  cell_attribute_updown2.push(testJSON[user_name[i]]["cell_attribute_updown2"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown3"]!=null)
+  cell_attribute_updown3.push(testJSON[user_name[i]]["cell_attribute_updown3"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown4"]!=null)
+  cell_attribute_updown4.push(testJSON[user_name[i]]["cell_attribute_updown4"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown5"]!=null)
+  cell_attribute_updown5.push(testJSON[user_name[i]]["cell_attribute_updown5"]);
+  if(testJSON[user_name[i]]["cell_attribute_updown6"]!=null)
+  cell_attribute_updown6.push(testJSON[user_name[i]]["cell_attribute_updown6"]);
+}
+/*console.log(cell_link_source[1][0]);
+console.log(cell_link_target[1][0]);*/
 console.log(cell_attribute_human);
-console.log(cell_attribute_state);
-console.log(cell_attribute_updown);
-   })
+//console.log(cell_attribute_updown);
+
+var stack = [];
+var stack2 = [];
+var stack3 =[];
+for(var i = 0;i < cell_attribute_human.length;i++){
+  for(var j = 0;j < cell_attribute_human[i].length;j++){
+    if(cell_attribute_human[i][j]!=""){
+      stack.push(cell_attribute_human[i][j]);
+      stack2.push(cell_attribute_state[i][j]);
+      stack3.push(cell_attribute_updown[i][j]);
+    }
+  }
+}
+for(var i = 0;i < cell_attribute_human3.length;i++){
+  for(var j = 0;j < cell_attribute_human3[i].length;j++){
+    if(cell_attribute_human3[i][j]!=""){
+      stack.push(cell_attribute_human3[i][j]);
+      stack2.push(cell_attribute_state3[i][j]);
+      stack3.push(cell_attribute_updown3[i][j]);
+    }
+  }
+}
+for(var i = 0;i < cell_attribute_human5.length;i++){
+  for(var j = 0;j < cell_attribute_human5[i].length;j++){
+    if(cell_attribute_human5[i][j]!=""){
+      stack.push(cell_attribute_human5[i][j]);
+      stack2.push(cell_attribute_state5[i][j]);
+      stack3.push(cell_attribute_updown5[i][j]);
+    }
+  }
+}
+
+console.log(stack);
+console.log(stack2);
+console.log(stack3);
+
+var count = 1;
+var messege = [];
+var outputmssg = [];
+for(var i = 0;i < stack.length ; i++){
+  for(var j = 0;j < stack.length ; j++){
+    if(i!=j && stack[i]==stack[j] && stack2[i]==stack2[j] && stack3[i]==stack3[j]){
+      count++;
+    }
+  }
+  if(!messege.some(function(value){return value === stack[i]+stack2[i]+stack3[i]})){
+    messege.push(stack[i]+stack2[i]+stack3[i]);
+    outputmssg.push(stack[i]+"の"+stack2[i]+"が"+stack3[i]+":"+(count*100)/user_name.length+"%");
+  }
+  count = 1;
+}
+console.log(outputmssg);
+
+
+
+var stack4 = [];
+var stack5 = [];
+var stack6 =[];
+for(var i = 0;i < cell_attribute_human2.length;i++){
+  for(var j = 0;j < cell_attribute_human2[i].length;j++){
+    if(cell_attribute_human2[i][j]!=""){
+      stack4.push(cell_attribute_human2[i][j]);
+      stack5.push(cell_attribute_state2[i][j]);
+      stack6.push(cell_attribute_updown2[i][j]);
+    }
+  }
+}
+for(var i = 0;i < cell_attribute_human4.length;i++){
+  for(var j = 0;j < cell_attribute_human4[i].length;j++){
+    if(cell_attribute_human4[i][j]!=""){
+      stack4.push(cell_attribute_human4[i][j]);
+      stack5.push(cell_attribute_state4[i][j]);
+      stack6.push(cell_attribute_updown4[i][j]);
+    }
+  }
+}
+for(var i = 0;i < cell_attribute_human6.length;i++){
+  for(var j = 0;j < cell_attribute_human6[i].length;j++){
+    if(cell_attribute_human6[i][j]!=""){
+      stack4.push(cell_attribute_human6[i][j]);
+      stack5.push(cell_attribute_state6[i][j]);
+      stack6.push(cell_attribute_updown6[i][j]);
+    }
+  }
+}
+
+console.log(stack4);
+console.log(stack5);
+console.log(stack6);
+
+count = 1;
+messege = [];
+var outputmssg2 = [];
+for(var i = 0;i < stack4.length ; i++){
+  for(var j = 0;j < stack4.length ; j++){
+    if(i!=j && stack4[i]==stack4[j] && stack5[i]==stack5[j] && stack6[i]==stack6[j]){
+      count++;
+    }
+  }
+  if(!messege.some(function(value){return value === stack4[i]+stack5[i]+stack6[i]})){
+    messege.push(stack4[i]+stack5[i]+stack6[i]);
+    outputmssg2.push(stack4[i]+"の"+stack5[i]+"が"+stack6[i]+":"+(count*100)/user_name.length+"%");
+  }
+  count = 1;
+}
+console.log(outputmssg2);
+
+var forteacherlinks=[];
+for(var j = 0;j<cell_link_source.length;j++){
+  for(var k=0;k<cell_link_source[j].length;k++){
+forteacherlinks[j] = new joint.dia.Link({
+     source: { id: teachercells[cell_link_source[j][k]].id },
+     target: { id: teachercells[cell_link_target[j][k]].id },
+ connector: { name: 'rounded' },
+ attrs: {
+     '.connection': {
+         stroke: '#333333',
+         'stroke-width': 4
+     },
+     '.marker-target': {
+         fill: '#333333',
+         d: 'M 10 0 L 0 5 L 10 10 z'
+     }
+ },
+labels: [
+     { position: 0.5, attrs: { text: { fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+
+   })}}
+   graph5.addCells(forteacherlinks);
+})
 }
 
 
