@@ -40,11 +40,9 @@ newuser.addEventListener('click', function(e) {
 //ログイン処理
 login.addEventListener('click', function(e) {
   var user = document.getElementById('user').value;
-
   var classnumber = document.getElementById('classnumber').value;
   var password = document.getElementById('password').value;
 //  location.href = "DrawImage.html?data="+encodeURIComponent(user);
-if (user==""){alert("名前を入力してください")}else{
 location.href = "DrawImage.html?data="+encodeURIComponent(user)+"?class="+encodeURIComponent(classnumber);
 
   /*
@@ -52,7 +50,7 @@ location.href = "DrawImage.html?data="+encodeURIComponent(user)+"?class="+encode
   .catch(function(error) {
     alert('ログインできません（' + error.message + '）');
   });*/
-}});
+});
 
 //教師画面に移動
 teacher.addEventListener('click', function(e) {
