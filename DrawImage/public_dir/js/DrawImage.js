@@ -670,73 +670,6 @@ if(cells[can].attr('.attribute'+attributnumber+'/human')==""){
 
 
 
-//カードの状態変化を確認
-function CardStateView2(){
-    var can = cardstateclear1.source2.value;
-    var attributnumber =parseInt(cardstateclear1.attribute2.value);
-    var text=[];
-if((cells2[can].attr('.attribute'+attributnumber+'/human')=="")
-&&
-(cells3[can].attr('.attribute'+attributnumber+'/human')=="")
-){alert("状態が設定されていません。");}
-else{
-    if(attributnumber==1){
-    if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
-      　text.push("自分のカード"+can+"のイベント後の状態");
-        text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
-     if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
-        text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
-     if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
-        text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
-    }
-    }
-    }
-
-    if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
-    　text.push("");
-      text.push("相手のカード"+can+"のイベント後の状態");
-        text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
-     if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
-        text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
-     if(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
-        text.push(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
-    }
-    }
-    }
-alert(text.join('\n'));
-    }
-
-
-if(attributnumber==2){
-if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
-  　text.push("自分のカード"+can+"のイベント前の状態");
-    text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
- if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
-    text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
- if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
-    text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
-}
-}
-}
-
-if(cells3[can].attr('.attribute'+attributnumber+'/human')!=""){
-　text.push("");
-  text.push("相手のカード"+can+"のイベント前の状態");
-    text.push(cells3[can].attr('.attribute'+attributnumber+'/human')+"の"+cells3[can].attr('.attribute'+attributnumber+'/state')+"が"+cells3[can].attr('.attribute'+attributnumber+'/updown'));
- if(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
-    text.push(cells3[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
- if(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
-    text.push(cells3[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells3[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
-}
-}
-}
-alert(text.join('\n'));
-}
-}
-
-
-}
-
 
 //上の属性変更　attribute1,3,5
 function CardStateChange(){
@@ -935,6 +868,81 @@ attflag = 2;}
 
 }
 }
+
+
+
+//カードの状態変化を確認
+function CardStateView2(){
+    var can = cardstateclear1.source2.value;
+    var attributnumber =parseInt(cardstateclear1.attribute2.value);
+    var text=[];
+if((cells2[can].attr('.attribute'+attributnumber+'/human')=="")
+&&
+(others_cells[can].attr('.attribute'+attributnumber+'/human')=="")
+){alert("状態が設定されていません。");}
+else{
+    if(attributnumber==1){
+    if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
+      　text.push("自分のカード"+can+"のイベント後の状態");
+        text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
+     if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+        text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+     if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+        text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+    }
+    }
+    }
+
+    if(others_cells[can].attr('.attribute'+attributnumber+'/human')!=""){
+    　text.push("");
+      text.push("相手のカード"+can+"のイベント後の状態");
+        text.push(others_cells[can].attr('.attribute'+attributnumber+'/human')+"の"+others_cells[can].attr('.attribute'+attributnumber+'/state')+"が"+others_cells[can].attr('.attribute'+attributnumber+'/updown'));
+     if(others_cells[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+        text.push(others_cells[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+others_cells[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+others_cells[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+     if(others_cells[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+        text.push(others_cells[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+others_cells[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+others_cells[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+    }
+    }
+    }
+alert(text.join('\n'));
+    }
+
+
+if(attributnumber==2){
+if(cells2[can].attr('.attribute'+attributnumber+'/human')!=""){
+  　text.push("自分のカード"+can+"のイベント前の状態");
+    text.push(cells2[can].attr('.attribute'+attributnumber+'/human')+"の"+cells2[can].attr('.attribute'+attributnumber+'/state')+"が"+cells2[can].attr('.attribute'+attributnumber+'/updown'));
+ if(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+    text.push(cells2[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+ if(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+    text.push(cells2[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+cells2[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+}
+}
+}
+
+if(others_cells[can].attr('.attribute'+attributnumber+'/human')!=""){
+　text.push("");
+  text.push("相手のカード"+can+"のイベント前の状態");
+    text.push(others_cells[can].attr('.attribute'+attributnumber+'/human')+"の"+others_cells[can].attr('.attribute'+attributnumber+'/state')+"が"+others_cells[can].attr('.attribute'+attributnumber+'/updown'));
+ if(others_cells[can].attr('.attribute'+String(attributnumber+2)+'/human')!=""){
+    text.push(others_cells[can].attr('.attribute'+String(attributnumber+2)+'/human')+"の"+others_cells[can].attr('.attribute'+String(attributnumber+2)+'/state')+"が"+others_cells[can].attr('.attribute'+String(attributnumber+2)+'/updown'));
+ if(others_cells[can].attr('.attribute'+String(attributnumber+4)+'/human')!=""){
+    text.push(others_cells[can].attr('.attribute'+String(attributnumber+4)+'/human')+"の"+others_cells[can].attr('.attribute'+String(attributnumber+4)+'/state')+"が"+others_cells[can].attr('.attribute'+String(attributnumber+4)+'/updown'));
+}
+}
+}
+alert(text.join('\n'));
+}
+}
+
+
+}
+
+
+
+
+
+
 
 //新規で矢印作成
 function addLink(){
@@ -1213,6 +1221,7 @@ graph.on('remove',function(cell,collection,opt){
       //console.log(snapshot.val().user_name + ":" + snapshot.val().cell_position_y + ":" + others_cells[snapshot.val().cell_link_source[0]].id + ":" + snapshot.val().cell_link_source.length);
       //graph内のセルを初期かする
       graph2.clear();
+      graph4.clear();
       others_links.length=0;
       others_link_source.length=0;
       others_link_target.length=0;
@@ -1330,7 +1339,7 @@ graph.on('remove',function(cell,collection,opt){
 
 
 
-
+ outputmssg2 = [];
  //セルの位置情報のgetter
    function get2(){
 
@@ -1390,6 +1399,7 @@ user_name.push(value);
      });
 console.log(user_name);
 console.log(user_name.length);
+
 for(i=0;i<user_name.length;i++){
   if(testJSON[user_name[i]]["cell_link_target"]!=null){
   cell_link_target.push(testJSON[user_name[i]]["cell_link_target"]);
@@ -1434,6 +1444,7 @@ if(testJSON[user_name[i]]["cell_attribute_human"]!=null)
   if(testJSON[user_name[i]]["cell_attribute_updown6"]!=null)
   cell_attribute_updown6.push(testJSON[user_name[i]]["cell_attribute_updown6"]);
 }
+
 /*console.log(cell_link_source[1][0]);
 console.log(cell_link_target[1][0]);*/
 console.log(cell_attribute_human);
@@ -1530,7 +1541,7 @@ console.log(stack6);
 
 count = 1;
 messege = [];
-var outputmssg2 = [];
+
 for(var i = 0;i < stack4.length ; i++){
   for(var j = 0;j < stack4.length ; j++){
     if(i!=j && stack4[i]==stack4[j] && stack5[i]==stack5[j] && stack6[i]==stack6[j]){
@@ -1539,10 +1550,11 @@ for(var i = 0;i < stack4.length ; i++){
   }
   if(!messege.some(function(value){return value === stack4[i]+stack5[i]+stack6[i]})){
     messege.push(stack4[i]+stack5[i]+stack6[i]);
-    outputmssg2.push(stack4[i]+"の"+stack5[i]+"が"+stack6[i]+":"+(count*100)/user_name.length+"%");
+    outputmssg2.push(stack4[i]+"の"+stack5[i]+"が"+stack6[i]+":"+Math.round((count*100)/user_name.length)+"%");
   }
   count = 1;
 }
+console.log(typeof((count*100)/user_name.length));
 console.log(outputmssg2);
 
 count =1;
@@ -1569,7 +1581,6 @@ for(var i = 0;i<jj.length;i++){
   count = 1;
 }
 
-
 var forteacherlinks=[];
 for(var i =0;i<messege3.length;i++){
 var wid = messege3[i].split(":")[1];
@@ -1595,17 +1606,20 @@ labels: [
 })
 }
 
-
+/*
 //カードの状態変化を確認
 function ShowStatuesPercent(){
     var can = cardstateclear3.source3.value;
     var attributnumber =cardstateclear3.attribute3.value;
-
-alert(user_name);
-console.log(user_name.length);
+$(function(){
+var resultArray = jQuery.grep(outputmssg2, function(aData){
+if (aData.indexOf("天皇") > -1) return true; else return false;
+});
+alert(resultArray);
+});
 
 }
-
+*/
 
 //カードの状態変化を確認
 function ShowLinkPercent(){
@@ -2119,7 +2133,7 @@ $(filter).on('change', function(e){
   canvas4.attr('data-filter', e.target.value);
 });*/
 
-
+  var touchkaisu =0;
 //メニュー表示の切り替え
 (function() {
   'use strict';
@@ -2147,9 +2161,10 @@ $(filter).on('change', function(e){
       document.getElementById(this.dataset.id).className = 'content active';
 
       if(this.dataset.id == "Comparing"){
+        touchkaisu++;
+
         graph3.clear();
         graph4.clear();
-        graph5.clear();
         for(i = 0 ; i < cells.length ; i++){
           cells2[i]=cells[i].clone();
         }
@@ -2172,7 +2187,7 @@ $(filter).on('change', function(e){
                { position: 0.5, attrs: { text: { text: cell_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
            });
         }
-        graph3.addCells(cells2);
+       graph3.addCells(cells2);
         graph3.addCells(links2);
 
         for(i = 0 ; i < others_cells.length ; i++){
@@ -2197,9 +2212,12 @@ $(filter).on('change', function(e){
                { position: 0.5, attrs: { text: { text: others_link_reason[i], fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
            });
         }
+
+        if(touchkaisu!=1){
         graph4.addCells(cells3);
         graph4.addCells(links3);
-
+}
+console.log(touchkaisu);
 
         for(i = 0 ; i < others_cells.length ; i++){
           cells3[i]=others_cells[i].clone();
@@ -2225,9 +2243,56 @@ $(filter).on('change', function(e){
         }
 
 
-
-        graph5.addCells(teachercells);
       }
+
+
+
+      if(this.dataset.id == "Summary"){
+        graph5.clear();
+
+
+
+        for(i = 0 ; i < teachercells.length ; i++){
+          teachercells[i]=teachercells[i].clone();
+        }
+
+
+        var forteacherlinks=[];
+        var messege3 = [];
+        for(var i =0;i<messege3.length;i++){
+        var wid = messege3[i].split(":")[1];
+        forteacherlinks[i] = new joint.dia.Link({
+             source: { id: teachercells[messege3[i][0]].id },
+             target: { id: teachercells[messege3[i][1]].id },
+         connector: { name: 'rounded' },
+         attrs: {
+             '.connection': {
+                 stroke: '#333333',
+                 'stroke-width': wid
+             },
+             '.marker-target': {
+                 fill: '#333333',
+                 d: 'M 10 0 L 0 5 L 10 10 z'
+             }
+         },
+        labels: [
+             { position: 0.5, attrs: { text: { fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+
+           })}
+           graph5.addCells(teachercells);
+           graph5.addCells(forteacherlinks);
+
+
+
+      }
+
+
+
+
+
+
+
+
     });
   }
 

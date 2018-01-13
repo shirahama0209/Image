@@ -122,7 +122,9 @@ select {
   font-size: 45px;
 
 }
-
+#canvas link{
+  z-index: -2;
+}
 
 
 input[type="button"]{
