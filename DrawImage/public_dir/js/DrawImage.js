@@ -1197,7 +1197,7 @@ graph.on('remove',function(cell,collection,opt){
          cell_attribute_state6 : cell_attribute_state6,
          cell_attribute_updown6 : cell_attribute_updown6
        }
-     );alert('自身のデータを送信しました.'+'\n'+'内省画面に移動しましょう');
+     );alert('自身のデータを送信しました.'+'\n'+'個人内省画面に移動しましょう');
    }else{
      //no user is singed in.
      alert("ログインしていません");
