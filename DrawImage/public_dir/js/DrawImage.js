@@ -97,7 +97,6 @@ var paper5 = new joint.dia.Paper({
   clickThreshold: 1,
 });
 
-
 /*
 カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
 --------------------------extend,markupについての覚書---------------------------------
@@ -112,7 +111,7 @@ markupはsvg記法
 joint.shapes.devs.Model = joint.shapes.devs.Model.extend({
 markup: '<g class="element-node">'+
              '<rect class="body" stroke-width="0" rx="3px" ry="5px"></rect>'+
-            '<text class="label" font-size="20"></text>'+
+            '<text class="label" font-size="19" ></text>'+
             '<text><tspan class="attribute1"></tspan></text>'+
             '<text><tspan class="attribute2"></tspan></text>'+
             '<text><tspan class="attribute3"></tspan></text>'+
@@ -130,9 +129,9 @@ function initialize(){
   //渡されたuserのパース
   var data = location.href.split("?")[1];
   var class12 = location.href.split("?")[2];
-  user = data.split("=")[1];
+  user = decodeURIComponent(data.split("=")[1]);
   classnumber =class12.split('=')[1];
-console.log(user);
+console.log(decodeURIComponent(user));
 console.log(classnumber);
 
 //カードの生成
@@ -155,7 +154,7 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute1' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -163,7 +162,7 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute2' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       //card_hightの方が良い
       'y':170,
       'human':'',
@@ -172,7 +171,7 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute3' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -181,7 +180,7 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute4' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -191,21 +190,21 @@ cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute5' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
     },
     '.attribute6' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
       'y':170,
     },
   },
@@ -256,14 +255,14 @@ function splitByLength(str, length) {
 }
 //カードの内容を記述
 var cellText0='0, 　794年、桓武天皇によって都が平安京に遷都された。桓武天皇は天皇の権威を確立するために、仏教勢力を都の外に配置するとともに政治の制度を確立していった';
-var cellText1='1, 　11世紀になると、貴族が摂政や関白となって政治の実権を握るようになった。貴族たちはこの地位に就くため娘を天皇に嫁がせ、外戚関係を結んだ';
+var cellText1='1, 　9~11世紀になると、貴族が摂政や関白となって政治の実権を握るようになった。貴族たちはこの地位に就くため娘を天皇に嫁がせ、外戚関係を結んだ';
 var cellText2='2, 　10世紀になると貴族たちが持つ荘園を守るため「武士」と呼ばれる人々が現れた。彼らは次第に棟梁と呼ばれる指導者の下で武士団が形成されるようになった';
-var cellText3='3, 　1156年、天皇家内部で政治の実権を巡る争いが起こった（保元の乱）。天皇家の人々は武士団の協力を得てこれを争った。';
+var cellText3='3, 　1156年、天皇家内部で政治の実権を巡る争いが起こり（保元の乱）、天皇家の人々は武士団の協力を得てこれを争った';
 var cellText4='4, 　1159年、後白河上皇の政権内で藤原氏同士の勢力争いが起こり、源氏と平氏もこれに加わった。これに勝った平氏は中央での地位を固めた（平治の乱）。';
 var cellText5='5, 　平治の乱に勝利した平清盛は武士でありながら太政大臣となり、政治の実権を握った。また西日本を中心に荘園を拡大し、西国一帯の武士を支配した。';
 var cellText6='6, 　源頼朝が挙兵して東国の支持を集め頼朝の名を受けた義経が1185年に壇ノ浦で平氏を滅ぼした。';
 var cellText7='7, 　平安時代の半ば、各地の戦乱や飢餓などに苦しんだ人々は阿弥陀仏にすがり、あの世で極楽浄土に生まれ変わることを願う浄土宗を進行するようになった。';
-var cellTextLength=14;
+var cellTextLength=15;
 cells[0].attr('.label/text', splitByLength(cellText0,cellTextLength));
 cells[1].attr('.label/text', splitByLength(cellText1,cellTextLength));
 cells[2].attr('.label/text', splitByLength(cellText2,cellTextLength));
@@ -302,7 +301,7 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute1' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -310,7 +309,7 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute2' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       //card_hightの方が良い
       'y':170,
       'human':'',
@@ -319,7 +318,7 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute3' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -328,7 +327,7 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute4' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -338,21 +337,21 @@ others_cells[0] = new joint.shapes.devs.Model({
     },
     '.attribute5' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
     },
     '.attribute6' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
       'y':170,
     },
   },
@@ -404,7 +403,7 @@ teachercells[0] = new joint.shapes.devs.Model({
     },
     '.attribute1' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -412,7 +411,7 @@ teachercells[0] = new joint.shapes.devs.Model({
     },
     '.attribute2' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       //card_hightの方が良い
       'y':170,
       'human':'',
@@ -421,7 +420,7 @@ teachercells[0] = new joint.shapes.devs.Model({
     },
     '.attribute3' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -430,7 +429,7 @@ teachercells[0] = new joint.shapes.devs.Model({
     },
     '.attribute4' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
@@ -440,21 +439,21 @@ teachercells[0] = new joint.shapes.devs.Model({
     },
     '.attribute5' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
     },
     '.attribute6' : {
       text: '',
-      'font-size':20,
+      'font-size':30,
       'fill':'',
       'human' : '',
       'state' : '',
       'updown' : '',
-      'dx' : 280,
+      'dx' : 270,
       'y':170,
     },
   },
@@ -493,7 +492,6 @@ teachercells[0] = new joint.shapes.devs.Model({
 teachersource=[0,0,1,2,2,2,3,3,4,4,4,5,5,6];
 teachertarget=[1,2,2,3,4,7,4,7,5,6,7,6,7,7];
 for(var i=0;i<teachersource.length;i++){
-  console.log("こんにちは");
    teacherlinks[i] = new joint.dia.Link({
         source: { id: teachersource[i].id },
         target: { id: teachertarget[i].id },
@@ -1062,7 +1060,34 @@ labels: [
    cell_link_reason[link_length] = reason;
    graph.addCells(links);
 }else{
-  alert("カードの属性が一致していません");
+  if( confirm("この状態で大丈夫ですか？カードに状態が一致していませんが本当に矢印を引きますか？") ) {
+    links[link_length] = new joint.dia.Link({
+         source: { id: cells[source1].id },
+         target: { id: cells[target1].id },
+     connector: { name: 'rounded' },
+     attrs: {
+         '.connection': {
+             stroke: '#333333',
+             'stroke-width': 4
+         },
+         '.marker-target': {
+             fill: '#333333',
+             d: 'M 10 0 L 0 5 L 10 10 z'
+         }
+     },
+    labels: [
+         { position: 0.5, attrs: { text: { text: reason, fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+     });
+     cell_link_source[link_length] = source1;
+     cell_link_target[link_length] = target1;
+     cell_link_reason[link_length] = reason;
+     graph.addCells(links);
+  }
+  else {
+      alert("矢印作成を中止します。");
+  }
+
+
 }
 //状態変化が一致してない時のアラート
 
@@ -1338,12 +1363,14 @@ graph.on('remove',function(cell,collection,opt){
 
 
 
-
+ var messege2=[];
+ var messege3 = [];
  outputmssg2 = [];
+  var user_name=[];
  //セルの位置情報のgetter
    function get2(){
 
-     var user_name=[];
+    // var user_name=[];本来の場所
      var classnumber2=[];
      var cell_number=[];
      var cell_position_x=[];
@@ -1566,8 +1593,7 @@ for(var j = 0;j<cell_link_source.length;j++){
 }
 
 count = 1;
-var messege2=[];
-var messege3 = [];
+
 for(var i = 0;i<jj.length;i++){
   for (var j = 0;j<jj.length;j++){
     if(i!=j && jj[i]==jj[j]){
@@ -1580,10 +1606,16 @@ for(var i = 0;i<jj.length;i++){
     }
   count = 1;
 }
-
+graph5.clear();
+graph5.addCells(teachercells);
 var forteacherlinks=[];
+var Threshold = cardstateclear4.source5.value;
+//var UporDown =cardstateclear4.attribute5.value;
 for(var i =0;i<messege3.length;i++){
 var wid = messege3[i].split(":")[1];
+if(wid>=Threshold){
+
+
 forteacherlinks[i] = new joint.dia.Link({
      source: { id: teachercells[messege3[i][0]].id },
      target: { id: teachercells[messege3[i][1]].id },
@@ -1601,7 +1633,11 @@ forteacherlinks[i] = new joint.dia.Link({
 labels: [
      { position: 0.5, attrs: { text: { fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
 
-   })}
+   })
+}
+
+ }
+   console.log(messege3);
    graph5.addCells(forteacherlinks);
 })
 }
@@ -1623,13 +1659,23 @@ alert(resultArray);
 
 //カードの状態変化を確認
 function ShowLinkPercent(){
-    var can = cardstateclear4.source4.value;
-    var attributnumber =cardstateclear4.attribute４.value;
-if(cells[can].attr('.attribute'+attributnumber+'/human')==""){
-  alert("属性なし");
-}else{
-    alert("カード"+can+"の左上の状態("+cells[can].attr('.attribute'+attributnumber+'/human')+"の"+cells[can].attr('.attribute'+attributnumber+'/state')+"が"+cells[can].attr('.attribute'+attributnumber+'/updown')+")");
+    var sourceX = cardstateclear4.source4.value;
+    var targetX =cardstateclear4.target4.value;
+    var rightSum=0;
+    for(var i =0;i<messege3.length;i++){
+    var wid = messege3[i].split(":")[1];
+//teachercells[messege3[i][0]]
+//teachercells[messege3[i][1]]
+if(sourceX==messege3[i][0]&&targetX==messege3[i][1]){
+  rightSum=wid;
 }
+}
+console.log(rightSum);
+console.log(user_name.length);
+console.log(typeof(Math.round((rightSum*10)/user_name.length)));
+console.log((rightSum*10)/user_name.length);
+alert(Math.round((rightSum*10)/user_name.length)+"割の人がここに線を引いています。");
+
 }
 
 

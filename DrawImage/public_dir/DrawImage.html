@@ -20,6 +20,11 @@
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
 
+  <!--  <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
+    <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
+-->
+
+
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.3.0/lodash.js"></script>
 </head>
 
@@ -36,6 +41,8 @@
 <!-- 自分の画面描写画面-->
 
     <div class="content active" id="Mypicture">
+
+
 図形描写画面
           <div id="canvas" data-filter="all"></div>
             <body onload = "initialize()">
@@ -73,7 +80,7 @@
           <option value="増えた">増えた</option>
           <option value="減った">減った</option>
         </select>
-      <input type="button" value="結果追加" onclick="CardStateChange()">
+      <input type="button" value="事後状態" onclick="CardStateChange()">
       </form>
 
       <form name="CardState2">カード
@@ -110,7 +117,7 @@
           <option value="増えた">増えた</option>
           <option value="減った">減った</option>
         </select>
-      <input type="button" value="原因追加" onclick="CardStateChange2()">
+      <input type="button" value="事前状態" onclick="CardStateChange2()">
       </form>
       <form name="cardstateclear">カード
         <select name="source" style="width:80px;">
@@ -340,7 +347,7 @@
 <div class="content" id="Summary">
   全体比較
 <div id="canvas5" data-filter="all"></div>
-
+<!--
 <form name="cardstateclear3">カード
   <select name="source3" style="width:80px;">
     <option value="0">0</option>
@@ -363,34 +370,52 @@
    の状態の割合を<input type="button" value="表示" onclick="ShowStatuesPercent()">
 
   </form>
+-->
 
+  <form name="cardstateclear4">
 
-  <form name="cardstateclear4">矢印
-    <select name="source4" style="width:80px;">
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-    </select>から
-    <select name="attribute4" >
-      <option value="0">0</option>
-      <option value="1">1</option>
-      <option value="2">2</option>
-      <option value="3">3</option>
-      <option value="4">4</option>
-      <option value="5">5</option>
-      <option value="6">6</option>
-      <option value="7">7</option>
-    </select>
-     の割合を<input type="button" value="表示" onclick="ShowLinkPercent()">
+クラス全体の結線
+      <select name="source5"　style="width:80px;" >
+         <option value="1">1</option>
+         <option value="3">3</option>
+         <option value="5">5</option>
+         <option value="7">7</option>
+         <option value="15">15</option>
+         <option value="20">20</option>
+         <option value="30">30</option>
+       </select>個以上
+    <!--   <select name="attribute5" >
+           <option value="0">以上</option>
+           <option value="1">未満</option>
+           の総和を
+ </select> -->
+       の同じ結線を
+       <input type="button" value="表示" onclick=get2()>
+<br>
+矢印
+  <select name="source4" style="width:80px;">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>から
+  <select name="target4"　style="width:80px;" >
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>
+   の割合を<input type="button" value="表示" onclick="ShowLinkPercent()">
 <br>
 
-クラス全体の矢印の総和を
-     <input type="button" value="表示" onclick=get2()>
 
 
     </form>
