@@ -19,6 +19,17 @@
     <script src='https://ariutta.github.io/svg-pan-zoom/dist/svg-pan-zoom.min.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.3.3/backbone.js'></script>
     <script src='https://cdnjs.cloudflare.com/ajax/libs/jointjs/0.9.7/joint.js'></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.0/jquery-confirm.min.js"></script>
+    <!-- jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!-- jQuery UI -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
   <!--  <script src='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js'></script>
     <link rel='stylesheet prefetch' href='https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css'>
@@ -29,6 +40,12 @@
 </head>
 
 <body>
+
+
+
+
+
+
 <!--メニューの選択により表示する部分を変える-->
   <div class="container">
     <ul class="menu">
@@ -372,7 +389,7 @@
   </form>
 -->
 
-  <form name="cardstateclear4">
+  <form name="cardstateclear10">
 
 クラス全体の結線
       <select name="source5"　style="width:80px;" >
@@ -391,7 +408,9 @@
  </select> -->
        の同じ結線を
        <input type="button" value="表示" onclick=get2()>
+</form>
 <br>
+<form name="cardstateclear4">
 矢印
   <select name="source4" style="width:80px;">
     <option value="0">0</option>
@@ -403,7 +422,7 @@
     <option value="6">6</option>
     <option value="7">7</option>
   </select>から
-  <select name="target4"　style="width:80px;" >
+  <select name="target4"　style="width:80px;">
     <option value="0">0</option>
     <option value="1">1</option>
     <option value="2">2</option>
@@ -417,8 +436,15 @@
 <br>
 
 
+</form>
 
-    </form>
+
+
+    <p><a id="modal-open" >円グラフの表示</a></p>
+
+
+
+
 
 
 
@@ -434,8 +460,18 @@
 
    </div>
 </body>
-</body>
+<div id="modal-content">
+  <!-- モーダルウィンドウのコンテンツ開始 -->
+  <p1>全ての結線を棒グラフで表示</p1>
+  <div>
+    <canvas id="myChart"></canvas>
+  </div>
+  <p><a id="modal-close" class="button-link">閉じる</a></p>
+  <!-- モーダルウィンドウのコンテンツ終了 -->
+</div>
 
+
+</body>
 
 
 

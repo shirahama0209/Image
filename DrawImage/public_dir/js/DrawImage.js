@@ -97,6 +97,12 @@ var paper5 = new joint.dia.Paper({
   clickThreshold: 1,
 });
 
+
+
+
+
+
+
 /*
 カードclassを拡張、形を変えて、文字の大きさを変更,矢印を引けるようにする
 --------------------------extend,markupについての覚書---------------------------------
@@ -660,7 +666,11 @@ function CardStateView(){
     var can = cardstateclear.source.value;
     var attributnumber =cardstateclear.attribute.value;
 if(cells[can].attr('.attribute'+attributnumber+'/human')==""){
-  alert("属性なし");
+
+
+  alert("カードの状態は設定されていません");
+
+
 }else{
     alert("カード"+can+"の左上の状態("+cells[can].attr('.attribute'+attributnumber+'/human')+"の"+cells[can].attr('.attribute'+attributnumber+'/state')+"が"+cells[can].attr('.attribute'+attributnumber+'/updown')+")");
 }
@@ -1060,7 +1070,7 @@ labels: [
    cell_link_reason[link_length] = reason;
    graph.addCells(links);
 }else{
-  if( confirm("この状態で大丈夫ですか？カードに状態が一致していませんが本当に矢印を引きますか？") ) {
+  if( confirm("この状態で大丈夫ですか?\nカードに状態が一致していませんが本当に矢印を引きますか？") ) {
     links[link_length] = new joint.dia.Link({
          source: { id: cells[source1].id },
          target: { id: cells[target1].id },
@@ -1092,7 +1102,7 @@ labels: [
 //状態変化が一致してない時のアラート
 
 }else{
-    if( confirm("この状態で大丈夫ですか？カードに状態が一致していませんが本当に矢印を引きますか？") ) {
+    if( confirm("この状態で大丈夫ですか？\nカードの状態が一致していませんが本当に矢印を引きますか？") ) {
       links[link_length] = new joint.dia.Link({
            source: { id: cells[source1].id },
            target: { id: cells[target1].id },
@@ -1609,7 +1619,8 @@ for(var i = 0;i<jj.length;i++){
 graph5.clear();
 graph5.addCells(teachercells);
 var forteacherlinks=[];
-var Threshold = cardstateclear4.source5.value;
+var Threshold = cardstateclear10.source5.value;
+
 //var UporDown =cardstateclear4.attribute5.value;
 for(var i =0;i<messege3.length;i++){
 var wid = messege3[i].split(":")[1];
@@ -1631,7 +1642,7 @@ forteacherlinks[i] = new joint.dia.Link({
      }
  },
 labels: [
-     { position: 0.5, attrs: { text: { fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+     { position: 0.5, attrs: { text: { text: wid+"人"+"("+Math.round((wid*100)/user_name.length)+"%)", fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
 
    })
 }
@@ -1662,6 +1673,23 @@ function ShowLinkPercent(){
     var sourceX = cardstateclear4.source4.value;
     var targetX =cardstateclear4.target4.value;
     var rightSum=0;
+/*
+   var labels=["M", "T", "W", "T", "F", "S", "S"];
+   var backcolors=[       "#2ecc71",
+          "#3498db",
+          "#95a5a6",
+          "#9b59b6",
+          "#f1c40f",
+          "#e74c3c",
+          "#34495e"];
+   var dataX=[12, 19, 3, 17, 28, 24, 7];
+*/
+var labels=[];
+var backcolors=[];
+var dataX=[];
+
+
+
     for(var i =0;i<messege3.length;i++){
     var wid = messege3[i].split(":")[1];
 //teachercells[messege3[i][0]]
@@ -1669,18 +1697,123 @@ function ShowLinkPercent(){
 if(sourceX==messege3[i][0]&&targetX==messege3[i][1]){
   rightSum=wid;
 }
+
+labels.push(messege3[i][0]+"から"+messege3[i][1]+"への結線");
+
+var randomColor = "#" + Math.floor(Math.random() * 16777215).toString(16);
+backcolors.push(randomColor);
+dataX.push(wid);
+
 }
 console.log(rightSum);
 console.log(user_name.length);
 console.log(typeof(Math.round((rightSum*10)/user_name.length)));
 console.log((rightSum*10)/user_name.length);
-alert(Math.round((rightSum*10)/user_name.length)+"割の人がここに線を引いています。");
+alert(Math.round((rightSum*100)/user_name.length)+"%の人がここに線を引いています。");
+
+
+
+
+var ctx = document.getElementById("myChart").getContext('2d');
+
+
+var myChart = new Chart(ctx, {
+  type: 'bar',
+  scales: {                          //軸設定
+                  yAxes: [{                      //y軸設定
+                      display: true,             //表示設定
+                      scaleLabel: {              //軸ラベル設定
+                         display: true,          //表示設定
+                         labelString: '縦軸ラベル',  //ラベル
+                         fontSize: 18               //フォントサイズ
+                      },
+                      ticks: {                      //最大値最小値設定
+                          min: 0,                   //最小値
+                          max: 30,                  //最大値
+                          fontSize: 18,             //フォントサイズ
+                          stepSize: 5               //軸間隔
+                      },
+                  }],
+},
+
+  data: {
+    labels: labels,
+    datasets: [{
+      label: '引いた結線の人数',
+      data: dataX,
+      backgroundColor: "rgba(255,153,0,1)",
+    },
+
+
+
+
+
+
+  ]
+  }
+});
 
 }
 
 
+$(function(){
 
+//モーダルウィンドウを出現させるクリックイベント
+$("#modal-open").click( function(){
 
+	//キーボード操作などにより、オーバーレイが多重起動するのを防止する
+	$( this ).blur() ;	//ボタンからフォーカスを外す
+	if( $( "#modal-overlay" )[0] ) return false ;		//新しくモーダルウィンドウを起動しない (防止策1)
+	//if($("#modal-overlay")[0]) $("#modal-overlay").remove() ;		//現在のモーダルウィンドウを削除して新しく起動する (防止策2)
+
+	//オーバーレイを出現させる
+	$( "body" ).append( '<div id="modal-overlay"></div>' ) ;
+	$( "#modal-overlay" ).fadeIn( "slow" ) ;
+
+	//コンテンツをセンタリングする
+	centeringModalSyncer() ;
+
+	//コンテンツをフェードインする
+	$( "#modal-content" ).fadeIn( "slow" ) ;
+
+	//[#modal-overlay]、または[#modal-close]をクリックしたら…
+	$( "#modal-overlay,#modal-close" ).unbind().click( function(){
+
+		//[#modal-content]と[#modal-overlay]をフェードアウトした後に…
+		$( "#modal-content,#modal-overlay" ).fadeOut( "slow" , function(){
+
+			//[#modal-overlay]を削除する
+			$('#modal-overlay').remove() ;
+
+		} ) ;
+
+	} ) ;
+
+} ) ;
+
+//リサイズされたら、センタリングをする関数[centeringModalSyncer()]を実行する
+$( window ).resize( centeringModalSyncer ) ;
+
+	//センタリングを実行する関数
+	function centeringModalSyncer() {
+
+		//画面(ウィンドウ)の幅、高さを取得
+		var w = $( window ).width() ;
+		var h = $( window ).height() ;
+
+		// コンテンツ(#modal-content)の幅、高さを取得
+		// jQueryのバージョンによっては、引数[{margin:true}]を指定した時、不具合を起こします。
+//		var cw = $( "#modal-content" ).outerWidth( {margin:true} );
+//		var ch = $( "#modal-content" ).outerHeight( {margin:true} );
+		var cw = $( "#modal-content" ).outerWidth();
+		var ch = $( "#modal-content" ).outerHeight();
+
+		//センタリングを実行する
+		$( "#modal-content" ).css( {"left": ((w - cw)/2) + "px","top": ((h - ch)/2) + "px"} ) ;
+
+	}
+
+} ) ;
 
 
 //指定したカード番号以外のopacityを下げる
