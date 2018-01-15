@@ -1423,9 +1423,9 @@ graph.on('remove',function(cell,collection,opt){
      ref.on("value",function(snapshot){
      console.log(snapshot.child(user).numChildren()+"人");
      var aaaaaa = JSON.stringify(snapshot.val());
-     console.log(aaaaaa);
+     //console.log(aaaaaa);
      var testJSON = JSON.parse(aaaaaa);
-     console.log(classnumber);
+     //console.log(classnumber);
      JSON.parse(aaaaaa,function(key,value){
 
 
@@ -1434,6 +1434,7 @@ if(key==='user_name'){
 user_name.push(value);
 }
      });
+
 console.log(user_name);
 console.log(user_name.length);
 
@@ -1445,7 +1446,7 @@ for(i=0;i<user_name.length;i++){
   cell_link_source.push(testJSON[user_name[i]]["cell_link_source"]);
 }
 if(testJSON[user_name[i]]["cell_attribute_human"]!=null)
-  cell_attribute_human.push(testJSON[user_name[i]]["cell_attribute_human"]);
+  cell_attribute_human.push(testJSON[user_name[i]]["cell_attribute_human"]);console.log(testJSON[user_name[i]]["cell_attribute_human"]);
   if(testJSON[user_name[i]]["cell_attribute_human2"]!=null)
   cell_attribute_human2.push(testJSON[user_name[i]]["cell_attribute_human2"]);
   if(testJSON[user_name[i]]["cell_attribute_human3"]!=null)
@@ -1484,36 +1485,39 @@ if(testJSON[user_name[i]]["cell_attribute_human"]!=null)
 
 /*console.log(cell_link_source[1][0]);
 console.log(cell_link_target[1][0]);*/
-console.log(cell_attribute_human);
+console.log(cell_attribute_human+"cell_attribute_human");
 //console.log(cell_attribute_updown);
 
 var stack = [];
 var stack2 = [];
 var stack3 =[];
+const b = cell_attribute_human[0].length;
+console.log(b);
 for(var i = 0;i < cell_attribute_human.length;i++){
   for(var j = 0;j < cell_attribute_human[i].length;j++){
     if(cell_attribute_human[i][j]!=""){
-      stack.push(cell_attribute_human[i][j]);
-      stack2.push(cell_attribute_state[i][j]);
-      stack3.push(cell_attribute_updown[i][j]);
+      stack.push(j+":"+cell_attribute_human[i][j]);
+      stack2.push(j+":"+cell_attribute_state[i][j]);
+      stack3.push(j+":"+cell_attribute_updown[i][j]);
     }
   }
 }
+console.log(stack);
 for(var i = 0;i < cell_attribute_human3.length;i++){
   for(var j = 0;j < cell_attribute_human3[i].length;j++){
     if(cell_attribute_human3[i][j]!=""){
-      stack.push(cell_attribute_human3[i][j]);
-      stack2.push(cell_attribute_state3[i][j]);
-      stack3.push(cell_attribute_updown3[i][j]);
+      stack.push(j+":"+cell_attribute_human3[i][j]);
+      stack2.push(j+":"+cell_attribute_state3[i][j]);
+      stack3.push(j+":"+cell_attribute_updown3[i][j]);
     }
   }
 }
 for(var i = 0;i < cell_attribute_human5.length;i++){
   for(var j = 0;j < cell_attribute_human5[i].length;j++){
     if(cell_attribute_human5[i][j]!=""){
-      stack.push(cell_attribute_human5[i][j]);
-      stack2.push(cell_attribute_state5[i][j]);
-      stack3.push(cell_attribute_updown5[i][j]);
+      stack.push(j+":"+cell_attribute_human5[i][j]);
+      stack2.push(j+":"+cell_attribute_state5[i][j]);
+      stack3.push(j+":"+cell_attribute_updown5[i][j]);
     }
   }
 }
@@ -1533,12 +1537,18 @@ for(var i = 0;i < stack.length ; i++){
   }
   if(!messege.some(function(value){return value === stack[i]+stack2[i]+stack3[i]})){
     messege.push(stack[i]+stack2[i]+stack3[i]);
-    outputmssg.push(stack[i]+"の"+stack2[i]+"が"+stack3[i]+":"+(count*100)/user_name.length+"%");
+    outputmssg.push(stack[i]+"の"+stack2[i].split(":")[1]+"が"+stack3[i].split(":")[1]+":"+(count*100)/user_name.length+"%");
+    /*var c = stack[i].split(":")[0];
+    console.log(c);
+    if(c<8){
+    teachercells[c].attr('.attribute'+c+'/text',
+    stack[i].split(":")[1]+"の"+stack2[i].split(":")[1]+"が"+stack3[i].split(":")[1]+":"+(count*100)/user_name.length+"%");
+  }*/
   }
   count = 1;
 }
 console.log(outputmssg);
-
+//teachercells[1].attr('.attribute1/text',outputmssg);
 
 
 var stack4 = [];
@@ -1547,27 +1557,27 @@ var stack6 =[];
 for(var i = 0;i < cell_attribute_human2.length;i++){
   for(var j = 0;j < cell_attribute_human2[i].length;j++){
     if(cell_attribute_human2[i][j]!=""){
-      stack4.push(cell_attribute_human2[i][j]);
-      stack5.push(cell_attribute_state2[i][j]);
-      stack6.push(cell_attribute_updown2[i][j]);
+      stack4.push(j+":"+cell_attribute_human2[i][j]);
+      stack5.push(j+":"+cell_attribute_state2[i][j]);
+      stack6.push(j+":"+cell_attribute_updown2[i][j]);
     }
   }
 }
 for(var i = 0;i < cell_attribute_human4.length;i++){
   for(var j = 0;j < cell_attribute_human4[i].length;j++){
     if(cell_attribute_human4[i][j]!=""){
-      stack4.push(cell_attribute_human4[i][j]);
-      stack5.push(cell_attribute_state4[i][j]);
-      stack6.push(cell_attribute_updown4[i][j]);
+      stack4.push(j+":"+cell_attribute_human4[i][j]);
+      stack5.push(j+":"+cell_attribute_state4[i][j]);
+      stack6.push(j+":"+cell_attribute_updown4[i][j]);
     }
   }
 }
 for(var i = 0;i < cell_attribute_human6.length;i++){
   for(var j = 0;j < cell_attribute_human6[i].length;j++){
     if(cell_attribute_human6[i][j]!=""){
-      stack4.push(cell_attribute_human6[i][j]);
-      stack5.push(cell_attribute_state6[i][j]);
-      stack6.push(cell_attribute_updown6[i][j]);
+      stack4.push(j+":"+cell_attribute_human6[i][j]);
+      stack5.push(j+":"+cell_attribute_state6[i][j]);
+      stack6.push(j+":"+cell_attribute_updown6[i][j]);
     }
   }
 }
@@ -1587,7 +1597,7 @@ for(var i = 0;i < stack4.length ; i++){
   }
   if(!messege.some(function(value){return value === stack4[i]+stack5[i]+stack6[i]})){
     messege.push(stack4[i]+stack5[i]+stack6[i]);
-    outputmssg2.push(stack4[i]+"の"+stack5[i]+"が"+stack6[i]+":"+Math.round((count*100)/user_name.length)+"%");
+    outputmssg2.push(stack4[i]+"の"+stack5[i].split(":")[1]+"が"+stack6[i].split(":")[1]+":"+Math.round((count*100)/user_name.length)+"%");
   }
   count = 1;
 }
