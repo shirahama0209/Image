@@ -1375,7 +1375,8 @@ graph.on('remove',function(cell,collection,opt){
 
  var messege2=[];
  var messege3 = [];
- outputmssg2 = [];
+ var outputmssg = [];
+ var outputmssg2 = [];
   var user_name=[];
  //セルの位置情報のgetter
    function get2(){
@@ -1528,7 +1529,7 @@ console.log(stack3);
 
 var count = 1;
 var messege = [];
-var outputmssg = [];
+
 for(var i = 0;i < stack.length ; i++){
   for(var j = 0;j < stack.length ; j++){
     if(i!=j && stack[i]==stack[j] && stack2[i]==stack2[j] && stack3[i]==stack3[j]){
@@ -1628,55 +1629,112 @@ for(var i = 0;i<jj.length;i++){
 }
 graph5.clear();
 graph5.addCells(teachercells);
-var forteacherlinks=[];
-var Threshold = cardstateclear10.source5.value;
-
-//var UporDown =cardstateclear4.attribute5.value;
-for(var i =0;i<messege3.length;i++){
-var wid = messege3[i].split(":")[1];
-if(wid>=Threshold){
-
-
-forteacherlinks[i] = new joint.dia.Link({
-     source: { id: teachercells[messege3[i][0]].id },
-     target: { id: teachercells[messege3[i][1]].id },
- connector: { name: 'rounded' },
- attrs: {
-     '.connection': {
-         stroke: '#333333',
-         'stroke-width': wid
-     },
-     '.marker-target': {
-         fill: '#333333',
-         d: 'M 10 0 L 0 5 L 10 10 z'
-     }
- },
-labels: [
-     { position: 0.5, attrs: { text: { text: wid+"人"+"("+Math.round((wid*100)/user_name.length)+"%)", fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
-
-   })
-}
-
- }
+ console.log(outputmssg);
    console.log(messege3);
-   graph5.addCells(forteacherlinks);
+   alert("クラス全員のデータを取り込みました。");
 })
 }
 
-/*
-//カードの状態変化を確認
-function ShowStatuesPercent(){
-    var can = cardstateclear3.source3.value;
-    var attributnumber =cardstateclear3.attribute3.value;
-$(function(){
-var resultArray = jQuery.grep(outputmssg2, function(aData){
-if (aData.indexOf("天皇") > -1) return true; else return false;
-});
-alert(resultArray);
-});
 
+function Threshold(){
+  graph5.clear();
+  graph5.addCells(teachercells);
+  var forteacherlinks=[];
+  var Threshold = cardsData.sourceData.value;
+
+  for(var i =0;i<messege3.length;i++){
+  var wid = messege3[i].split(":")[1];
+  if(wid>=Threshold){
+
+
+  forteacherlinks[i] = new joint.dia.Link({
+       source: { id: teachercells[messege3[i][0]].id },
+       target: { id: teachercells[messege3[i][1]].id },
+   connector: { name: 'rounded' },
+   attrs: {
+       '.connection': {
+           stroke: '#333333',
+           'stroke-width': wid
+       },
+       '.marker-target': {
+           fill: '#333333',
+           d: 'M 10 0 L 0 5 L 10 10 z'
+       }
+   },
+  labels: [
+       { position: 0.5, attrs: { text: { text: wid+"人"+"("+Math.round((wid*100)/user_name.length)+"%)", fill: '#000000', 'font-family': 'sans-serif' }, rect: { stroke: '#F2F5A9', 'stroke-width': 20, rx: 5, ry: 5 } }}]
+
+     })
+  }
+
+   }
+
+graph5.addCells(forteacherlinks);
 }
-*/
+
+
+
+
+
+function ShowStatuesPercentUp(){
+    var sourceY = cardstateclear10.source11.value;
+    var msg10=[];
+     for(var i =0;i<outputmssg.length;i++){
+       var stasue1 = outputmssg[i].split(":")[0];
+       var stasue2 = outputmssg[i].split(":")[1];
+        var stasue3 = outputmssg[i].split(":")[2];
+
+    if(stasue1==sourceY){
+    msg10.push(stasue2);
+      msg10.push(stasue3);
+      msg10.push("\n");
+      console.log(stasue1);
+        console.log(stasue2);
+    }
+
+
+      }
+
+    alert(msg10);
+
+
+
+  }
+
+
+
+function ShowStatuesPercentDown(){
+    var sourceX = cardstateclear9.source10.value;
+    var msg10=[];
+     for(var i =0;i<outputmssg2.length;i++){
+       var stasue1 = outputmssg2[i].split(":")[0];
+       var stasue2 = outputmssg2[i].split(":")[1];
+        var stasue3 = outputmssg2[i].split(":")[2];
+
+    if(stasue1==sourceX){
+    msg10.push(stasue2);
+      msg10.push(stasue3);
+      msg10.push("\n");
+      console.log(stasue1);
+        console.log(stasue2);
+    }
+
+
+      }
+
+    alert(msg10);
+
+
+
+  }
+
+
+
+
+
+
+
+
 
 //カードの状態変化を確認
 function ShowLinkPercent(){
@@ -1739,9 +1797,9 @@ var myChart = new Chart(ctx, {
                       },
                       ticks: {                      //最大値最小値設定
                           min: 0,                   //最小値
-                          max: 30,                  //最大値
-                          fontSize: 18,             //フォントサイズ
-                          stepSize: 5               //軸間隔
+                                            //最大値
+                                       //フォントサイズ
+                                        //軸間隔
                       },
                   }],
 },
@@ -2253,7 +2311,6 @@ $('#send').on('click',teacherdifferencesLinks);
 $('#send').on('click',reWrite);
 
 
-//$('#ShowStatuesPercent').on('click', ShowStatuesPercent);
 //$('#ShowLinkPercent').on('click', ShowLinkPercent);
 
 /*

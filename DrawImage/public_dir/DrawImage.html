@@ -364,52 +364,32 @@
 <div class="content" id="Summary">
   全体比較
 <div id="canvas5" data-filter="all"></div>
-<!--
-<form name="cardstateclear3">カード
-  <select name="source3" style="width:80px;">
-    <option value="0">0</option>
-    <option value="1">1</option>
-    <option value="2">2</option>
-    <option value="3">3</option>
-    <option value="4">4</option>
-    <option value="5">5</option>
-    <option value="6">6</option>
-    <option value="7">7</option>
-  </select>の
-  <select name="attribute3" >
-    <option value="1">左上</option>
-    <option value="3">真上</option>
-    <option value="5">右上</option>
-    <option value="2">左下</option>
-    <option value="4">真下</option>
-    <option value="6">右下</option>
-  </select>
-   の状態の割合を<input type="button" value="表示" onclick="ShowStatuesPercent()">
 
-  </form>
--->
+<input type="button" value="クラス全員のデータを取得" onclick=get2()>
 
-  <form name="cardstateclear10">
+
+  <form name="cardsData">
 
 クラス全体の結線
-      <select name="source5"　style="width:80px;" >
-         <option value="1">1</option>
-         <option value="3">3</option>
-         <option value="5">5</option>
-         <option value="7">7</option>
-         <option value="15">15</option>
-         <option value="20">20</option>
-         <option value="30">30</option>
+      <select name="sourceData"　style="width:80px;" >
+        <option value="1">1</option>
+        <option value="3">3</option>
+        <option value="5">5</option>
+        <option value="7">7</option>
+        <option value="10">10</option>
+        <option value="7">7</option>
+        <option value="10">10</option>
+        <option value="20">20</option>
        </select>個以上
-    <!--   <select name="attribute5" >
-           <option value="0">以上</option>
-           <option value="1">未満</option>
-           の総和を
- </select> -->
-       の同じ結線を
-       <input type="button" value="表示" onclick=get2()>
+
+       同じ結線を
+       <input type="button" value="表示" onclick=Threshold()>
 </form>
-<br>
+
+
+
+
+
 <form name="cardstateclear4">
 矢印
   <select name="source4" style="width:80px;">
@@ -439,13 +419,44 @@
 </form>
 
 
+<form name="cardstateclear10">
+事象
+  <select name="source11" style="width:80px;">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>の事後状態の状態変化を
+  <input type="button" value="表示" onclick="ShowStatuesPercentUp()">
+<br>
+</form>
 
-    <p><a id="modal-open" >円グラフの表示</a></p>
 
 
 
 
+<form name="cardstateclear9">
+事象
+  <select name="source10" style="width:80px;">
+    <option value="0">0</option>
+    <option value="1">1</option>
+    <option value="2">2</option>
+    <option value="3">3</option>
+    <option value="4">4</option>
+    <option value="5">5</option>
+    <option value="6">6</option>
+    <option value="7">7</option>
+  </select>の事前状態の状態変化を
+  <input type="button" value="表示" onclick="ShowStatuesPercentDown()">
+</form>
 
+
+
+    <p><a id="modal-open" >全結線の棒グラフを表示</a></p>
 
 
 
