@@ -42,7 +42,7 @@ ul.menu li {
 ul.menu li a {
   display: inline-block;
   font-size: 40px;
-  width: 292px;  /*3つの時 392*/
+  width: 392px;  /*3つの時 392 ４つの時292*/
   height: 60px;
   text-align: center;
   text-decoration: none;
@@ -149,7 +149,7 @@ input[type="text"]{
   margin: 2px 0;
   cursor: pointer;
   font-size: 40px;
-  width: 350px;
+  width: 200px;
 }
 
 
@@ -181,7 +181,7 @@ button {
 
 
 #modal-content {
-	width: 50% ;
+	width: 70% ;
 	margin: 0 ;
 	padding: 10px 20px ;
 	border: 2px solid #aaa ;

@@ -16,7 +16,8 @@ firebase.initializeApp(config);
 //DOM取得
 var inputarea = document.getElementById('input-area');
 var newuser = document.getElementById('newuser');
-var login = document.getElementById('login');
+var login1 = document.getElementById('login1');
+var login2 = document.getElementById('login2');
 var logout = document.getElementById('logout');
 var info = document.getElementById('info');
 var teacher = document.getElementById('teacher');
@@ -38,7 +39,7 @@ newuser.addEventListener('click', function(e) {
 
 
 //ログイン処理
-login.addEventListener('click', function(e) {
+login1.addEventListener('click', function(e) {
   var user = document.getElementById('user').value;
   var classnumber = document.getElementById('classnumber').value;
   var password = document.getElementById('password').value;
@@ -51,6 +52,25 @@ location.href = "DrawImage.html?data="+encodeURIComponent(user)+"?class="+encode
     alert('ログインできません（' + error.message + '）');
   });*/
 });
+
+
+//ログイン処理
+login2.addEventListener('click', function(e) {
+  var user = document.getElementById('user').value;
+  var classnumber = document.getElementById('classnumber').value;
+  var password = document.getElementById('password').value;
+//  location.href = "DrawImage.html?data="+encodeURIComponent(user);
+location.href = "DrawImage1.html?data="+encodeURIComponent(user)+"?class="+encodeURIComponent(classnumber);
+
+  /*
+  firebase.auth().signInWithEmailAndPassword(email, password)
+  .catch(function(error) {
+    alert('ログインできません（' + error.message + '）');
+  });*/
+});
+
+
+
 
 //教師画面に移動
 teacher.addEventListener('click', function(e) {
